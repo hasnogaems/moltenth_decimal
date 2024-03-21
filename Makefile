@@ -8,7 +8,9 @@ CCOVTEST=-fprofile-arcs -ftest-coverage
 TEST_A=test_s21_decimal.a
 TEST_SRC=./tests_files/test_*.c
 
-all: clean $(TARGET) test gcov_report
+all: 
+	gcc *.c -lm
+	./a.out
 
 s21_decimal.a: 
 	$(CC) $(CFLAG) -c *.c 

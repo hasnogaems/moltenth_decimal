@@ -75,6 +75,7 @@ void s21_shift_right(s21_decimal *number);
 int s21_div_by_ten(s21_decimal value, s21_decimal *result);
 int rem_div_by_ten(s21_decimal value);
 void add_one(s21_decimal *value);
+void printb(s21_decimal bits_array);
 
 // для тестов
 typedef union {

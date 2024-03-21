@@ -46,4 +46,6 @@ s21_decimal bigToDecimal(s21_big_decimal value);
 void initializeByZeros(s21_decimal *value);
 void initializeByBigZeros(s21_big_decimal *value);
 
+
+
 #endif
