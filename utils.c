@@ -23,7 +23,7 @@ int countLastBit(s21_decimal number) {
   return counter;
 }
 
-int retrieveLevel(s21_decimal number) { return (char)(number.bits[3] >> 16); }
+int retrieveLevel(s21_decimal number) { return (char)(number.bits[3] >> 16); } //it will return only 8 least significant bits because sizeofchar is 8 bit
 
 s21_decimal *modifyBit(s21_decimal *number, int pos, int bit) {
   if (pos / 32 < 4 && bit)
@@ -273,6 +273,7 @@ void setScale(s21_decimal *value, int scale) {
     }
   }
 }
+
 
 s21_big_decimal getDividendPart(s21_big_decimal dividend, int bitness) {
   s21_big_decimal result;

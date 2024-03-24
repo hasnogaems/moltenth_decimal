@@ -21,5 +21,7 @@ int main() {
     s21_decimal two = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000};
      s21_div(twenty, two, &bits3);
      printb(bits3);
+//s21_decimal delimoe     
   return 0;
 }
+ 
