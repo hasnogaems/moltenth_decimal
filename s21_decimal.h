@@ -76,6 +76,9 @@ int s21_div_by_ten(s21_decimal value, s21_decimal *result);
 int rem_div_by_ten(s21_decimal value);
 void add_one(s21_decimal *value);
 void printb(s21_decimal bits_array);
+int normalize(s21_decimal num_1, s21_decimal num_2,
+                         s21_big_decimal *big1,
+                         s21_big_decimal *big2);
 
 // для тестов
 typedef union {
