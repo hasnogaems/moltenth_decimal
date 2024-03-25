@@ -11,8 +11,10 @@ int extractBitSign(s21_decimal number) {
   return result;
 }
 
+
+
 int retrieveBit(s21_decimal number, int bit) {
-  return (number.bits[bit / 32] & (1u << (bit % 32))) != 0;
+  return (number.bits[bit / 32 ] >> (bit % 32)) & 1 != 0;
 }
 
 int countLastBit(s21_decimal number) {
@@ -23,7 +25,13 @@ int countLastBit(s21_decimal number) {
   return counter;
 }
 
-int retrieveLevel(s21_decimal number) { return (char)(number.bits[3] >> 16); }
+int retrieveLevel(s21_decimal number) {
+  char * ptr = (char *) &number.bits[3];
+  ptr += 2;
+  return (int) *ptr;
+}
+
+//int a(s21_decimal number) 
 
 s21_decimal *modifyBit(s21_decimal *number, int pos, int bit) {
   if (pos / 32 < 4 && bit)
@@ -32,6 +40,11 @@ s21_decimal *modifyBit(s21_decimal *number, int pos, int bit) {
     number->bits[pos / 32] &= ~(1u << (pos % 32));
   return number;
 }
+
+
+
+
+
 
 int addBit(s21_decimal number_1, s21_decimal number_2, s21_decimal *result) {
   int fresh = 0, exp = 0;
@@ -337,7 +350,7 @@ int lastBigBitIndex(s21_big_decimal value) {
   return index;
 }
 
-s21_big_decimal decimalToBig(s21_decimal value) {
+ s21_big_decimal decimalToBig(s21_decimal value) {
   s21_big_decimal result;
   initializeByBigZeros(&result);
   for (int i = 0; i < 3; i++) {
@@ -373,3 +386,5 @@ void shiftLeftSide(s21_big_decimal *value) {
     shift_bit1 = shift_bit2;
   }
 }
+
+
