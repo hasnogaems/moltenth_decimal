@@ -9,6 +9,7 @@
 #include <math.h>  // необхлжима для ftoi
 #include <stdio.h>
 #include <stdlib.h>  // для тестов
+#include <stdbool.h>
 
 typedef struct {
   unsigned int bits[4];
@@ -87,5 +88,15 @@ typedef union {
 } floatbits;
 // int s21_from_float_to_decimal(float src, s21_decimal *dst);
 // int s21_from_decimal_to_float(s21_decimal src, float *dst);
+bool get_bit_value(s21_decimal target, int bit_number);
+void s21_set_bit(s21_decimal* num, int index, int value);
+int myadd(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+void nullify(s21_decimal *d);
+s21_big_decimal mantissadecimalToBig(s21_decimal value);
+void myshiftleft(s21_big_decimal* d, int value);
+void nullifyb(s21_big_decimal *d);
+bool get_bit_valueb(s21_big_decimal target, int bit_number);
+void s21_set_bitb(s21_big_decimal* num, int index, int value);
+void mymulby10(s21_big_decimal* d);
 
 #endif

@@ -4,8 +4,8 @@ int normalize(s21_decimal num_1, s21_decimal num_2,
                          s21_big_decimal *big1,
                          s21_big_decimal *big2) {
   // Копируем в big decimal
-  *big1=mantissadecimalToBig(num_1);
-  *big2=mantissadecimalToBig(num_2);
+  *big1=decimalToBig(num_1);
+  *big2=decimalToBig(num_2);
   
 
   // Степень дробной части

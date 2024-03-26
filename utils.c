@@ -166,11 +166,13 @@ void subBigDecimal(s21_big_decimal v_1, s21_big_decimal v_2,
   initializeByBigZeros(res);
   int loaned = 0;
   for (int i = 0; i < 192; i++) {
+    
     int v1_bit = getBigBit(v_1, i);
     int v2_bit = getBigBit(v_2, i);
     int added = v1_bit - v2_bit - loaned < 0 ? 2 : 0;
     int sub = v1_bit - v2_bit - loaned + added;
-    loaned = added == 0 ? 0 : 1;
+    //loaned = added == 0 ? 0 : 1;
+    if(added>0)loaned=1;if(added==0)loaned=0;
     int res_bit = sub % 2;
     setBigBit(res, i, res_bit);
   }
@@ -189,40 +191,40 @@ void mulBigDecimal(s21_big_decimal v_1, s21_big_decimal v_2,
   }
 }
 
-s21_big_decimal divBigDecimal(s21_big_decimal v_1, s21_big_decimal v_2,
-                              s21_big_decimal *res) {
-  initializeByBigZeros(res);
+s21_big_decimal divBigDecimal(s21_big_decimal big1, s21_big_decimal big2,
+                              s21_big_decimal *big_r) {
+  initializeByBigZeros(big_r);
   int count = 191;
-  s21_big_decimal remain, temp_res;
-  initializeByBigZeros(&temp_res);
+  s21_big_decimal remain, temp_big_r;
+  initializeByBigZeros(&temp_big_r);
   initializeByBigZeros(&remain);
 
-  int dividend_size = lastBigBitIndex(v_1) + 1;
-  int divisor_size = lastBigBitIndex(v_2) + 1;
+  int dividend_size = lastBigBitIndex(big1) + 1;
+  int divisor_size = lastBigBitIndex(big2) + 1;
   int remain_bits = dividend_size - divisor_size;
 
-  s21_big_decimal dividend_part = getDividendPart(v_1, divisor_size);
-  if (remain_bits < 0) remain = v_1;
+  s21_big_decimal dividend_part = getDividendPart(big1, divisor_size);
+  if (remain_bits < 0) remain = big1;
   while (remain_bits >= 0) {
-    int bit = getBigBit(v_1, remain_bits - 1);
-    if (isLessBigDecimal(dividend_part, v_2)) {
+    int bit = getBigBit(big1, remain_bits - 1);
+    if (isLessBigDecimal(dividend_part, big2)) {
       remain = dividend_part;
       shiftLeftSide(&dividend_part);
       setBigBit(&dividend_part, 0, bit);
-      setBigBit(&temp_res, count--, 0);
+      setBigBit(&temp_big_r, count--, 0);
     } else {
-      subBigDecimal(dividend_part, v_2, &dividend_part);
+      subBigDecimal(dividend_part, big2, &dividend_part);
       remain = dividend_part;
       shiftLeftSide(&dividend_part);
       setBigBit(&dividend_part, 0, bit);
-      setBigBit(&temp_res, count--, 1);
+      setBigBit(&temp_big_r, count--, 1);
     }
     remain_bits--;
   }
 
   for (int i = 191, j = i - count - 1; j >= 0; j--) {
-    int bit = getBigBit(temp_res, i--);
-    setBigBit(res, j, bit);
+    int bit = getBigBit(temp_big_r, i--);
+    setBigBit(big_r, j, bit);
   }
   return remain;
 }
@@ -275,7 +277,7 @@ void setScale(s21_decimal *value, int scale) {
 }
 
 
-s21_big_decimal getDividendPart(s21_big_decimal dividend, int bitness) {
+s21_big_decimal getDividendPart(s21_big_decimal dividend, int bitness) { //тут получаем старшие биты которые дялтся на делитель
   s21_big_decimal result;
   initializeByBigZeros(&result);
   int start = lastBigBitIndex(dividend);
@@ -342,6 +344,15 @@ s21_big_decimal decimalToBig(s21_decimal value) {
   s21_big_decimal result;
   initializeByBigZeros(&result);
   for (int i = 0; i < 3; i++) {
+    result.bits[i] = value.bits[i];
+  }
+  return result;
+}
+
+s21_big_decimal mantissadecimalToBig(s21_decimal value) {
+  s21_big_decimal result;
+  initializeByBigZeros(&result);
+  for (int i = 0; i < 2; i++) {
     result.bits[i] = value.bits[i];
   }
   return result;

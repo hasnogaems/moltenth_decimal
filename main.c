@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "s21_decimal.h"
-
+#include "utils.h"
 int main() {
   int a = 0b00000010001;
   int bitN = 33;
@@ -19,8 +19,25 @@ int main() {
  printb(bits3);
    s21_decimal twenty = {0b000010100, 0b0000000, 0b0000, 0b000000000000000000000000000000};
     s21_decimal two = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000};
+    s21_big_decimal bd;
+    s21_big_decimal btwenty = {0b000010100, 0b111, 0b0000, 0b00000000000000000, 0b000, 0b0000};
+    s21_big_decimal btwo = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000, 0b0000, 0b00000};
+    initializeByBigZeros(&bd);
+
+
      s21_div(twenty, two, &bits3);
+     subBigDecimal(btwenty, btwo, &bd);
      printb(bits3);
+     myadd(twenty, two, &bits3);
+     myshiftleft(&btwenty, 31);
+     printbb(btwenty);
+     printb(bits3);
+     s21_big_decimal ten = {0b00001010, 0b0000, 0b0000, 0b00000000000000000, 0b000, 0b0000};
+     mymulby10(&ten);
+     printbb(ten);
+
+
+     //printbb(bd);
 //s21_decimal delimoe     
   return 0;
 }

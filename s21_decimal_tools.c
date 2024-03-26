@@ -8,6 +8,42 @@ int get_bit(unsigned int value, int bit_number) {
   return value & (1 << bit_number);
 }
 
+void s21_set_bit(s21_decimal* num, int index, int value) {
+    if (value == 1) {
+    num->bits[index / 32] = num->bits[index / 32] | (1 << index % 32); // (1 << bit % 32) создает число, у которого только один бит равен 1 на позиции bit % 32
+  } else if (value == 0) {
+    num->bits[index / 32] = num->bits[index / 32] & ~(1 << index % 32); // инвертированная маска
+  }
+}
+
+void s21_set_bitb(s21_big_decimal* num, int index, int value) {
+    if (value == 1) {
+    num->bits[index / 32] = num->bits[index / 32] | (1 << index % 32); // (1 << bit % 32) создает число, у которого только один бит равен 1 на позиции bit % 32
+  } else if (value == 0) {
+    num->bits[index / 32] = num->bits[index / 32] & ~(1 << index % 32); // инвертированная маска
+  }
+}
+bool get_bit_value(s21_decimal target, int bit_number) {
+  int index = 0;
+  while (bit_number >= 32) {
+    index++;
+    bit_number -= 32;
+  }
+
+  bool x = 1 << bit_number & target.bits[index];
+  return x;
+}
+
+bool get_bit_valueb(s21_big_decimal target, int bit_number) {
+  int index = 0;
+  while (bit_number >= 32) {
+    index++;
+    bit_number -= 32;
+  }
+
+  bool x = 1 << bit_number & target.bits[index];
+  return x;
+}
 /* ставит значение 1 или 0 в позиции bit_number числа. возможно, лучше будет
  * разбить на отдельные функции*/
 void set_bit(unsigned int *value, int bit_number, int set_value) {
