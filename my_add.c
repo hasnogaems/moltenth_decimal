@@ -27,15 +27,24 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 }
 
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale){
-    while(big.bits[3]>0&&scale>0){
-        div_by_tenb(&big);
+    
+    if(big.bits[3]>0&&scale>0){
+        int mod=div_by_tenb(&big);
         scale--;
+        my_bank_round(big, decimal, mod, scale);
     }
     if(big.bits[3]>0)return 0;
 for(int i=0;i<2;i++){
     decimal->bits[i]=big.bits[i];
 }
 
+}
+
+int my_bank_round(s21_big_decimal big, s21_decimal* decimal, int mod, int scale){
+printf("bit0=%d\n",get_bit_valueb(big, 0));
+if(mod==5 && get_bit_valueb(big, 0) || mod>5){
+
+}
 }
 
 
@@ -81,5 +90,16 @@ memory=d->bits[i];
 d->bits[i]<<=value;
 d->bits[i]|=overflow;
 overflow=memory>>(32-value);
+    }
+}
+
+void myshiftright(s21_big_decimal* d, int value){
+    int overflow=0;
+    int memory=0;
+    for(int i=5;i>0;i--){
+memory=d->bits[i];        
+d->bits[i]>>=value;
+d->bits[i]|=overflow;
+overflow=memory<<(32-value);
     }
 }

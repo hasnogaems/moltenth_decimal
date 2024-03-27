@@ -25,7 +25,7 @@ int main() {
     initializeByBigZeros(&bd);
      s21_decimal ovrflw1= {0xFFFFFFFF,
     0xFFFFFFFF,
-    0xFFFFFFFF, 0b0};
+    0xFFFFFFFF, 0b00000000000000110000000000000000};
 
 
      //s21_div(twenty, two, &bits3);
@@ -42,11 +42,13 @@ int main() {
     s21_decimal ovrflw2 = {0xFFFFFFFF,
     0xFFFFFFFF,
     0xFFFFFFFF, 0b0};
-      myaddnormalize(ovrflw1, ovrflw2, &bits3);
+     // myaddnormalize(ovrflw1, ovrflw2, &bits3);
+     printbb(btwenty);
+myshiftright(&btwenty, 3);
     // myaddnormalize(twenty, two, &bits3);
 
 
-     //printbb(bd);
+     printbb(btwenty);
 //s21_decimal delimoe     
   return 0;
 }
