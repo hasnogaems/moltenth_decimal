@@ -19,19 +19,23 @@ int normalize(s21_decimal num_1, s21_decimal num_2,
   }
 
   // на что будем умнажать для нормализации
-  s21_big_decimal scale_difference = {1, 0, 0, 0, 0, 0};
-  s21_big_decimal ten = {10, 0, 0, 0, 0, 0};
-  for (int i = 0; i < fabs(scale_1 - scale_2); i++) {
-   mulBigDecimal(scale_difference, ten, &scale_difference);
-  }
+  s21_big_decimal scale_difference = {1, 0, 0, 0, 0};
+ 
+ 
 
   // Выбираем какое число будем нормализировать и умнажаем для нормализации
   if (scale_1 > scale_2) {
-   mulBigDecimal(*big2, scale_difference, big2);
+     for (int i = 0; i < fabs(scale_1 - scale_2); i++) {
+   mymulby10(big2);
+  }
+   
     
     scale = scale_1;
   } else {
-   mulBigDecimal(*big1, scale_difference, big1);
+     for (int i = 0; i < fabs(scale_1 - scale_2); i++) {
+   mymulby10(big1);
+  }
+   
     
     scale = scale_2;
 

@@ -5,6 +5,7 @@
 #define TRUE 1
 #define FALSE 0
 #define PLUS 0b00000000000000000000000000000000
+#define MAX_DECIMAL 79228162514264337593543950335.L
 
 #include <math.h>  // необхлжима для ftoi
 #include <stdio.h>
@@ -98,5 +99,10 @@ void nullifyb(s21_big_decimal *d);
 bool get_bit_valueb(s21_big_decimal target, int bit_number);
 void s21_set_bitb(s21_big_decimal* num, int index, int value);
 void mymulby10(s21_big_decimal* d);
+int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result);
+int div_by_tenb(s21_big_decimal *result);
+int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale);
+
 
 #endif

@@ -23,18 +23,27 @@ int main() {
     s21_big_decimal btwenty = {0b000010100, 0b111, 0b0000, 0b00000000000000000, 0b000, 0b0000};
     s21_big_decimal btwo = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000, 0b0000, 0b00000};
     initializeByBigZeros(&bd);
+     s21_decimal ovrflw1= {0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF, 0b0};
 
 
-     s21_div(twenty, two, &bits3);
-     subBigDecimal(btwenty, btwo, &bd);
-     printb(bits3);
-     myadd(twenty, two, &bits3);
-     myshiftleft(&btwenty, 31);
-     printbb(btwenty);
-     printb(bits3);
-     s21_big_decimal ten = {0b00001010, 0b0000, 0b0000, 0b00000000000000000, 0b000, 0b0000};
-     mymulby10(&ten);
-     printbb(ten);
+     //s21_div(twenty, two, &bits3);
+    //  subBigDecimal(btwenty, btwo, &bd);
+    //  printb(bits3);
+    //  myadd(twenty, two, &bits3);
+    //  myshiftleft(&btwenty, 31);
+    //  printbb(btwenty);
+    //  printb(bits3);
+    //  s21_big_decimal ten = {0b00001010, 0b0000, 0b0000, 0b00000000000000000, 0b000, 0b0000};
+    //  mymulby10(&ten);
+    //  printbb(ten);
+    // 0xFFFFFFFF, // Assuming each field is 32 bits wide, this sets all 32 bits to 1
+    s21_decimal ovrflw2 = {0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF, 0b0};
+      myaddnormalize(ovrflw1, ovrflw2, &bits3);
+    // myaddnormalize(twenty, two, &bits3);
 
 
      //printbb(bd);
