@@ -18,7 +18,15 @@ int retrieveBit(s21_decimal number, int bit) {
 int countLastBit(s21_decimal number) {
   int counter = 95;
   while ((counter >= 0) && (!retrieveBit(number, counter))) {
-    counter -= 1;
+    counter--;
+  }
+  return counter;
+}
+
+int countLastBitbig(s21_big_decimal d) {
+  int counter = 127;
+  while ((counter >= 0) && (!get_bit_valueb(d, counter))) {
+    counter--;
   }
   return counter;
 }

@@ -103,8 +103,10 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result);
 int div_by_tenb(s21_big_decimal *result);
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale);
-int my_bank_round(s21_big_decimal big, s21_decimal* decimal, int mod, int scale);
+int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale);
 void myshiftright(s21_big_decimal* d, int value);
-
+void mine_from_int_to_decimal(int src, s21_decimal *dst);
+void mine_from_int_to_decimalb(int src, s21_big_decimal *dst);
+int countLastBitbig(s21_big_decimal);
 
 #endif

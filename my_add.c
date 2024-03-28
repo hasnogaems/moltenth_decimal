@@ -31,7 +31,7 @@ int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale){
     if(big.bits[3]>0&&scale>0){
         int mod=div_by_tenb(&big);
         scale--;
-        my_bank_round(big, decimal, mod, scale);
+        my_bank_round(&big, decimal, mod, &scale);
     }
     if(big.bits[3]>0)return 0;
 for(int i=0;i<2;i++){
@@ -40,17 +40,24 @@ for(int i=0;i<2;i++){
 
 }
 
-int my_bank_round(s21_big_decimal big, s21_decimal* decimal, int mod, int scale){
-printf("bit0=%d\n",get_bit_valueb(big, 0));
-if(mod==5 && get_bit_valueb(big, 0) || mod>5){
-
+int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale){
+printf("bit0=%d\n",get_bit_valueb(*big, 0));
+s21_big_decimal one;
+mine_from_int_to_decimalb(1,&one);
+if(mod==5 && get_bit_valueb(*big, 0) || mod>5){
+myaddb(*big, one, big);
+}
+if(countLastBitbig(*big)>95){
+    mod=div_by_tenb(big);
+    (*scale)--;
+    my_bank_round(big, decimal, mod, scale);
 }
 }
 
 
 int div_by_tenb(s21_big_decimal *result) {
   unsigned long long overflow = 0;
-  for (int i = 2; i >= 0; i--) {
+  for (int i = 5; i >= 0; i--) {
     unsigned long long save = (overflow << 32) | result->bits[i];
     result->bits[i] = (save / 10);
     overflow = save % 10;
@@ -96,7 +103,7 @@ overflow=memory>>(32-value);
 void myshiftright(s21_big_decimal* d, int value){
     int overflow=0;
     int memory=0;
-    for(int i=5;i>0;i--){
+    for(int i=5;i>=0;i--){
 memory=d->bits[i];        
 d->bits[i]>>=value;
 d->bits[i]|=overflow;

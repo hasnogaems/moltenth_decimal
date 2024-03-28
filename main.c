@@ -24,8 +24,8 @@ int main() {
     s21_big_decimal btwo = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000, 0b0000, 0b00000};
     initializeByBigZeros(&bd);
      s21_decimal ovrflw1= {0xFFFFFFFF,
-    0xFFFFFFFF,
-    0xFFFFFFFF, 0b00000000000000110000000000000000};
+    0xFFFFF0,
+    0xFFFFF000, 0b00000000000001110000000000000000};
 
 
      //s21_div(twenty, two, &bits3);
@@ -39,16 +39,17 @@ int main() {
     //  mymulby10(&ten);
     //  printbb(ten);
     // 0xFFFFFFFF, // Assuming each field is 32 bits wide, this sets all 32 bits to 1
-    s21_decimal ovrflw2 = {0xFFFFFFFF,
-    0xFFFFFFFF,
-    0xFFFFFFFF, 0b0};
-     // myaddnormalize(ovrflw1, ovrflw2, &bits3);
+    s21_decimal ovrflw2 = {0xFFFFFFF,
+    0xFFFFF000,
+    0xFFFFF000, 0b0};
+      myaddnormalize(ovrflw1, ovrflw2, &bits3);
      printbb(btwenty);
 myshiftright(&btwenty, 3);
     // myaddnormalize(twenty, two, &bits3);
 
 
      printbb(btwenty);
+     printb(bits3);
 //s21_decimal delimoe     
   return 0;
 }
