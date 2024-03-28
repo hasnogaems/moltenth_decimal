@@ -52,6 +52,7 @@ if(countLastBitbig(*big)>95){
     (*scale)--;
     my_bank_round(big, decimal, mod, scale);
 }
+set_exp2(decimal, *scale);
 }
 
 

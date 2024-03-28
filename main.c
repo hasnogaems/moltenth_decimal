@@ -42,13 +42,15 @@ int main() {
     s21_decimal ovrflw2 = {0xFFFFFFF,
     0xFFFFF000,
     0xFFFFF000, 0b0};
+    printb(ovrflw1);
+    printb(ovrflw2);
       myaddnormalize(ovrflw1, ovrflw2, &bits3);
-     printbb(btwenty);
-myshiftright(&btwenty, 3);
+    // printbb(btwenty);
+//myshiftright(&btwenty, 3);
     // myaddnormalize(twenty, two, &bits3);
 
 
-     printbb(btwenty);
+  //   printbb(btwenty);
      printb(bits3);
 //s21_decimal delimoe     
   return 0;

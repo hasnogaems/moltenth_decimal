@@ -108,5 +108,6 @@ void myshiftright(s21_big_decimal* d, int value);
 void mine_from_int_to_decimal(int src, s21_decimal *dst);
 void mine_from_int_to_decimalb(int src, s21_big_decimal *dst);
 int countLastBitbig(s21_big_decimal);
+void set_exp2(s21_decimal *dec, int power);
 
 #endif

@@ -140,6 +140,10 @@ int set_exp(s21_decimal *value, int exp) {
   return error;
 }
 
+void set_exp2(s21_decimal *dec, int power) {
+  dec->bits[3] = (get_sign(*dec) << 31 | (power << 16));
+}
+
 // стащил с гх, чтобы работали тесты
 /*
 int s21_from_float_to_decimal(float src, s21_decimal *dst) {
