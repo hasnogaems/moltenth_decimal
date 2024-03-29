@@ -12,12 +12,12 @@ int main() {
  // set_bit_value(&bits, 32, 1); // howw toprintf in binary?????
   s21_decimal bits2 = {0b000000010, 0b0000000, 0b00000, 0b000000000000000000000000000};
   s21_decimal bits3 = {0b000000011, 0b0000110, 0b000101, 0b00000000000000000000011100000000};
-   printb(bits3);
+//   printb(bits3);
  // printb(bits);
  s21_div(bits, bits2, &bits3);
  // nullify(&bits);
- printb(bits3);
-   s21_decimal twenty = {0b000010100, 0b0000000, 0b0000, 0b000000000000000000000000000000};
+// printb(bits3);
+   s21_decimal twenty = {0b000010100, 0b0000000, 0b0000, 0b00000000011110000000000000000};
     s21_decimal two = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000};
     s21_big_decimal bd;
     s21_big_decimal btwenty = {0b000010100, 0b111, 0b0000, 0b00000000000000000, 0b000, 0b0000};
@@ -39,20 +39,31 @@ int main() {
     //  mymulby10(&ten);
     //  printbb(ten);
     // 0xFFFFFFFF, // Assuming each field is 32 bits wide, this sets all 32 bits to 1
+   
     s21_decimal ovrflw2 = {0xFFFFFFF,
     0xFFFFF000,
-    0xFFFFF000, 0b0};
-    printb(ovrflw1);
-    printb(ovrflw2);
-      myaddnormalize(ovrflw1, ovrflw2, &bits3);
+    0xFFFFF000, 0b00000000001111000000000000000000};
+    // printb(ovrflw1);
+    // printb(ovrflw2);
+    // printb(bits3);
+    // nullify(&bits3);
+    // printf("nullified bits3:\n");
+   // printb(bits3);
+   printb(twenty);
+    for(int k=0;k<100;k++){  myaddnormalize(twenty, twenty, &twenty);
     // printbb(btwenty);
 //myshiftright(&btwenty, 3);
     // myaddnormalize(twenty, two, &bits3);
-
-
+printf("iteration is%d",k);
+printb(twenty);
   //   printbb(btwenty);
-     printb(bits3);
-//s21_decimal delimoe     
+  
+   //  printb(bits3);}
+     //scaleDown(&bits3, 1);
+   //  printb(bits3);
+//s21_decimal delimoe   
+    }  
   return 0;
+
 }
  

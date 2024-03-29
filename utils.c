@@ -360,7 +360,7 @@ s21_big_decimal decimalToBig(s21_decimal value) {
 s21_big_decimal mantissadecimalToBig(s21_decimal value) {
   s21_big_decimal result;
   initializeByBigZeros(&result);
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 3; i++) {
     result.bits[i] = value.bits[i];
   }
   return result;

@@ -18,10 +18,10 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
     nullifyb(&big1);nullifyb(&big2);nullifyb(&resbig);
     int scale=normalize(value_1, value_2, &big1, &big2);
     myaddb(big1, big2, &resbig);
-    printbb(resbig);
+ //   printbb(resbig);
      //Теперь после арифметики пихаем обратно в децимал. К какому скейлу мы приводим если мантисса помещается полностью? Если мантисса не помещается то мы начинаем делить на 10 и уменьшать мантиссу при этом еще округлять и применять банковское если в остатке 0.5? И потом она говорит вам не нужно деление на 10.
      mybig_to_decimal(resbig, result, scale);
-     printb(*result);
+    // printb(*result);
 
  
 }
@@ -34,9 +34,10 @@ int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale){
         my_bank_round(&big, decimal, mod, &scale);
     }
     if(big.bits[3]>0)return 0;
-for(int i=0;i<2;i++){
+for(int i=0;i<3;i++){
     decimal->bits[i]=big.bits[i];
 }
+decimal->bits[3]|=scale<<16;
 
 }
 
@@ -48,6 +49,7 @@ if(mod==5 && get_bit_valueb(*big, 0) || mod>5){
 myaddb(*big, one, big);
 }
 if(countLastBitbig(*big)>95){
+    
     mod=div_by_tenb(big);
     (*scale)--;
     my_bank_round(big, decimal, mod, scale);
