@@ -122,5 +122,6 @@ void set_exp2(s21_decimal *dec, int power);
 int print_uint128(uint128_t n);
 void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst);
 void gptprint_uint128(uint128_t n);
+int check_345_b(s21_big_decimal big);
 
 #endif

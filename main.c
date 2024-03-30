@@ -73,7 +73,7 @@ int main() {
   s21_decimal bits3 = {0b000000011, 0b0000110, 0b000101, 0b00000000000000000000011100000000};
   nullify(&bits3);
   printb(bits3);
-    myaddnormalize(ovrflw1, ovrflw2, &bits3);
+ //   myaddnormalize(ovrflw1, ovrflw2, &bits3);
 printb(bits3);
 s21_decimal ovrflw11= {0x0,
     0xFFFF,
@@ -81,6 +81,7 @@ s21_decimal ovrflw11= {0x0,
     s21_decimal ovrflw22 = {0x0,
     0xF000,
     0xFFF0, 0b000000000000010000000000000000};
+    printb(ovrflw22);
      nullify(&bits3);
       myaddnormalize(ovrflw11, ovrflw22, &bits3);
 printb(bits3);

@@ -25,7 +25,7 @@ int normalize(s21_decimal num_1, s21_decimal num_2,
 
   // Выбираем какое число будем нормализировать и умнажаем для нормализации
   if (scale_1 > scale_2) {
-     for (int i = 0; i < fabs(scale_1 - scale_2); i++) {
+     for (int i = 1; i < fabs(scale_1 - scale_2); i++) {
    mymulby10(big2);
   }
    

@@ -28,17 +28,23 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale){
     
-    if(big.bits[3]>0&&scale>0){
+    if(check_345_b>0&&scale>0){
         int mod=div_by_tenb(&big);
         scale--;
         my_bank_round(&big, decimal, mod, &scale);
     }
-    if(big.bits[3]>0)return 0;
+    if(check_345_b>0)return 0;
 for(int i=0;i<3;i++){
     decimal->bits[i]=big.bits[i];
 }
 decimal->bits[3]|=scale<<16;
 
+}
+int check_345_b(s21_big_decimal big){
+    int result=0;
+    if(big.bits[3]>0||big.bits[4]>0||big.bits[5]>0){result=1;}
+    return result;
+    
 }
 
 int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale){
@@ -48,13 +54,14 @@ mine_from_int_to_decimalb(1,&one);
 if(mod==5 && get_bit_valueb(*big, 0) || mod>5){
 myaddb(*big, one, big);
 }
-if(countLastBitbig(*big)>95){
+if(countLastBitbig(*big)>95&&(*scale)>0){
     
     mod=div_by_tenb(big);
     (*scale)--;
     my_bank_round(big, decimal, mod, scale);
 }
-set_exp2(decimal, *scale);
+mybig_to_decimal(*big, decimal, *scale);
+//set_exp2(decimal, *scale);
 }
 
 
@@ -73,7 +80,7 @@ void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *r
     nullifyb(result);
     int res=0;
     int carry=0;
-    for(int i=0;i<159;i++){
+    for(int i=0;i<191;i++){
        res=get_bit_valueb(value_1, i)+get_bit_valueb(value_2, i)+carry;
        s21_set_bitb(result, i, res%2);
 carry=res/2;
