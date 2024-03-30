@@ -99,6 +99,17 @@ void mymulby10(s21_big_decimal* d){
 
 }
 
+void mymulby10s(s21_decimal* d){
+    s21_decimal shift3=*d;
+ s21_decimal shift1=*d;
+
+ myshiftlefts(&shift3, 3);
+ myshiftlefts(&shift1, 1);
+
+ myadd(shift3, shift1, d);
+
+}
+
 void myshiftleft(s21_big_decimal* d, int value){
     int overflow=0;
     int memory=0;
@@ -110,6 +121,16 @@ overflow=memory>>(32-value);
     }
 }
 
+void myshiftlefts(s21_decimal* d, int value){
+    int overflow=0;
+    int memory=0;
+    for(int i=0;i<2;i++){
+memory=d->bits[i];        
+d->bits[i]<<=value;
+d->bits[i]|=overflow;
+overflow=memory>>(32-value);
+    }
+}
 void myshiftright(s21_big_decimal* d, int value){
     int overflow=0;
     int memory=0;

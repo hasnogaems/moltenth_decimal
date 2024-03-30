@@ -82,6 +82,10 @@ s21_decimal ovrflw11= {0x0,
     0xF000,
     0xFFF0, 0b000000000000010000000000000000};
     printb(ovrflw22);
+    printf("multiplied by ten:\n");
+    mymulby10s(&ovrflw22);
+    printb(ovrflw22);
+
      nullify(&bits3);
       myaddnormalize(ovrflw11, ovrflw22, &bits3);
 printb(bits3);
