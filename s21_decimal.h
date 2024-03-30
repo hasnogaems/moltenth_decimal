@@ -11,6 +11,16 @@
 #include <stdio.h>
 #include <stdlib.h>  // для тестов
 #include <stdbool.h>
+#include <stdint.h>
+#include <inttypes.h>
+#define STRINGIZER(x)   # x
+#define TO_STRING(x)    STRINGIZER(x)
+#define P10_UINT64 10000000000000000000ULL   /* 19 zeroes */
+#define E10_UINT64 19
+
+
+typedef __int128 int128_t;
+typedef unsigned __int128 uint128_t;
 
 typedef struct {
   unsigned int bits[4];
@@ -109,5 +119,8 @@ void mine_from_int_to_decimal(int src, s21_decimal *dst);
 void mine_from_int_to_decimalb(int src, s21_big_decimal *dst);
 int countLastBitbig(s21_big_decimal);
 void set_exp2(s21_decimal *dec, int power);
+int print_uint128(uint128_t n);
+void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst);
+void gptprint_uint128(uint128_t n);
 
 #endif

@@ -3,6 +3,12 @@
 #include "s21_decimal.h"
 #include "utils.h"
 int main() {
+  int xx=10;
+  
+  int xyx=0b1010;
+  
+  printf("%d %d\n", xx, xyx);
+
   int a = 0b00000010001;
   int bitN = 33;
   // int result=get_bit_from_int(a, bitN);
@@ -11,10 +17,10 @@ int main() {
   // printf("decimal bit %d is %d", bitN, get_bit_value(bits, bitN));
  // set_bit_value(&bits, 32, 1); // howw toprintf in binary?????
   s21_decimal bits2 = {0b000000010, 0b0000000, 0b00000, 0b000000000000000000000000000};
-  s21_decimal bits3 = {0b000000011, 0b0000110, 0b000101, 0b00000000000000000000011100000000};
+
 //   printb(bits3);
  // printb(bits);
- s21_div(bits, bits2, &bits3);
+ //s21_div(bits, bits2, &bits3);
  // nullify(&bits);
 // printb(bits3);
    s21_decimal twenty = {0b000010100, 0b0000000, 0b0000, 0b00000000011110000000000000000};
@@ -23,9 +29,7 @@ int main() {
     s21_big_decimal btwenty = {0b000010100, 0b111, 0b0000, 0b00000000000000000, 0b000, 0b0000};
     s21_big_decimal btwo = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000, 0b0000, 0b00000};
     initializeByBigZeros(&bd);
-     s21_decimal ovrflw1= {0xFFFFFFFF,
-    0xFFFFF0,
-    0xFFFFF000, 0b00000000000001110000000000000000};
+    
 
 
      //s21_div(twenty, two, &bits3);
@@ -40,9 +44,12 @@ int main() {
     //  printbb(ten);
     // 0xFFFFFFFF, // Assuming each field is 32 bits wide, this sets all 32 bits to 1
    
+   s21_decimal ovrflw1= {0xFFFFFFFF,
+    0xFFFFF0,
+    0xFFFFF000, 0b00000000000000000000000000000};
     s21_decimal ovrflw2 = {0xFFFFFFF,
     0xFFFFF000,
-    0xFFFFF000, 0b00000000001111000000000000000000};
+    0xFFFFF000, 0b00000000000000000000000000000};
     // printb(ovrflw1);
     // printb(ovrflw2);
     // printb(bits3);
@@ -50,20 +57,42 @@ int main() {
     // printf("nullified bits3:\n");
    // printb(bits3);
    printb(twenty);
-    for(int k=0;k<100;k++){  myaddnormalize(twenty, twenty, &twenty);
-    // printbb(btwenty);
-//myshiftright(&btwenty, 3);
-    // myaddnormalize(twenty, two, &bits3);
-printf("iteration is%d",k);
-printb(twenty);
-  //   printbb(btwenty);
+//     for(int k=0;k<100;k++){  myaddnormalize(twenty, twenty, &twenty);
+//     // printbb(btwenty);
+// //myshiftright(&btwenty, 3);
+//     // myaddnormalize(twenty, two, &bits3);
+// printf("iteration is%d",k);
+// printb(twenty);
+//   //   printbb(btwenty);
   
-   //  printb(bits3);}
-     //scaleDown(&bits3, 1);
-   //  printb(bits3);
-//s21_decimal delimoe   
-    }  
+//    //  printb(bits3);}
+//      //scaleDown(&bits3, 1);
+//    //  printb(bits3);
+// //s21_decimal delimoe   
+//     }  
+  s21_decimal bits3 = {0b000000011, 0b0000110, 0b000101, 0b00000000000000000000011100000000};
+  nullify(&bits3);
+  printb(bits3);
+    myaddnormalize(ovrflw1, ovrflw2, &bits3);
+printb(bits3);
+s21_decimal ovrflw11= {0x0,
+    0xFFFF,
+    0xFFFFF0, 0b00000000000001110000000000000000};
+    s21_decimal ovrflw22 = {0x0,
+    0xF000,
+    0xFFF0, 0b000000000000010000000000000000};
+     nullify(&bits3);
+      myaddnormalize(ovrflw11, ovrflw22, &bits3);
+printb(bits3);
+uint128_t test;
+s21_from_decimal_to_int128(bits3, &test);
+print_uint128(test);
+printf("\n");
+gptprint_uint128(test);
   return 0;
 
 }
+
+
+//MINE MAIN uint working
  

@@ -60,4 +60,4 @@ clean:
 	rm -rf ./report *.o *.a *.gcda *.gcno *.gcov s21_decimal_test
 
 medusatest:
-	gcc  *.c ./tests_files/test_s21_add.c -lm -lcheck
+	gcc  *.c ./tests_files/test_s21_add.c -lm -lcmheck
