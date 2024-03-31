@@ -46,7 +46,7 @@ s21_decimal bigToDecimal(s21_big_decimal value);
 void initializeByZeros(s21_decimal *value);
 void initializeByBigZeros(s21_big_decimal *value);
 void printbb(s21_big_decimal bits_array);
-void mymulby10s(s21_decimal* d);
-void myshiftlefts(s21_decimal* d, int value);
+int mymulby10s(s21_decimal* d);
+int myshiftlefts(s21_decimal* d, int value);
 
 #endif

@@ -75,16 +75,29 @@ int main() {
   printb(bits3);
  //   myaddnormalize(ovrflw1, ovrflw2, &bits3);
 printb(bits3);
+char more;
+int memory;
 s21_decimal ovrflw11= {0x0,
     0xFFFF,
     0xFFFFF0, 0b00000000000001110000000000000000};
-    s21_decimal ovrflw22 = {0x101,
-    0x000,
-    0x0, 0b000000000000010000000000000000};
+    s21_decimal ovrflw22 = {0b101,
+    0b00,
+    0b0, 0b000000000000010000000000000000};
     printb(ovrflw22);
     printf("multiplied by ten:\n");
     mymulby10s(&ovrflw22);
+for(int k=1;k<100;k++){
+  printf("iteration %d", k);
     printb(ovrflw22);
+    more=32;
+    if(ovrflw22.bits[2]>memory)more=62;
+
+    printf("\n                 %c%d    %d    %d\n", more, ovrflw22.bits[2], ovrflw22.bits[1], ovrflw22.bits[0]);
+    memory=ovrflw22.bits[2];
+    
+    mymulby10s(&ovrflw22);
+}
+   
 
      nullify(&bits3);
       myaddnormalize(ovrflw11, ovrflw22, &bits3);

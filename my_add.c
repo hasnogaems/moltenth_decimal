@@ -28,12 +28,14 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale){
     
-    if(check_345_b>0&&scale>0){
+    if(check_345_b(big)>0&&scale>0){
         int mod=div_by_tenb(&big);
         scale--;
         my_bank_round(&big, decimal, mod, &scale);
     }
-    if(check_345_b>0)return 0;
+    int wtf=check_345_b(big);
+    if(wtf>0){
+        return 0;}
 for(int i=0;i<3;i++){
     decimal->bits[i]=big.bits[i];
 }
@@ -76,7 +78,8 @@ int div_by_tenb(s21_big_decimal *result) {
 }
 
 
-void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result){
+int myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result){
+    int error=0;
     nullifyb(result);
     int res=0;
     int carry=0;
@@ -86,6 +89,8 @@ void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *r
 carry=res/2;
 
     }
+    if(carry){error=1;}
+    return error;
 }
 
 void mymulby10(s21_big_decimal* d){
@@ -99,20 +104,22 @@ void mymulby10(s21_big_decimal* d){
 
 }
 
-void mymulby10s(s21_decimal* d){
+int mymulby10s(s21_decimal* d){
     s21_decimal shift3=*d;
  s21_decimal shift1=*d;
-
- myshiftlefts(&shift3, 3);
+int error=0;
+ error=myshiftlefts(&shift3, 3);
  myshiftlefts(&shift1, 1);
-
+if(error){
+printf("error");
+return 0;}
  myadd(shift3, shift1, d);
 
 }
 
 void myshiftleft(s21_big_decimal* d, int value){
-    int overflow=0;
-    int memory=0;
+  unsigned int overflow=0;
+  unsigned int memory=0;
     for(int i=0;i<5;i++){
 memory=d->bits[i];        
 d->bits[i]<<=value;
@@ -121,15 +128,17 @@ overflow=memory>>(32-value);
     }
 }
 
-void myshiftlefts(s21_decimal* d, int value){
-    int overflow=0;
-    int memory=0;
-    for(int i=0;i<2;i++){
-memory=d->bits[i];        
+int myshiftlefts(s21_decimal* d, int value){
+  int error=0;
+   unsigned int overflow=0;
+   unsigned int memory=0;
+    for(int i=0;i<3;i++){
+memory=(unsigned int)d->bits[i];        
 d->bits[i]<<=value;
 d->bits[i]|=overflow;
 overflow=memory>>(32-value);
     }
+    if(overflow>0)return 1;
 }
 void myshiftright(s21_big_decimal* d, int value){
     int overflow=0;
