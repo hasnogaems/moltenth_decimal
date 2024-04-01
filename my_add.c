@@ -141,8 +141,8 @@ overflow=memory>>(32-value);
     if(overflow>0)return 1;
 }
 void myshiftright(s21_big_decimal* d, int value){
-    int overflow=0;
-    int memory=0;
+    unsigned int overflow=0;
+   unsigned int memory=0;
     for(int i=5;i>=0;i--){
 memory=d->bits[i];        
 d->bits[i]>>=value;
