@@ -44,11 +44,11 @@ int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
     int scale=normalize(value_1, value_2, &big1, &big2);
     if(sign1==sign2){
         sign=(unsigned int)sign1;
-        if(sign==0&&s21_is_greater(value_2, value_1)){
+        if(s21_is_greater(value_2, value_1)){
 buffer=big1;
 big1=big2;
 big2=buffer;
-    sign=1;    }
+    sign*=-1;    }
     mysubb(big1, big2, &resbig);}
     if(sign1!=sign2){   
         sign=0;
