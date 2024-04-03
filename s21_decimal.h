@@ -6,13 +6,14 @@
 #define FALSE 0
 #define PLUS 0b00000000000000000000000000000000
 #define MAX_DECIMAL 79228162514264337593543950335.L
-
+#include <check.h>
 #include <math.h>  // необхлжима для ftoi
 #include <stdio.h>
 #include <stdlib.h>  // для тестов
 #include <stdbool.h>
 #include <stdint.h>
 #include <inttypes.h>
+
 #define STRINGIZER(x)   # x
 #define TO_STRING(x)    STRINGIZER(x)
 #define P10_UINT64 10000000000000000000ULL   /* 19 zeroes */
@@ -112,8 +113,8 @@ void mymulby10(s21_big_decimal* d);
 int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result);
 int div_by_tenb(s21_big_decimal *result);
-int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale);
-int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale);
+int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale, unsigned int sign);
+int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale, unsigned int sign);
 void myshiftright(s21_big_decimal* d, int value);
 void mine_from_int_to_decimal(int src, s21_decimal *dst);
 void mine_from_int_to_decimalb(int src, s21_big_decimal *dst);
@@ -123,5 +124,10 @@ int print_uint128(uint128_t n);
 void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst);
 void gptprint_uint128(uint128_t n);
 int check_345_b(s21_big_decimal big);
+Suite *s21_add_cases(void);
+int mysubb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result);
+int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+Suite *s21_sub_cases(void);
+int s21_is_greater_ours(s21_decimal mem1, s21_decimal mem2);
 
 #endif

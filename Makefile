@@ -1,4 +1,5 @@
 CC=gcc 
+CHECK=$(shell pkg-config --cflags --libs check) 
 CFLAG=-Wall -Werror -Wextra -std=c11
 CHECK=$(shell pkg-config --cflags --libs check) 
 TARGET=s21_decimal.a 
@@ -9,7 +10,7 @@ TEST_A=test_s21_decimal.a
 TEST_SRC=./tests_files/test_*.c
 
 all: 
-	gcc *.c -lm
+	gcc *.c main1/*.c -lm
 	./a.out
 
 s21_decimal.a: 
@@ -60,4 +61,5 @@ clean:
 	rm -rf ./report *.o *.a *.gcda *.gcno *.gcov s21_decimal_test
 
 medusatest:
-	gcc  *.c ./tests_files/test_s21_add.c -lm -lcmheck
+	gcc  *.c tests_files/test_add.c tests_files/main_test.c tests_files/test_s21_sub.c -lm $(CHECK)
+	./a.out

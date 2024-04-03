@@ -7,7 +7,7 @@ void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst) {
   for(int i=0;i<3;i++){
     a=a+src.bits[i];
   }
-  a = a * (a / pow(10, retrieveLevel(src)));
+  a = a * a;
   *dst = a;
   
 }

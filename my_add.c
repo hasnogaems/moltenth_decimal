@@ -13,25 +13,72 @@ carry=res/2;
 }
 
 int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+    int sign1=extractBitSign(value_1);
+    int sign2=extractBitSign(value_2);  
+    unsigned int sign=0;  
     nullify(result);
     s21_big_decimal big1, big2, resbig;
     nullifyb(&big1);nullifyb(&big2);nullifyb(&resbig);
     int scale=normalize(value_1, value_2, &big1, &big2);
-    myaddb(big1, big2, &resbig);
+    if(sign1==sign2){
+        sign=(unsigned int)sign1;
+    myaddb(big1, big2, &resbig);}
  //   printbb(resbig);
      //Теперь после арифметики пихаем обратно в децимал. К какому скейлу мы приводим если мантисса помещается полностью? Если мантисса не помещается то мы начинаем делить на 10 и уменьшать мантиссу при этом еще округлять и применять банковское если в остатке 0.5? И потом она говорит вам не нужно деление на 10.
-     mybig_to_decimal(resbig, result, scale);
-    printb(*result);
+     mybig_to_decimal(resbig, result, scale, sign);
+   // printb(*result);
 
  
 }
 
-int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale){
+int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+    int sign1=extractBitSign(value_1);
+    int sign2=extractBitSign(value_2);  
+    unsigned int sign=0;  
+    int ddctbl_bgr=0;
+    
+
+    nullify(result);
+    s21_big_decimal big1, big2, resbig, buffer;
+    nullifyb(&big1);nullifyb(&big2);nullifyb(&resbig);nullifyb(&buffer);
+    int scale=normalize(value_1, value_2, &big1, &big2);
+    if(sign1==sign2){
+        sign=(unsigned int)sign1;
+        if(sign==0&&s21_is_greater(value_2, value_1)){
+buffer=big1;
+big1=big2;
+big2=buffer;
+    sign=1;    }
+    mysubb(big1, big2, &resbig);}
+    if(sign1!=sign2){   
+        sign=0;
+       if(sign1==1){
+        setSign(&value_1, 0);
+
+       }
+       if(sign2==1){
+        setSign(&value_2, 0);
+
+       }
+        myaddnormalize(value_1, value_2, result);
+        
+        return 1;
+    
+    }
+ //   printbb(resbig);
+     //Теперь после арифметики пихаем обратно в децимал. К какому скейлу мы приводим если мантисса помещается полностью? Если мантисса не помещается то мы начинаем делить на 10 и уменьшать мантиссу при этом еще округлять и применять банковское если в остатке 0.5? И потом она говорит вам не нужно деление на 10.
+     mybig_to_decimal(resbig, result, scale, sign);
+   //printb(*result);
+
+ 
+}
+
+int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale, unsigned int sign){
     
     if(check_345_b(big)>0&&scale>0){
         int mod=div_by_tenb(&big);
         scale--;
-        my_bank_round(&big, decimal, mod, &scale);
+        my_bank_round(&big, decimal, mod, &scale, sign);
     }
     int wtf=check_345_b(big);
     if(wtf>0){
@@ -40,6 +87,7 @@ for(int i=0;i<3;i++){
     decimal->bits[i]=big.bits[i];
 }
 decimal->bits[3]|=scale<<16;
+setSign(decimal, sign);
 
 }
 int check_345_b(s21_big_decimal big){
@@ -49,20 +97,21 @@ int check_345_b(s21_big_decimal big){
     
 }
 
-int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale){
-printf("bit0=%d\n",get_bit_valueb(*big, 0));
+int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale, unsigned int sign){
+//printf("bit0=%d\n",get_bit_valueb(*big, 0));
 s21_big_decimal one;
 mine_from_int_to_decimalb(1,&one);
 if(mod==5 && get_bit_valueb(*big, 0) || mod>5){
+
 myaddb(*big, one, big);
 }
 if(countLastBitbig(*big)>95&&(*scale)>0){
     
     mod=div_by_tenb(big);
     (*scale)--;
-    my_bank_round(big, decimal, mod, scale);
+    my_bank_round(big, decimal, mod, scale, sign);
 }
-mybig_to_decimal(*big, decimal, *scale);
+mybig_to_decimal(*big, decimal, *scale, sign);
 //set_exp2(decimal, *scale);
 }
 
@@ -79,6 +128,7 @@ int div_by_tenb(s21_big_decimal *result) {
 
 
 int myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result){
+    
     int error=0;
     nullifyb(result);
     int res=0;
@@ -91,6 +141,37 @@ carry=res/2;
     }
     if(carry){error=1;}
     return error;
+}
+
+int mysubb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result){
+    
+    int error=0;
+    nullifyb(result);
+    int res=0;
+    int carry=0;
+    int k=1;
+    for(int i=0;i<191;i++){
+       res=get_bit_valueb(value_1, i)-get_bit_valueb(value_2, i);
+       if(res==-1){res=1;
+       for(k=1;k+i<191&&!get_bit_valueb(value_1, i+k);k++){}
+
+       
+       s21_set_bitb(&value_1, k+i, 0);
+       k--;
+       if(k+i<191){
+        while(k+i>i){
+            s21_set_bitb(&value_1, k+i, 1);
+            k--;
+        }
+
+       }
+       }
+       //и тут вы начинаем занимать из старших битов, сначала ищем где вообще есть бит, потом его нулим и на все нули после него ставим 1 кроме текущего
+       s21_set_bitb(result, i, res);
+
+
+    }
+    
 }
 
 void mymulby10(s21_big_decimal* d){

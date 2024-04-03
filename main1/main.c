@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "s21_decimal.h"
-#include "utils.h"
+#include "../s21_decimal.h"
+#include "../utils.h"
 int main() {
   int xx=10;
   
@@ -23,11 +23,9 @@ int main() {
  //s21_div(bits, bits2, &bits3);
  // nullify(&bits);
 // printb(bits3);
-   s21_decimal twenty = {0b000010100, 0b0000000, 0b0000, 0b00000000011110000000000000000};
-    s21_decimal two = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000};
+
     s21_big_decimal bd;
-    s21_big_decimal btwenty = {0b000010100, 0b111, 0b0000, 0b00000000000000000, 0b000, 0b0000};
-    s21_big_decimal btwo = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000, 0b0000, 0b00000};
+   
     initializeByBigZeros(&bd);
     
 
@@ -44,19 +42,19 @@ int main() {
     //  printbb(ten);
     // 0xFFFFFFFF, // Assuming each field is 32 bits wide, this sets all 32 bits to 1
    
-   s21_decimal ovrflw1= {0xFFFFFFFF,
-    0xFFFFF0,
-    0xFFFFF000, 0b00000000000000000000000000000};
-    s21_decimal ovrflw2 = {0xFFFFFFF,
-    0xFFFFF000,
-    0xFFFFF000, 0b00000000000000000000000000000};
+  //  s21_decimal ovrflw1= {0xFFFFFFFF,
+  //   0xFFFFF0,
+  //   0xFFFFF000, 0b00000000000000000000000000000};
+  //   s21_decimal ovrflw2 = {0xFFFFFFF,
+  //   0xFFFFF000,
+  //   0xFFFFF000, 0b00000000000000000000000000000};
     // printb(ovrflw1);
     // printb(ovrflw2);
     // printb(bits3);
     // nullify(&bits3);
     // printf("nullified bits3:\n");
    // printb(bits3);
-   printb(twenty);
+  
 //     for(int k=0;k<100;k++){  myaddnormalize(twenty, twenty, &twenty);
 //     // printbb(btwenty);
 // //myshiftright(&btwenty, 3);
@@ -72,19 +70,19 @@ int main() {
 //     }  
   s21_decimal bits3 = {0b000000011, 0b0000110, 0b000101, 0b00000000000000000000011100000000};
   nullify(&bits3);
-  printb(bits3);
- //   myaddnormalize(ovrflw1, ovrflw2, &bits3);
-printb(bits3);
-char more;
-int memory;
-s21_decimal ovrflw11= {0x0,
-    0xFFFF,
-    0xFFFFF0, 0b00000000000000000000000000000};
-    s21_decimal ovrflw22 = {0b101,
-    0b00,
-    0b0, 0b00000000000000000000000000000};
-    printb(ovrflw22);
-    printf("multiplied by ten:\n");
+//   printb(bits3);
+//  //   myaddnormalize(ovrflw1, ovrflw2, &bits3);
+// printb(bits3);
+// char more;
+// int memory;
+// s21_decimal ovrflw11= {0x0,
+//     0xFFFF,
+//     0xFFFFF0, 0b00000000000000000000000000000};
+//     s21_decimal ovrflw22 = {0b101,
+//     0b00,
+//     0b0, 0b00000000000000000000000000000};
+//     printb(ovrflw22);
+//     printf("multiplied by ten:\n");
 //     mymulby10s(&ovrflw22);
 // for(int k=1;k<100;k++){
 //   printf("iteration %d", k);
@@ -97,16 +95,30 @@ s21_decimal ovrflw11= {0x0,
     
 //     mymulby10s(&ovrflw22);
 // }
-   
+  
 
-     nullify(&bits3);
-        myaddnormalize(ovrflw11, ovrflw22, &bits3);
-printb(bits3);
+  
 uint128_t test;
-s21_from_decimal_to_int128(bits3, &test);
+
+
+//  s21_big_decimal btwenty = {0b000010100, 0b0, 0b0000, 0b00000000000000000, 0b000, 0b0000};
+//     s21_big_decimal btwo = {0b0000011, 0b0000000, 0b0000, 0b000000000000000000000000000000, 0b0000, 0b00000};
+//     initializeByBigZeros(&bd);
+//       printbb(bd);
+//     mysubb(btwenty, btwo, &bd);
+//     printbb(bd);
+ // -6422229398
+   // 4636249360
+ s21_decimal dec_1 = {{0x5d4c8b4b, 0x7b63ca2d, 0x125d, 0x80000000}};
+  // -3.78
+  s21_decimal dec_2 = {{0x17a, 0x0, 0x0, 0x80020000}};
+  // -86727035062894149274439.22
+  s21_decimal dec_check = {{0x71e667d2, 0x32faf9b8, 0x72c84, 0x80020000}};
+    mysubnormalize(dec_1, dec_2, &bits3);
+    printb(bits3);
+  s21_from_decimal_to_int128(bits3, &test);
 print_uint128(test);
-printf("\n");
-gptprint_uint128(test);
+
   return 0;
 
 }

@@ -7,7 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "*.c",
+                "main.c",
+                "../*.c",
+                
                 "-lm",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
