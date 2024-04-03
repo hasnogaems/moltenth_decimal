@@ -109,11 +109,12 @@ uint128_t test;
 //     printbb(bd);
  // -6422229398
    // 4636249360
- s21_decimal dec_1 = {{0x5d4c8b4b, 0x7b63ca2d, 0x125d, 0x80000000}};
-  // -3.78
-  s21_decimal dec_2 = {{0x17a, 0x0, 0x0, 0x80020000}};
-  // -86727035062894149274439.22
-  s21_decimal dec_check = {{0x71e667d2, 0x32faf9b8, 0x72c84, 0x80020000}};
+  // -852096926
+  s21_decimal dec_1 = {{0x32c9f79e, 0x0, 0x0, 0x80000000}};
+  // -86200095542
+  s21_decimal dec_2 = {{0x11ed1336, 0x14, 0x0, 0x80000000}};
+  // -87052192468
+  s21_decimal dec_check = {{0x44b70ad4, 0x14, 0x0, 0x80000000}};
     mysubnormalize(dec_1, dec_2, &bits3);
     printb(bits3);
   s21_from_decimal_to_int128(bits3, &test);
