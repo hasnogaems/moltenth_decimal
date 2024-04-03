@@ -21,6 +21,8 @@ int s21_truncate(s21_decimal value, s21_decimal *result) {
 int s21_div_by_ten(s21_decimal value, s21_decimal *result) {
   int order = 0, rem = 0;
   unsigned long buf = 0;
+   unsigned long buff2 = MAX_UINT;
+    buff2 += 1;
 
   for (int i = 0; i < 3; i++)  // определяем с какими битами работать
     if (value.bits[i]) order = i;
@@ -29,6 +31,7 @@ int s21_div_by_ten(s21_decimal value, s21_decimal *result) {
   while (order >= 0) {
     rem = buf % 10;
     result->bits[order] = buf / 10;
+   
     buf = rem * (MAX_UINT + 1) + value.bits[order - 1];
     order--;
   }

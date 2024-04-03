@@ -11,16 +11,16 @@ int tsuboika_is_greater(s21_decimal dec1, s21_decimal dec2) {
       res = 0;
     } else {
       normalize(dec1, dec2, &big1, &big2);
-      for (int i = 95; i >= 0; --i) {
+      for (int i = 191; i >= 0; --i) {
         if (getBigBit(big1, i) > getBigBit(big2, i)) {
-          if (!getBigBit(big1, 127)) {
+          
             res = 1;
-          }
+          
           break;
         } else if (getBigBit(big1, i) < getBigBit(big2, i)) {
-          if (getBigBit(big1, 127)) {
-            res = 1;
-          }
+          
+            res = 0;
+          
           break;
         }
       }

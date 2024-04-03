@@ -119,6 +119,7 @@ uint128_t test;
     printb(bits3);
   s21_from_decimal_to_int128(bits3, &test);
 print_uint128(test);
+//s21_div_by_ten(dec_1, &dec_2);
 
   return 0;
 
