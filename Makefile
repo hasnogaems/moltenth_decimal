@@ -10,7 +10,7 @@ TEST_A=test_s21_decimal.a
 TEST_SRC=./tests_files/test_*.c
 
 all: 
-	gcc *.c main1/*.c -lm
+	gcc *.c main1/*.c -lm $(CHECK)
 	./a.out
 
 s21_decimal.a: 
