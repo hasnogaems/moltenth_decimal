@@ -49,17 +49,17 @@ int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 buffer=big1;
 big1=big2;
 big2=buffer;
-    sign*=-1;    }
+    sign^=1u;  //обращаем знак  }
     
     mysubb(big1, big2, &resbig);}
     if(sign1>sign2){
         if((tsuboika_is_greater(value_2, value_1))){
-            setSign(&value_1, 1);
+            setSign(&value_2, 1);
             myaddnormalize(value_2, value_1, result);
-            setSign(result, 1);
+           // setSign(result, 1);
         }
                 
-            }
+          return 0;  }
     if(sign1!=sign2){   
         sign=0;
        if(sign1==1){
