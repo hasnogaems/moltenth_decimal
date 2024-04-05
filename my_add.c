@@ -275,3 +275,11 @@ d->bits[i]|=overflow;
 overflow=memory<<(32-value);
     }
 }
+
+int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result){
+    int error=0;
+    s21_big_decimal big1, big2, bigres;
+    nullify(&big1);nullify(&big2);nullif(&bigres);
+    normalize(val1, val2, &big1, &big2);
+
+}
