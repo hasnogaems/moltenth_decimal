@@ -213,14 +213,16 @@ int mysubb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *re
     
 }
 
-void mymulby10(s21_big_decimal* d){
+int mymulby10(s21_big_decimal* d){
+   int error=0;
     s21_big_decimal shift3=*d;
  s21_big_decimal shift1=*d;
 
- myshiftleft(&shift3, 3);
+ error=myshiftleft(&shift3, 3);
  myshiftleft(&shift1, 1);
 
  myaddb(shift3, shift1, d);
+ return error;
 
 }
 
@@ -236,8 +238,8 @@ return 0;}
  myadd(shift3, shift1, d);
 
 }
-
-void myshiftleft(s21_big_decimal* d, int value){
+int myshiftleft(s21_big_decimal* d, int value){
+int error=0;
   unsigned int overflow=0;
   unsigned int memory=0;
     for(int i=0;i<=5;i++){
@@ -246,6 +248,8 @@ d->bits[i]<<=value;
 d->bits[i]|=overflow;
 overflow=memory>>(32-value);
     }
+    if(overflow>0)error=1;
+    return error;
 }
 
 int myshiftlefts(s21_decimal* d, int value){
@@ -258,7 +262,8 @@ d->bits[i]<<=value;
 d->bits[i]|=overflow;
 overflow=memory>>(32-value);
     }
-    if(overflow>0)return 1;
+    if(overflow>0)error=1;
+    return error;
 }
 void myshiftright(s21_big_decimal* d, int value){
     unsigned int overflow=0;
