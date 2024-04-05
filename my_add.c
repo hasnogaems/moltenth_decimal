@@ -13,6 +13,7 @@ carry=res/2;
 }
 
 int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+    int error=0;
     int sign1=extractBitSign(value_1);
     int sign2=extractBitSign(value_2);  
     unsigned int sign=0;  
@@ -22,16 +23,39 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
     int scale=normalize(value_1, value_2, &big1, &big2);
     if(sign1==sign2){
         sign=(unsigned int)sign1;
-    myaddb(big1, big2, &resbig);}
+    myaddb(big1, big2, &resbig);
+    error=mybig_to_decimal(resbig, result, scale, sign);}
+    if(sign1!=sign2){
+        if(extractBitSign(value_1)==1){
+            setSign(&value_1, 0);
+            mysubnormalize(value_2, value_1, result);
+        }   
+        else if(extractBitSign(value_2)==1){
+            setSign(&value_2, 0);
+            mysubnormalize(value_1, value_2, result);
+    }
+    //       if (get_sign(value_1) == 1) {
+    //     zero_sign(&value_1, 0);
+    //     status = s21_sub(value_2, value_1, result);
+    //   } else if (get_sign(value_2) == 1) {
+    //     zero_sign(&value_2, 0);
+    //     status = s21_sub(value_1, value_2, result);
+    //   }
+    // }
+   
  //   printbb(resbig);
      //Теперь после арифметики пихаем обратно в децимал. К какому скейлу мы приводим если мантисса помещается полностью? Если мантисса не помещается то мы начинаем делить на 10 и уменьшать мантиссу при этом еще округлять и применять банковское если в остатке 0.5? И потом она говорит вам не нужно деление на 10.
-     mybig_to_decimal(resbig, result, scale, sign);
+     
    // printb(*result);
 
- 
+
 }
+return error;
+
+} 
 
 int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+    int error=0;
     int sign1=extractBitSign(value_1);
     int sign2=extractBitSign(value_2);  
     unsigned int sign=0;  
@@ -49,42 +73,47 @@ int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 buffer=big1;
 big1=big2;
 big2=buffer;
-    sign^=1u;  //обращаем знак  }
+    sign^=1u; //обращаем знак  
+    mysubb(big1, big2, &resbig); 
+    mybig_to_decimal(resbig, result, scale, sign);
+    }
     
-    mysubb(big1, big2, &resbig);}
+    else{
+         mysubb(big1, big2, &resbig); 
+         if(tsuboika_is_equal(value_1, value_2)) sign=0;
+    mybig_to_decimal(resbig, result, scale, sign);
+    }
+    
+    }
     if(sign1>sign2){
         if((tsuboika_is_greater(value_2, value_1))){
             setSign(&value_2, 1);
-            myaddnormalize(value_2, value_1, result);
+          error=myaddnormalize(value_2, value_1, result);
            // setSign(result, 1);
         }
                 
-          return 0;  }
-    if(sign1!=sign2){   
+          return error;  }
+    if(sign2>sign1){   
         sign=0;
-       if(sign1==1){
-        setSign(&value_1, 0);
-
-       }
-       if(sign2==1){
+       
         setSign(&value_2, 0);
 
-       }
+       
         myaddnormalize(value_1, value_2, result);
         
-        return 1;
+        return error;
     
     }
  //   printbb(resbig);
      //Теперь после арифметики пихаем обратно в децимал. К какому скейлу мы приводим если мантисса помещается полностью? Если мантисса не помещается то мы начинаем делить на 10 и уменьшать мантиссу при этом еще округлять и применять банковское если в остатке 0.5? И потом она говорит вам не нужно деление на 10.
-     mybig_to_decimal(resbig, result, scale, sign);
+     
    //printb(*result);
 
- 
+ return error;
 }
 
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale, unsigned int sign){
-    
+    int error=0;
     if(check_345_b(big)>0&&scale>0){
         int mod=div_by_tenb(&big);
         scale--;
@@ -92,13 +121,13 @@ int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale, unsig
     }
     int wtf=check_345_b(big);
     if(wtf>0){
-        return 0;}
+        return 2;}
 for(int i=0;i<3;i++){
     decimal->bits[i]=big.bits[i];
 }
 decimal->bits[3]|=scale<<16;
 setSign(decimal, sign);
-
+return error;
 }
 int check_345_b(s21_big_decimal big){
     int result=0;
@@ -211,7 +240,7 @@ return 0;}
 void myshiftleft(s21_big_decimal* d, int value){
   unsigned int overflow=0;
   unsigned int memory=0;
-    for(int i=0;i<5;i++){
+    for(int i=0;i<=5;i++){
 memory=d->bits[i];        
 d->bits[i]<<=value;
 d->bits[i]|=overflow;

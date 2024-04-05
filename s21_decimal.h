@@ -131,5 +131,8 @@ Suite *s21_sub_cases(void);
 int s21_is_greater_ours(s21_decimal mem1, s21_decimal mem2);
 int tsuboika_is_greater(s21_decimal dec1, s21_decimal dec2);
 int s21_is_equal(s21_decimal mem1, s21_decimal mem2);
+Suite *s21_add_suite();
+Suite *s21_sub_suite(void);
+int tsuboika_is_equal(s21_decimal dec1, s21_decimal dec2);
 
 #endif

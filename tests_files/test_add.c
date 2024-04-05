@@ -258,6 +258,24 @@ START_TEST(s21_add_16) {
 }
 END_TEST
 
+START_TEST(s21_add_sign1_more_than_sign2_and_number_bigger1) {
+  // -77362155012078.3947048  
+ s21_decimal dec_1 = {{0x2061a528, 0xf027dd03, 0x29, 0x80070000}};
+  // 142.6052952
+s21_decimal dec_2 = {{0x54ffd758, 0x0, 0x0, 0x70000}};
+
+//Десятичное значение: -77362155011935.7894096
+s21_decimal dec_check = {{0xcb61cdd0, 0xf027dd02, 0x29, 0x80070000}};
+
+  s21_decimal result;
+    myaddnormalize(dec_1, dec_2, &result);
+   
+  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
+  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
+  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
+  ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);
+}
+END_TEST
 
 Suite *s21_add_cases(void) {
   Suite *c = suite_create("s21_add_cases");
@@ -280,6 +298,8 @@ Suite *s21_add_cases(void) {
   tcase_add_test(tc, s21_add_14);
   tcase_add_test(tc, s21_add_15);
   tcase_add_test(tc, s21_add_16);
+
+  tcase_add_test(tc, s21_add_sign1_more_than_sign2_and_number_bigger1);
 
 
   suite_add_tcase(c, tc);

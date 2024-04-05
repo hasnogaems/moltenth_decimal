@@ -108,20 +108,14 @@ uint128_t test;
 //     mysubb(btwenty, btwo, &bd);
 //     printbb(bd);
  // -6422229398
-   // 4636249360
- // 5.24797
-  s21_decimal dec_1 = {{0x801fd, 0x0, 0x0, 0x50000}};
-  // 3704757061284524102195
-  s21_decimal dec_2 = {{0x18229233, 0xd5d51698, 0xc8, 0x0}};
-  // -3704757061284524102189.75203
-  s21_decimal dec_check = {{0xc04d0fe3, 0x4599d3d3, 0x1327348, 0x80050000}};
-    mysubnormalize(dec_1, dec_2, &bits3);
+  s21_decimal val1 = {{0XFFFFFFFF, 0XFFFFFFFF, 0XFFFFFFFF, 0x80000000}};
+  s21_decimal val2 = {{0XFFFFFFFF, 0XFFFFFFFF, 0XFFFFFFFF, 0x001C0000}};
+  int p=0;
+ p=mysubnormalize(val1, val2, &bits3);
+ printf("%d\n", p);
     printb(bits3);
   s21_from_decimal_to_int128(bits3, &test);
-    s21_decimal dec_11 = {{0x229e, 0x0, 0x0, 0x80000000}};
-  // 5435.69416625140342859070770
-  s21_decimal dec_22 = {{0xba017d32, 0x1ebdbe98, 0x1c1a14d, 0x170001}};
-  myaddnormalize(dec_11, dec_22, &bits3);
+ 
 
 print_uint128(test);
 //s21_div_by_ten(dec_1, &dec_2);
