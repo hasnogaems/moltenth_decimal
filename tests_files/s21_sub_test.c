@@ -196,6 +196,22 @@ START_TEST(s21_add_3_test_) {
 }
 END_TEST
 
+
+
+START_TEST(firstisneg_and_is_equal_or_bigger) {
+s21_decimal val1 = {{0xcf599548, 0x1418e1, 0x0, 0x80000000}};
+s21_decimal val2 = {{0xcf599548, 0x1418e1, 0x0, 0x0}};
+s21_decimal check= {{0x9eb32a90, 0x2831c3, 0x0, 0x80000000}};
+//-11313715319351952
+s21_decimal res;
+ mysubnormalize(val1, val2, &res);
+  ck_assert_int_eq(res.bits[0], check.bits[0]);
+  ck_assert_int_eq(res.bits[1], check.bits[1]);
+  ck_assert_int_eq(res.bits[2], check.bits[2]);
+  ck_assert_int_eq(res.bits[3], check.bits[3]);
+}
+END_TEST
+
 Suite *s21_sub_suite(void) {
   Suite *s;
   TCase *tc;

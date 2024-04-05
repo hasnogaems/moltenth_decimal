@@ -86,15 +86,15 @@ big2=buffer;
     
     }
     if(sign1>sign2){
-        if((tsuboika_is_greater(value_2, value_1))){
+        // if((tsuboika_is_greater(value_2, value_1))){
             setSign(&value_2, 1);
           error=myaddnormalize(value_2, value_1, result);
            // setSign(result, 1);
-        }
                 
+      //  }
           return error;  }
     if(sign2>sign1){   
-        sign=0;
+       // sign=0;
        
         setSign(&value_2, 0);
 
