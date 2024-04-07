@@ -17,18 +17,19 @@ int s21_floor(s21_decimal value, s21_decimal *result) {
   return error;
 }
 
- int s21_negate(s21_decimal value, s21_decimal *result) {
-     int error = 0;
-     if(result){
-         if(!get_sign(value))
-             s21_set_bit(&value, 127, 1);
-         else s21_set_bit(&value, 127, 0);
-     }
-     else error = 1;
-     *result = value;
-     return error;
- } 
-  int s21_truncate(s21_decimal value, s21_decimal *result) {
+int s21_negate(s21_decimal value, s21_decimal *result) {
+  int error = 0;
+  if (result) {
+    if (!get_sign(value))
+      s21_set_bit(&value, 127, 1);
+    else
+      s21_set_bit(&value, 127, 0);
+  } else
+    error = 1;
+  *result = value;
+  return error;
+}
+int s21_truncate(s21_decimal value, s21_decimal *result) {
   int err = 0;
   if (result) {
     uint64_t ostatok = 0;
@@ -82,14 +83,14 @@ int s21_round(s21_decimal value, s21_decimal *result) {
     if (znak) set_bit(&buf.bits[3], 31, 0);
     s21_truncate(value, &buf);
 
-    //if ((scale) && ((get_bit(0, scale)) >= 5)) res = 1;
+    // if ((scale) && ((get_bit(0, scale)) >= 5)) res = 1;
     if (scale) {
-        for(int i = scale - 1; i >=0; i--){
-            if (value.bits[0] & 0b00000000000000000000000000000001 << i)
-                drob += (int)pow(2, i);
-        }
+      for (int i = scale; i >= 0; i--) {
+        if (value.bits[0] & 0b00000000000000000000000000000001 << i)
+          drob += (int)pow(2, i);
+      }
     }
-    if (drob%((int)pow(10, scale)) >= 5) res = 1;
+    if (drob % ((int)pow(10, scale)) >= 5) res = 1;
     if (res) add_one(&buf);
     if (znak) set_bit(&buf.bits[3], 31, 1);
 

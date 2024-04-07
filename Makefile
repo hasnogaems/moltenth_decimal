@@ -34,10 +34,10 @@ mytest: build_coverage
 	rm -f *.o
 	./s21_decimal_test 
 	
-test: build_coverage build_test_lib
-	$(CC) $(TEST_A) $(CHECK) $(CCOV) $(TARGET) -o $(TEST_TARGET) 
-	rm -f *.o
-	./s21_decimal_test 
+# test: build_coverage build_test_lib
+# 	$(CC) $(TEST_A) $(CHECK) $(CCOV) $(TARGET) -o $(TEST_TARGET) 
+# 	rm -f *.o
+# 	./s21_decimal_test 
 
 gcov_report:
 	mkdir ./report 
@@ -58,3 +58,8 @@ fix:
 
 clean: 
 	rm -rf ./report *.o *.a *.gcda *.gcno *.gcov s21_decimal_test
+
+	
+test:
+	gcc *.c test_files/TEST.c 
+	./a.out
