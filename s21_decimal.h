@@ -6,7 +6,7 @@
 #define FALSE 0
 #define PLUS 0b00000000000000000000000000000000
 #define MAX_DECIMAL 79228162514264337593543950335.L
-#include <check.h>
+
 #include <math.h>  // необхлжима для ftoi
 #include <stdio.h>
 #include <stdlib.h>  // для тестов
@@ -124,17 +124,16 @@ int print_uint128(uint128_t n);
 void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst);
 void gptprint_uint128(uint128_t n);
 int check_345_b(s21_big_decimal big);
-Suite *s21_add_cases(void);
+
 int mysubb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result);
 int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
-Suite *s21_sub_cases(void);
+
 int s21_is_greater_ours(s21_decimal mem1, s21_decimal mem2);
 int tsuboika_is_greater(s21_decimal dec1, s21_decimal dec2);
 int s21_is_equal(s21_decimal mem1, s21_decimal mem2);
-Suite *s21_add_suite();
-Suite *s21_sub_suite(void);
+
 int tsuboika_is_equal(s21_decimal dec1, s21_decimal dec2);
 int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result);
 
-Suite *s21_mul_suite();
+
 #endif

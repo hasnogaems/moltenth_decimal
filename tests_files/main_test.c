@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "../s21_decimal.h"
 #include "../utils.h"
+
+#include <suits.h>
 int main() {
 
 Suite *suite = s21_mul_suite();

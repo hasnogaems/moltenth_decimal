@@ -107,10 +107,10 @@ uint128_t test;
 //       printbb(bd);
 //     mysubb(btwenty, btwo, &bd);
 //     printbb(bd);
-  s21_decimal val1 = {{1, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
-  // 1
-  s21_decimal val2 = {{1, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
-  // 1
+  s21_decimal val1 = {{1, 0, 0, 0x00010000}};  // sign bit= 0 exponent= -1
+  // 0.1
+  s21_decimal val2 = {{2, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
+  // 2
 s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
   int p=0;
  p=my_mul(val1, val2, &bits3);

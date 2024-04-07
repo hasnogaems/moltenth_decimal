@@ -35,5 +35,10 @@ int run_s21_floor();
 int run_s21_round();
 int run_s21_truncate();
 int run_s21_negate();
+Suite *s21_add_suite();
+Suite *s21_sub_suite(void);
+Suite *s21_mul_suite();
+Suite *s21_add_cases(void);
+Suite *s21_sub_cases(void);
 
 #endif
