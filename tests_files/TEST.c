@@ -1,6 +1,7 @@
 #include <check.h>
 
-#include "s21_decimal.h"
+#include "../s21_decimal.h"
+#include "../utils.h"
 
 #define TEST_CONVERSION_OK 0
 #define TEST_CONVERSION_ERROR 1

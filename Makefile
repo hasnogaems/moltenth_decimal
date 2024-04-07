@@ -61,5 +61,5 @@ clean:
 
 	
 test:
-	gcc *.c test_files/TEST.c 
+	gcc *.c tests_files/TEST.c $(CHECK)
 	./a.out

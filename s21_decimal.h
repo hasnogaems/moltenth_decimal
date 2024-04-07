@@ -105,7 +105,8 @@ void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *r
 int div_by_tenb(s21_big_decimal *result);
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale);
 void set_scale(s21_decimal* dec, int scale);
-Suite *s21_round_suite(void) 
+Suite *s21_round_suite(void);
+
 
 
 #endif
