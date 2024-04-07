@@ -40,9 +40,9 @@ int main() {
     //  mymulby10(&ten);
     //  printbb(ten);
     // 0xFFFFFFFF, // Assuming each field is 32 bits wide, this sets all 32 bits to 1
-    s21_decimal ovrflw2 = {0xFFFFFFFF,
-    0xFFFFFFFF,
-    0xFFFFFFFF, 0b0};
+ //Десятичное значение: 127367149.656984258542
+s21_decimal dec_rand_1 = {{0xfe9007ee, 0xe79303ca, 0x6, 0xc0000}};
+
     //  myaddnormalize(ovrflw1, ovrflw2, &bits3);
     // myaddnormalize(twenty, two, &bits3);
 
@@ -50,7 +50,7 @@ int main() {
      //printbb(bd);
 //s21_decimal delimoe     
   //s21_round(bits3, &decNull);
-  s21_round(bits3, &decNull);
+  s21_round(dec_rand_1, &decNull);
   return 0;
 }
  
