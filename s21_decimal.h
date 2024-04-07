@@ -134,5 +134,7 @@ int s21_is_equal(s21_decimal mem1, s21_decimal mem2);
 Suite *s21_add_suite();
 Suite *s21_sub_suite(void);
 int tsuboika_is_equal(s21_decimal dec1, s21_decimal dec2);
+int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result);
 
+Suite *s21_mul_suite();
 #endif

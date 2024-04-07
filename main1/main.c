@@ -107,11 +107,13 @@ uint128_t test;
 //       printbb(bd);
 //     mysubb(btwenty, btwo, &bd);
 //     printbb(bd);
-s21_decimal val1 = {{0xcf599548, 0x1418e1, 0x0, 0x80000000}};
-s21_decimal val2 = {{0xcf599548, 0x1418e1, 0x0, 0x0}};
-s21_decimal check= {{0x9eb32a90, 0x2831c3, 0x0, 0x80000000}};
+  s21_decimal val1 = {{1, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
+  // 1
+  s21_decimal val2 = {{1, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
+  // 1
+s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
   int p=0;
- p=mysubnormalize(val1, val2, &bits3);
+ p=my_mul(val1, val2, &bits3);
  printf("%d\n", p);
     printb(bits3);
   s21_from_decimal_to_int128(bits3, &test);

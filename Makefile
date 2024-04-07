@@ -61,5 +61,5 @@ clean:
 	rm -rf ./report *.o *.a *.gcda *.gcno *.gcov s21_decimal_test
 
 medusatest:
-	gcc  *.c tests_files/test_add.c tests_files/main_test.c tests_files/test_s21_sub.c tests_files/s21_add_test.c tests_files/s21_sub_test.c -lm $(CHECK)
+	gcc  *.c tests_files/test_add.c tests_files/main_test.c tests_files/test_s21_sub.c tests_files/s21_add_test.c tests_files/s21_sub_test.c tests_files/s21_mul_test.c -lm $(CHECK)
 	./a.out

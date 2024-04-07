@@ -113,6 +113,7 @@ big2=buffer;
 }
 
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale, unsigned int sign){
+    nullify(decimal);
     int error=0;
     if(check_345_b(big)>0&&scale>0){
         int mod=div_by_tenb(&big);
@@ -242,11 +243,11 @@ int myshiftleft(s21_big_decimal* d, int value){
 int error=0;
   unsigned int overflow=0;
   unsigned int memory=0;
-    for(int i=0;i<=5;i++){
+  for(int i=0;i<=5;i++){
 memory=d->bits[i];        
 d->bits[i]<<=value;
 d->bits[i]|=overflow;
-overflow=memory>>(32-value);
+overflow=(memory>>32u);
     }
     if(overflow>0)error=1;
     return error;
@@ -278,8 +279,24 @@ overflow=memory<<(32-value);
 
 int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result){
     int error=0;
-    s21_big_decimal big1, big2, bigres;
-    nullify(&big1);nullify(&big2);nullif(&bigres);
-    normalize(val1, val2, &big1, &big2);
+    int scale=0;
+    s21_big_decimal big1, big2, bigres, add_shift;
+    nullifyb(&big1);nullifyb(&big2);nullifyb(&bigres);nullifyb(&add_shift);
+    scale=normalize(val1, val2, &big1, &big2);
+    int i=0;
+    
+    while(i<=191){
+       if(getBigBit(big2, i)){
+        for(int k=0; k<=191;k++){
+            setBigBit(&add_shift, k, getBigBit(big1, k));
+        }
+       myshiftleft(&add_shift, i);
+         myaddb(bigres, add_shift, &bigres);
+       }
+     
+       i++;
+           }
+     mybig_to_decimal(bigres, result, scale, 0);  
+
 
 }
