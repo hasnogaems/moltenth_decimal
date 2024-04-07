@@ -297,6 +297,7 @@ int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result){
      
        i++;
            }
+           scale*=2;
      mybig_to_decimal(bigres, result, scale, 0);  
 
 

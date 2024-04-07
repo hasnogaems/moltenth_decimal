@@ -1,5 +1,5 @@
 #include "../s21_decimal.h"
-
+#include "suits.h"
 
 
 

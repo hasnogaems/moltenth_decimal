@@ -1,4 +1,5 @@
 #include "../s21_decimal.h"
+#include "suits.h"
 
 
 START_TEST(s21_add_1) {

@@ -107,9 +107,16 @@ uint128_t test;
 //       printbb(bd);
 //     mysubb(btwenty, btwo, &bd);
 //     printbb(bd);
+// //Десятичное значение: 20.555
+// s21_decimal val1 = {{0x504b, 0x0, 0x0, 0x30000}};
+// //Десятичное значение: 35.111111
+// s21_decimal val2 = {{0x217c0c7, 0x0, 0x0, 0x60000}};
+
   s21_decimal val1 = {{1, 0, 0, 0x00010000}};  // sign bit= 0 exponent= -1
   // 0.1
   s21_decimal val2 = {{2, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
+  // 2
+
   // 2
 s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
   int p=0;
