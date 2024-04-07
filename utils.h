@@ -45,5 +45,8 @@ s21_big_decimal decimalToBig(s21_decimal value);
 s21_decimal bigToDecimal(s21_big_decimal value);
 void initializeByZeros(s21_decimal *value);
 void initializeByBigZeros(s21_big_decimal *value);
+void printbb(s21_big_decimal bits_array);
+
+
 
 #endif

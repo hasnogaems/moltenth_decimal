@@ -5,10 +5,12 @@
 #define TRUE 1
 #define FALSE 0
 #define PLUS 0b00000000000000000000000000000000
+#define MAX_DECIMAL 79228162514264337593543950335.L
 
 #include <math.h>  // необхлжима для ftoi
 #include <stdio.h>
 #include <stdlib.h>  // для тестов
+#include <stdbool.h>
 
 typedef struct {
   unsigned int bits[4];
@@ -75,6 +77,10 @@ void s21_shift_right(s21_decimal *number);
 int s21_div_by_ten(s21_decimal value, s21_decimal *result);
 int rem_div_by_ten(s21_decimal value);
 void add_one(s21_decimal *value);
+void printb(s21_decimal bits_array);
+int normalize(s21_decimal num_1, s21_decimal num_2,
+                         s21_big_decimal *big1,
+                         s21_big_decimal *big2);
 
 // для тестов
 typedef union {
@@ -83,5 +89,21 @@ typedef union {
 } floatbits;
 // int s21_from_float_to_decimal(float src, s21_decimal *dst);
 // int s21_from_decimal_to_float(s21_decimal src, float *dst);
+bool get_bit_value(s21_decimal target, int bit_number);
+void s21_set_bit(s21_decimal* num, int index, int value);
+int myadd(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+void nullify(s21_decimal *d);
+s21_big_decimal mantissadecimalToBig(s21_decimal value);
+void myshiftleft(s21_big_decimal* d, int value);
+void nullifyb(s21_big_decimal *d);
+bool get_bit_valueb(s21_big_decimal target, int bit_number);
+void s21_set_bitb(s21_big_decimal* num, int index, int value);
+void mymulby10(s21_big_decimal* d);
+int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+void myaddb(s21_big_decimal value_1, s21_big_decimal value_2, s21_big_decimal *result);
+int div_by_tenb(s21_big_decimal *result);
+int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale);
+void set_scale(s21_decimal* dec, int scale);
+
 
 #endif
