@@ -42,7 +42,7 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst) {
 int s21_from_float_to_decimal(float src, s21_decimal *dst){
 int code=0;
 if (!dst) code = 1;
-nullify(&dst);
+nullify(dst);
 if(src < 0)
   dst->bits[3] = 0b10000000000001100000000000000000;
 else dst->bits[3] = 0b00000000000001100000000000000000;

@@ -11,7 +11,7 @@ int main() {
   // printf("decimal bit %d is %d", bitN, get_bit_value(bits, bitN));
  // set_bit_value(&bits, 32, 1); // howw toprintf in binary?????
   s21_decimal bits2 = {0b000000010, 0b0000000, 0b00000, 0b000000000000000000000000000};
-  s21_decimal bits3 = {0b11111111, 0b1111111, 0b111111, 0b111111111111111111111111111111};
+  s21_decimal bits3 = {0b11111111, 0b1111111, 0b111111, 0b0};
   s21_decimal decNull = {{}};
    printb(bits3);
  // printb(bits);
