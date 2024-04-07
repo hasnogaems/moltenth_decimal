@@ -12,6 +12,30 @@ void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst) {
   
 }
 
+uint128_t s21_decimal_to_uint128(s21_decimal dec, uint128_t* fract) {
+    // Initialize the result as a 128-bit integer
+    uint128_t result = 0;
+
+    // Assuming little endian order for simplicity
+    // Incorporate the low, middle, and high bits into the result
+    result |= (uint128_t) (unsigned int) dec.bits[0];             // Low 32 bits
+    result |= ((uint128_t) (unsigned int) dec.bits[1]) << 32;     // Middle 32 bits
+    result |= ((uint128_t) (unsigned int) dec.bits[2]) << 64;     // High 32 bits
+
+    // Note: This implementation ignores scaling and sign since we're
+    // converting to an unsigned integer (uint128_t)
+int scale=get_exp(dec);
+
+while(scale>0){
+  *fract+=result%10;
+  result=result/10;
+
+  scale--;
+}
+    return result;
+}
+
+
  int print_uint128(uint128_t u128){
     int rc;
     if (u128 > UINT64_MAX)
@@ -28,6 +52,8 @@ void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst) {
     }
     return rc;
 }
+
+
 
 void gptprint_uint128(uint128_t n) {
     if (n >> 64) {

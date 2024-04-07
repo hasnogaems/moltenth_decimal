@@ -116,10 +116,14 @@ s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
  p=my_mul(val1, val2, &bits3);
  printf("%d\n", p);
     printb(bits3);
-  s21_from_decimal_to_int128(bits3, &test);
+uint128_t test_fract;  
+ test=s21_decimal_to_uint128(bits3, &test_fract);
+  //s21_from_decimal_to_int128(bits3, &test);
+
  
 
-print_uint128(test);
+print_uint128(test);printf(",");
+print_uint128(test_fract);
 //s21_div_by_ten(dec_1, &dec_2);
 
   return 0;

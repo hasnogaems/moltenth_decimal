@@ -134,6 +134,7 @@ int s21_is_equal(s21_decimal mem1, s21_decimal mem2);
 
 int tsuboika_is_equal(s21_decimal dec1, s21_decimal dec2);
 int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result);
+uint128_t s21_decimal_to_uint128(s21_decimal dec, uint128_t* fract);
 
 
 #endif
