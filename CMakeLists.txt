@@ -1,0 +1,69 @@
+cmake_minimum_required(VERSION 3.26)
+project(moltenth_decimal)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(tests_files)
+
+add_executable(moltenth_decimal
+        archive/my_normalize.c
+        archive/s21_floor.c
+        archive/s21_from_decimal_to_float.c
+        archive/s21_from_decimal_to_int.c
+        archive/s21_from_float_to_decimal.c
+        archive/s21_from_int_to_decimal.c
+        archive/s21_is_equal.c
+        archive/s21_is_greater.c
+        archive/s21_is_greater_or_equal.c
+        archive/s21_is_less.c
+        archive/s21_is_less_or_equal.c
+        archive/s21_is_not_equal.c
+        archive/s21_negate.c
+        archive/s21_round.c
+        archive/s21_truncate.c
+        main1/main.dSYM/Contents/Resources/DWARF/main
+        main1/main
+        tests_files/suits.h
+        tests_files/TEST.c
+        tests_files/test_s21_add.c
+        tests_files/test_s21_decimal.c
+        tests_files/test_s21_div.c
+        tests_files/test_s21_floor.c
+        tests_files/test_s21_from_decimal_to_float.c
+        tests_files/test_s21_from_decimal_to_int.c
+        tests_files/test_s21_from_float_to_decimal.c
+        tests_files/test_s21_from_int_to_decimal.c
+        tests_files/test_s21_is_equal.c
+        tests_files/test_s21_is_greater.c
+        tests_files/test_s21_is_greater_or_equal.c
+        tests_files/test_s21_is_less.c
+        tests_files/test_s21_is_less_or_equal.c
+        tests_files/test_s21_is_not_equal.c
+        tests_files/test_s21_mul.c
+        tests_files/test_s21_negate.c
+        tests_files/test_s21_round.c
+        tests_files/test_s21_sub.c
+        tests_files/test_s21_truncate.c
+        convertor.c
+        frtn.c
+        main.c
+        mine.c
+        my_add.c
+        normalize.c
+        nullify.c
+        s21_add.c
+        s21_decimal.h
+        s21_decimal_tools.c
+        s21_div.c
+        s21_is_equal.c
+        s21_is_greater.c
+        s21_is_greater_or_equal.c
+        s21_is_less.c
+        s21_is_less_or_equal.c
+        s21_is_not_equal.c
+        s21_mul.c
+        s21_other.c
+        s21_sub.c
+        utils.c
+        utils.h)
