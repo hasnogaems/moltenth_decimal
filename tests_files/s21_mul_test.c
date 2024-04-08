@@ -9,7 +9,7 @@ START_TEST(s21_mul_test_simple) {
   s21_decimal val2 = {{0, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 0
   s21_decimal res = {{0}};
- my_mul(val1, val2, &res);
+ my_mul_no_normalize(val1, val2, &res);
   ck_assert_uint_eq(res.bits[0], 0);
   ck_assert_uint_eq(res.bits[1], 0);
   ck_assert_uint_eq(res.bits[2], 0);
@@ -24,7 +24,7 @@ START_TEST(s21_mul_test_simple2) {
   s21_decimal val2 = {{1, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 1
   s21_decimal res;
-my_mul(val1, val2, &res);
+my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 1);
   ck_assert_int_eq(res.bits[1], 0);
   ck_assert_int_eq(res.bits[2], 0);
@@ -39,7 +39,7 @@ START_TEST(s21_mul_test_exp) {
   s21_decimal val2 = {{2, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 2
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 2);
   ck_assert_int_eq(res.bits[1], 0);
   ck_assert_int_eq(res.bits[2], 0);
@@ -52,7 +52,7 @@ START_TEST(s21_mul_test_exp_max) {
   s21_decimal val1 = {{1, 0, 0, 0b00000000011111111000000000000000}};
   s21_decimal val2 = {{1, 0, 0, 0b00000000011111111000000000000000}};
   s21_decimal res;
-  ck_assert_int_eq(2, my_mul(val1, val2, &res));
+  ck_assert_int_eq(2, my_mul_no_normalize(val1, val2, &res));
 }
 END_TEST
 
@@ -63,7 +63,7 @@ START_TEST(s21_mul_test_sign) {
   s21_decimal val2 = {{5765875, 0, 0, 0x80000000}};  // sign bit= 1 exponent= 0
   // -5765875
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 2141717773);
   ck_assert_int_eq(res.bits[1], 2882937);
   ck_assert_int_eq(res.bits[2], 0);
@@ -78,7 +78,7 @@ START_TEST(s21_mul_test_big_first) {
   s21_decimal val2 = {{12345678, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 12345678
   s21_decimal res;
-   my_mul(val1, val2, &res);
+   my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 260846532);
   ck_assert_int_eq(res.bits[1], 35487);
   ck_assert_int_eq(res.bits[2], 0);
@@ -94,7 +94,7 @@ START_TEST(s21_mul_test_big_first2) {
   s21_decimal val2 = {{10, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 10
   s21_decimal res;
- my_mul(val1, val2, &res);
+ my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 1942901406);
   ck_assert_int_eq(res.bits[1], 2874);
   ck_assert_int_eq(res.bits[2], 0);
@@ -111,7 +111,7 @@ START_TEST(s21_mul_test_big_first3) {
       {2147483647, 0, 0, 0x00020000}};  // sign bit= 0 exponent= -2
   // 21474836.47
   s21_decimal res;
- my_mul(val1, val2, &res);
+ my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 1);
   ck_assert_int_eq(res.bits[1], 1073741823);
   ck_assert_int_eq(res.bits[2], 0);
@@ -128,7 +128,7 @@ START_TEST(s21_mul_test_big_first4) {
       {4294957296, 4999, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 21474836470000
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 10000);
   ck_assert_int_eq(res.bits[1], 4294957296);
   ck_assert_int_eq(res.bits[2], 2499);
@@ -144,7 +144,7 @@ START_TEST(s21_mul_test_big_second) {
   s21_decimal val2 = {{8, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 8
   s21_decimal res;
- my_mul(val1, val2, &res);
+ my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 4294967288);
   ck_assert_int_eq(res.bits[1], 4294967295);
   ck_assert_int_eq(res.bits[2], 7);
@@ -157,7 +157,7 @@ START_TEST(s21_mul_test_big_second2) {
   s21_decimal val1 = {{0XFFFFFFFF, 0XFFFFFFFF, 0, 0}};
   s21_decimal val2 = {{0XFFFFFFFF, 0XFFFFFFFF, 0, 0}};
   s21_decimal res;
-  ck_assert_int_eq(1, my_mul(val1, val2, &res));
+  ck_assert_int_eq(1, my_mul_no_normalize(val1, val2, &res));
 }
 END_TEST
 
@@ -168,7 +168,7 @@ START_TEST(s21_mul_test_big_third) {
   s21_decimal val2 = {{1, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 1
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 0);
   ck_assert_int_eq(res.bits[1], 2208410624);
   ck_assert_int_eq(res.bits[2], 1526457626);
@@ -181,7 +181,7 @@ START_TEST(s21_mul_test_max) {
   s21_decimal val1 = {{0XFFFFFFFF, 0XFFFFFFFF, 0XFFFFFFFF, 0x00000000}};
   s21_decimal val2 = {{0XFFFFFFFF, 0XFFFFFFFF, 0XFFFFFFFF, 0x00000000}};
   s21_decimal res;
-  ck_assert_int_eq(1, my_mul(val1, val2, &res));
+  ck_assert_int_eq(1, my_mul_no_normalize(val1, val2, &res));
 }
 END_TEST
 
@@ -191,7 +191,7 @@ START_TEST(s21_mul_test_min) {
   s21_decimal val2 = {
       {0XFFFFFFFF, 0XFFFFFFFF, 0XFFFFFFFF, 0b10000000011111111000000000000000}};
   s21_decimal res;
-  ck_assert_int_eq(2, my_mul(val1, val2, &res));
+  ck_assert_int_eq(2, my_mul_no_normalize(val1, val2, &res));
 }
 END_TEST
 
@@ -199,7 +199,7 @@ START_TEST(s21_mul_test_ten) {
   s21_decimal val1 = {{123, 123, 123, 0X00000000}};
   s21_decimal val2 = {{10, 0, 0, 0X00000000}};
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 1230);
   ck_assert_int_eq(res.bits[1], 1230);
   ck_assert_int_eq(res.bits[2], 1230);
@@ -214,7 +214,7 @@ START_TEST(s21_mul_test_random) {
   s21_decimal val2 = {{1, 0, 0, 0x00090000}};  // sign bit= 0 exponent= -9
   // 1E-9
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 1749644830);
   ck_assert_int_eq(res.bits[1], 1844674);
   ck_assert_int_eq(res.bits[2], 0);
@@ -230,7 +230,7 @@ START_TEST(s21_mul_test_random2) {
   s21_decimal val2 = {{1, 0, 0, 0x00070000}};  // sign bit= 0 exponent= -7
   // 1E-7
   s21_decimal res;
- my_mul(val1, val2, &res);
+ my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 4221068376);
   ck_assert_int_eq(res.bits[1], 2038325);
   ck_assert_int_eq(res.bits[2], 0);
@@ -243,7 +243,7 @@ START_TEST(s21_mul_test_max_fit) {
   s21_decimal val1 = {{0XFFFFFFFF, 0XFFFFFFFF, 0XFFFFFFFF, 0}};
   s21_decimal val2 = {{1, 0, 0, 0x00070000}};
   s21_decimal res;
- my_mul(val1, val2, &res);
+ my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 4294967295);
   ck_assert_int_eq(res.bits[1], 4294967295);
   ck_assert_int_eq(res.bits[2], 4294967295);
@@ -258,7 +258,7 @@ START_TEST(s21_mul_test_div0) {
   s21_decimal val2 = {{0, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
   // 0
   s21_decimal res;
-  my_mul(val1, val2, &res);
+  my_mul_no_normalize(val1, val2, &res);
   ck_assert_int_eq(res.bits[0], 0);
   ck_assert_int_eq(res.bits[1], 0);
   ck_assert_int_eq(res.bits[2], 0);

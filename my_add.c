@@ -1,7 +1,7 @@
 #include "s21_decimal.h"
 #include "utils.h"
 int myadd(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
-    nullify(result);
+    //nullify(result);
     int res=0;
     int carry=0;
     for(int i=0;i<95;i++){
@@ -10,6 +10,7 @@ int myadd(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
 carry=res/2;
 
     }
+    return carry;
 }
 
 int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
@@ -53,6 +54,10 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 return error;
 
 } 
+
+
+
+
 
 int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
     int error=0;
@@ -258,12 +263,14 @@ int myshiftlefts(s21_decimal* d, int value){
   int error=0;
    unsigned int overflow=0;
    unsigned int memory=0;
+   if(value>0){
     for(int i=0;i<3;i++){
 memory=(unsigned int)d->bits[i];        
 d->bits[i]<<=value;
 d->bits[i]|=overflow;
 overflow=memory>>(32-value);
     }
+   }
     if(overflow>0)error=1;
     return error;
 }
@@ -301,4 +308,44 @@ int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result){
      mybig_to_decimal(bigres, result, scale, 0);  
 
 
+}
+
+int my_mul_no_normalize(s21_decimal val1, s21_decimal val2, s21_decimal* result){
+    int error=0;
+ 
+    int scale1=GETSCALE(val1);
+    int scale2=GETSCALE(val2);
+    int i=0;
+    int nonzero=0;
+    s21_decimal add_shift;
+ 
+    nullify(&add_shift);nullify(result);
+    if(!zeroDecimal(val1)&&!zeroDecimal(val2)){
+    while(i<=65){
+       if(retrieveBit(val1, i)){
+        for(int k=0; k<=65;k++){
+            s21_set_bit(&add_shift, k, get_bit_value(val2, k));
+        }
+        
+       myshiftlefts(&add_shift, i);
+       printf("addshift iteration%d\n", i);
+       printb(add_shift);
+       printf("SUMM iteration%d\n", i);
+         myadd(*result, add_shift, result);
+         printb(*result);
+         //nullify(&add_shift);
+       }
+     
+       i++;
+           }
+          setScale(result, scale1+scale2);
+   
+
+
+
+}
+}
+
+void add_carry(unsigned int* bit){
+    *bit +=1;
 }
