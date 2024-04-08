@@ -39,6 +39,7 @@ Suite *s21_add_suite();
 Suite *s21_sub_suite(void);
 Suite *s21_mul_suite();
 Suite *s21_add_cases(void);
+Suite *s21_mul_cases(void) ;
 Suite *s21_sub_cases(void);
 
 #endif

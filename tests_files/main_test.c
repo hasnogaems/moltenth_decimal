@@ -6,7 +6,7 @@
 #include "suits.h"
 int main() {
 
-Suite *suite = s21_mul_suite();
+Suite *suite = s21_mul_cases();
   SRunner *suite_runner = srunner_create(suite);
   srunner_run_all(suite_runner, CK_VERBOSE);
   int failed_count = srunner_ntests_failed(suite_runner);

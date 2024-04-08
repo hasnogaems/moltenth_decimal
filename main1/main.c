@@ -112,15 +112,16 @@ uint128_t test;
 // //Десятичное значение: 35.111111
 // s21_decimal val2 = {{0x217c0c7, 0x0, 0x0, 0x60000}};
 
-  s21_decimal val1 = {{1, 0, 0, 0x00010000}};  // sign bit= 0 exponent= -1
-  // 0.1
-  s21_decimal val2 = {{2, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
+  // -52201
+  s21_decimal dec_1 = {{0xcbe9, 0x0, 0x0, 0x80000000}};
+  // -268348.42927111
+  s21_decimal dec_2 = {{0xf947c007, 0x1867, 0x0, 0x80080000}};
   // 2
 
   // 2
 s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
   int p=0;
- p=my_mul(val1, val2, &bits3);
+ p=my_mul(dec_1, dec_2, &bits3);
  printf("%d\n", p);
     printb(bits3);
 uint128_t test_fract;  
