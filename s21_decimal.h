@@ -136,6 +136,6 @@ int tsuboika_is_equal(s21_decimal dec1, s21_decimal dec2);
 int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result);
 uint128_t s21_decimal_to_uint128(s21_decimal dec, uint128_t* fract);
 int my_mul_no_normalize(s21_decimal val1, s21_decimal val2, s21_decimal* result);
-
+int s21_is_equal_source(s21_decimal dec1, s21_decimal dec2);
 
 #endif

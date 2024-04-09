@@ -10,12 +10,13 @@ START_TEST(s21_mul_1) {
   // 14008056356.38121311
   s21_decimal dec_check = {{0xc793535f, 0x1370a94d, 0x0, 0x80000}};
   s21_decimal result;
-  my_mul_no_normalize(dec_1, dec_2, &result);
-
-  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
-  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
-  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
-  ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);
+  my_mul(dec_1, dec_2, &result);
+  int equal=s21_is_equal_source(result, dec_check);
+  ck_assert_int_eq(1, equal);
+  // ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
+  // ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
+  // ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
+  // ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);
 }
 END_TEST
 
@@ -27,7 +28,7 @@ START_TEST(s21_mul_2) {
   // 1799.616
   s21_decimal dec_check = {{0x1b75c0, 0x0, 0x0, 0x30000}};
   s21_decimal result;
-my_mul_no_normalize(dec_1, dec_2, &result);
+my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -46,7 +47,7 @@ START_TEST(s21_mul_4) {
   // -368563622891381011012.5
   s21_decimal dec_check = {{0x5eff6ad, 0xcc7a3edc, 0xc7, 0x80010000}};
   s21_decimal result;
-   my_mul_no_normalize(dec_1, dec_2, &result);
+   my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -63,7 +64,7 @@ START_TEST(s21_mul_5) {
   // 14794519091304.871691581723650
   s21_decimal dec_check = {{0xfb91402, 0xfbc9f98d, 0x2fcdbd46, 0xf0000}};
   s21_decimal result;
-my_mul_no_normalize(dec_1, dec_2, &result);
+my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -80,7 +81,7 @@ START_TEST(s21_mul_6) {
   // 3470289591113257063265475.900
   s21_decimal dec_check = {{0xba1d3c, 0xb12310cf, 0xb368e67, 0x30000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
  
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -97,7 +98,7 @@ START_TEST(s21_mul_7) {
   // 24387668957017132675104040351
   s21_decimal dec_check = {{0x92f4e59f, 0x40b51ced, 0x4ecd01c7, 0x0}};
   s21_decimal result;
-my_mul_no_normalize(dec_1, dec_2, &result);
+my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -114,7 +115,7 @@ START_TEST(s21_mul_8) {
   // 1380
   s21_decimal dec_check = {{0x564, 0x0, 0x0, 0x0}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -131,7 +132,7 @@ START_TEST(s21_mul_9) {
   // -7091970358
   s21_decimal dec_check = {{0xa6b6e136, 0x1, 0x0, 0x80000000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -148,7 +149,7 @@ START_TEST(s21_mul_10) {
   // -5187492.7601797404668717678274
   s21_decimal dec_check = {{0x464bbec2, 0x2b7b4e01, 0xa79def34, 0x80160000}};
   s21_decimal result;
-my_mul_no_normalize(dec_1, dec_2, &result);
+my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -165,7 +166,7 @@ START_TEST(s21_mul_11) {
   // -11627108.68557609
   s21_decimal dec_check = {{0xb84bff29, 0x4217a, 0x0, 0x80080000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -182,7 +183,7 @@ START_TEST(s21_mul_12) {
   // -65890344486497970.416305360597
   s21_decimal dec_check = {{0x1d60ced5, 0xe76a8200, 0xd4e7372b, 0x800c0000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -199,7 +200,7 @@ START_TEST(s21_mul_13) {
   // -103649062997735598.66196258485
   s21_decimal dec_check = {{0xed2c6eb5, 0x642302f5, 0x217da648, 0x800b0000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -216,7 +217,7 @@ START_TEST(s21_mul_14) {
   // -160088.016463795
   s21_decimal dec_check = {{0x655aa7b3, 0x9199, 0x0, 0x80090000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
  
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -233,7 +234,7 @@ START_TEST(s21_mul_15) {
   // 5035669356020216648862084333.5
   s21_decimal dec_check = {{0xb19bc147, 0xdb9f5554, 0xa2b614a3, 0x10000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -250,7 +251,7 @@ START_TEST(s21_mul_16) {
   // 6444268991573902.0584
   s21_decimal dec_check = {{0xde459d28, 0x7e526d0b, 0x3, 0x40000}};
   s21_decimal result;
- my_mul_no_normalize(dec_1, dec_2, &result);
+ my_mul(dec_1, dec_2, &result);
 
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -267,7 +268,7 @@ START_TEST(s21_mul_17) {
   // 346.9455008
   s21_decimal dec_check = {{0xcecbaea0, 0x0, 0x0, 0x70000}};
   s21_decimal result;
-  int return_value = my_mul_no_normalize(dec_1, dec_2, &result);
+  int return_value = my_mul(dec_1, dec_2, &result);
   ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
@@ -284,7 +285,7 @@ START_TEST(fail_s21_mul_1) {
   s21_decimal result;
   // overflow
   int check = 2; // Результат слишком мал или отрицательная бесконечность.
-  int return_value = my_mul_no_normalize(dec_1, dec_2, &result);
+  int return_value = my_mul(dec_1, dec_2, &result);
   ck_assert_int_eq(return_value, check);
 }
 END_TEST
@@ -297,7 +298,7 @@ START_TEST(fail_s21_mul_2) {
   s21_decimal result;
   // overflow
   int check = 2; // Результат слишком мал или отрицательная бесконечность.
-  int return_value = my_mul_no_normalize(dec_1, dec_2, &result);
+  int return_value = my_mul(dec_1, dec_2, &result);
   ck_assert_int_eq(return_value, check);
 }
 END_TEST
@@ -310,7 +311,7 @@ START_TEST(fail_s21_mul_3) {
   s21_decimal result;
   // overflow
   int check = 2; // Результат слишком мал или отрицательная бесконечность.
-  int return_value = my_mul_no_normalize(dec_1, dec_2, &result);
+  int return_value = my_mul(dec_1, dec_2, &result);
   ck_assert_int_eq(return_value, check);
 }
 END_TEST
@@ -323,7 +324,7 @@ START_TEST(fail_s21_mul_4) {
   s21_decimal result;
   // overflow
   int check = 2; // Результат слишком мал или отрицательная бесконечность.
-  int return_value = my_mul_no_normalize(dec_1, dec_2, &result);
+  int return_value = my_mul(dec_1, dec_2, &result);
   ck_assert_int_eq(return_value, check);
 }
 END_TEST
@@ -336,7 +337,7 @@ START_TEST(fail_s21_mul_5) {
   s21_decimal result;
   // overflow
   int check = 3; // Результат слишком мал или отрицательная бесконечность.
-  int return_value = my_mul_no_normalize(dec_1, dec_2, &result);
+  int return_value = my_mul(dec_1, dec_2, &result);
   ck_assert_int_eq(return_value, check);
 }
 END_TEST

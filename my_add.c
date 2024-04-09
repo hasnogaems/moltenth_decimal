@@ -120,14 +120,15 @@ big2=buffer;
 int mybig_to_decimal(s21_big_decimal big, s21_decimal *decimal, int scale, unsigned int sign){
     nullify(decimal);
     int error=0;
-    if(check_345_b(big)>0&&scale>0){
+    if((check_345_b(big)>0&&scale>0)||scale>28){
         int mod=div_by_tenb(&big);
         scale--;
         my_bank_round(&big, decimal, mod, &scale, sign);
     }
     int wtf=check_345_b(big);
     if(wtf>0){
-        return 2;}
+       error=(sign==1)?2:1;
+        return error;}
 for(int i=0;i<3;i++){
     decimal->bits[i]=big.bits[i];
 }
@@ -312,39 +313,54 @@ int my_mul(s21_decimal val1, s21_decimal val2, s21_decimal* result){
 
 int my_mul_no_normalize(s21_decimal val1, s21_decimal val2, s21_decimal* result){
     int error=0;
- 
+    int sign=0;
+ if (get_sign(val1) == get_sign(val2)) {
+    sign = 0;
+  } else {
+    sign = 1;
+  }
     int scale1=GETSCALE(val1);
     int scale2=GETSCALE(val2);
+    // if(scale1>28||scale2>28)return
+    int scale=scale1+scale2;
     int i=0;
     int nonzero=0;
     s21_decimal add_shift;
+    s21_big_decimal big1, big2, resultbig;
  
     nullify(&add_shift);nullify(result);
+    nullifyb(&big1);nullifyb(&big2);nullifyb(&resultbig);
     if(!zeroDecimal(val1)&&!zeroDecimal(val2)){
-    while(i<=65){
-       if(retrieveBit(val1, i)){
-        for(int k=0; k<=65;k++){
-            s21_set_bit(&add_shift, k, get_bit_value(val2, k));
+  big1.bits[0] = val1.bits[0];
+  big1.bits[1] = val1.bits[1];
+  big1.bits[2] = val1.bits[2];
+  big2.bits[0] = val2.bits[0];
+  big2.bits[1] = val2.bits[1];
+  big2.bits[2] = val2.bits[2];
+
+    for(int i=0; i<96; i++){
+       if(getBigBit(big2, i)){
+         myaddb(resultbig, big1, &resultbig);
         }
         
-       myshiftlefts(&add_shift, i);
-       printf("addshift iteration%d\n", i);
-       printb(add_shift);
-       printf("SUMM iteration%d\n", i);
-         myadd(*result, add_shift, result);
-         printb(*result);
+       myshiftleft(&big1, 1);
+     //  printf("addshift iteration%d\n", i);
+      // printb(add_shift);
+      // printf("SUMM iteration%d\n", i);
+      
+        // printb(*result);
          //nullify(&add_shift);
        }
      
-       i++;
+      error=mybig_to_decimal(resultbig, result, scale, sign);
            }
-          setScale(result, scale1+scale2);
+
    
 
 
 
 }
-}
+
 
 void add_carry(unsigned int* bit){
     *bit +=1;
