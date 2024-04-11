@@ -14,7 +14,11 @@ carry=res/2;
 }
 
 int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+    
     int error=0;
+    int scale1=GETSCALE(value_1);
+    int scale2=GETSCALE(value_2);
+    if(result){ //if result not null
     int sign1=extractBitSign(value_1);
     int sign2=extractBitSign(value_2);  
     unsigned int sign=0;  
@@ -29,11 +33,11 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
     if(sign1!=sign2){
         if(extractBitSign(value_1)==1){
             setSign(&value_1, 0);
-            mysubnormalize(value_2, value_1, result);
+          error=mysubnormalize(value_2, value_1, result);
         }   
         else if(extractBitSign(value_2)==1){
             setSign(&value_2, 0);
-            mysubnormalize(value_1, value_2, result);
+         error=mysubnormalize(value_1, value_2, result);
     }
     //       if (get_sign(value_1) == 1) {
     //     zero_sign(&value_1, 0);
@@ -51,6 +55,10 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
 
 
 }
+    }
+    else{
+        error=1;
+    }
 return error;
 
 } 
@@ -104,7 +112,7 @@ big2=buffer;
         setSign(&value_2, 0);
 
        
-        myaddnormalize(value_1, value_2, result);
+        error=myaddnormalize(value_1, value_2, result);
         
         return error;
     

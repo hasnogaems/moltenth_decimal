@@ -1,6 +1,37 @@
 #include "suits.h"
 
 // https://colab.research.google.com/drive/1Dw3CzxE2TDA5VzjsSnqmwUIiz3aFKVX8?usp=sharing
+START_TEST(sub_20) {
+  s21_decimal dec1;
+  s21_decimal dec2;
+  int tmp1 = 100;
+  int tmp2 = 99999;
+  int res_s21 = 0;
+  int res = -99899;
+  s21_decimal res1;
+  s21_from_int_to_decimal(tmp1, &dec1);
+  s21_from_int_to_decimal(tmp2, &dec2);
+  mysubnormalize(dec1, dec2, &res1);
+  s21_from_decimal_to_int(res1, &res_s21);
+  ck_assert_int_eq(res_s21, res);
+}
+END_TEST
+
+START_TEST(sub_21) {
+  s21_decimal dec1;
+  s21_decimal dec2;
+  int tmp1 = -100;
+  int tmp2 = -99999;
+  int res_s21 = 0;
+  s21_decimal res1;
+  int res = 99899;
+  s21_from_int_to_decimal(tmp1, &dec1);
+  s21_from_int_to_decimal(tmp2, &dec2);
+  mysubnormalize(dec1, dec2, &res1);
+  s21_from_decimal_to_int(res1, &res_s21);
+  ck_assert_int_eq(res_s21, res);
+}
+END_TEST
 
 START_TEST(s21_sub_test_0) {
   s21_decimal val1 = {{0, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
@@ -217,7 +248,8 @@ Suite *s21_sub_suite(void) {
   TCase *tc;
   s = suite_create("\033[34m \033[46m SUBSTRACTION TESTS \033[0m");
   tc = tcase_create("s21_sub_test");
-
+tcase_add_test(tc, sub_20);
+tcase_add_test(tc, sub_21);
   tcase_add_test(tc, s21_add_3_test_);
 
   tcase_add_test(tc, s21_sub_test_0);

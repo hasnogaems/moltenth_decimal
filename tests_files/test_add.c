@@ -2,6 +2,194 @@
 #include "suits.h"
 
 
+
+
+START_TEST(invalid_dec_s21_add_1) {
+  // ссылка на результат - NULL
+  s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x0}};
+  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x0}};
+  int result_value = myaddnormalize(dec_1, dec_2, NULL);
+
+  ck_assert_int_eq(result_value, 1);
+}
+
+// START_TEST(invalid_dec_s21_add_2) {
+//   // степень 56 (допустимое значение от 0 до 28)
+//   // биты 0-15 не пустые
+//   // биты 24-30 не пустые
+//   s21_decimal dec_1 = {{0x0, 0x0, 0x0, 0x380000}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0x0, 0xFFFFFFFF, 0x0}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_3) {
+//   // степень 29 (допустимое значение от 0 до 28)
+//   s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x1D0000}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0x0, 0xFFFFFFFF, 0x0}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_4) {
+//   // степень 28
+//   // биты 0-15 не пустые
+//   s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x1C0001}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0x0, 0xFFFFFFFF, 0x140000}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_5) {
+//   // степень 28
+//   // биты 0-15 не пустые
+//   s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x1C8000}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0x0, 0x140000}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_6) {
+//   // степень 28
+//   // биты 24-30 не пустые
+//   s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x11C0000}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_7) {
+//   // степень 28
+//   // биты 24-30 не пустые
+//   s21_decimal dec_1 = {{0xA, 0x0, 0x0, 0x401C0000}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_8) {
+//   // Все биты имеют максимальное значение
+//   s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
+//   s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_9) {
+//   // степень 56 (допустимое значение от 0 до 28)
+//   // биты 0-15 не пустые
+//   // биты 24-30 не пустые
+//   s21_decimal dec_2 = {{0xA, 0x0, 0x0, 0x380000}};
+//   s21_decimal dec_1 = {{0xFFFFFFFF, 0x0, 0xFFFFFFFF, 0x140000}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_10) {
+//   // степень 29 (допустимое значение от 0 до 28)
+//   s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1D0000}};
+//   s21_decimal dec_1 = {{0xFFFFFFFF, 0x0, 0xFFFFFFFF, 0x0}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+// START_TEST(invalid_dec_s21_add_11) {
+//   // степень 29 (допустимое значение от 0 до 28)
+//   s21_decimal dec_2 = {{0xA, 0x0, 0x0, 0x1D0000}};
+//   s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};
+//   s21_decimal result;
+//   int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+//   ck_assert_int_eq(result_value, 1);
+// }
+// END_TEST
+
+START_TEST(invalid_dec_s21_add_12) {
+  // степень 28
+  // биты 0-15 не пустые
+  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1C0001}};
+  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};
+  s21_decimal result;
+  int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+  ck_assert_int_eq(result_value, 1);
+}
+END_TEST
+
+START_TEST(invalid_dec_s21_add_13) {
+  // степень 28
+  // биты 0-15 не пустые
+  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1C8000}};
+  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
+  s21_decimal result;
+  int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+  ck_assert_int_eq(result_value, 1);
+}
+END_TEST
+
+START_TEST(invalid_dec_s21_add_14) {
+  // степень 28
+  // биты 24-30 не пустые
+  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x11C0000}};
+  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
+  s21_decimal result;
+  int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+  ck_assert_int_eq(result_value, 1);
+}
+END_TEST
+
+START_TEST(invalid_dec_s21_add_15) {
+  // степень 28
+  // биты 24-30 не пустые
+  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x401C0000}};
+  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+  s21_decimal result;
+  int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+  ck_assert_int_eq(result_value, 1);
+}
+END_TEST
+
+START_TEST(invalid_dec_s21_add_16) {
+  // Все биты имеют максимальное значение
+  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
+  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+  s21_decimal result;
+  int result_value = myaddnormalize(dec_1, dec_2, &result);
+
+  ck_assert_int_eq(result_value, 1);
+}
+END_TEST
+
 START_TEST(s21_add_1) {
   // -20450329270260114707023677573
   s21_decimal dec_1 = {{0x72184885, 0x249b602f, 0x42141dab, 0x80000000}};
@@ -10,8 +198,8 @@ START_TEST(s21_add_1) {
   // -20450329270285059438717113896
   s21_decimal dec_check = {{0x61b31628, 0x24f3ff49, 0x42141dab, 0x80000000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -27,8 +215,8 @@ START_TEST(s21_add_2) {
   // 77362155012078.3947048
   s21_decimal dec_check = {{0x2061a528, 0xf027dd03, 0x29, 0x70000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -44,8 +232,8 @@ START_TEST(s21_add_3) {
   // -87052192468
   s21_decimal dec_check = {{0x44b70ad4, 0x14, 0x0, 0x80000000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -61,8 +249,8 @@ START_TEST(s21_add_4) {
   // -813274891230635975860.50072703
   s21_decimal dec_check = {{0xa0c2407f, 0x8036ffc0, 0x6c885b3, 0x80080000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -78,8 +266,8 @@ START_TEST(s21_add_5) {
   // -1069.919
   s21_decimal dec_check = {{0x10535f, 0x0, 0x0, 0x80030000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -95,8 +283,8 @@ START_TEST(s21_add_6) {
   // -46
   s21_decimal dec_check = {{0x2e, 0x0, 0x0, 0x80000000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -112,8 +300,8 @@ START_TEST(s21_add_7) {
   // 0.9
   s21_decimal dec_check = {{0x9, 0x0, 0x0, 0x10000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -129,8 +317,8 @@ START_TEST(s21_add_8) {
   // 776006987.35
   s21_decimal dec_check = {{0x115cb16f, 0x12, 0x0, 0x20000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -146,8 +334,8 @@ START_TEST(s21_add_9) {
   // 30828307417409656201660702927
   s21_decimal dec_check = {{0xabc9a0cf, 0xcce23aca, 0x639c9405, 0x0}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -155,7 +343,22 @@ START_TEST(s21_add_9) {
 }
 END_TEST
 
-
+START_TEST(s21_add_10) {
+  // 1239607695671.884762
+  s21_decimal dec_1 = {{0xa95cfbda, 0x1133f8a1, 0x0, 0x60000}};
+  // 57.80505400415412930
+  s21_decimal dec_2 = {{0x5fce2c2, 0x50387b09, 0x0, 0x110000}};
+  // 1239607695729.6898160041541293
+  s21_decimal dec_check = {{0x78123ead, 0x5eb46214, 0x280dcb66, 0x100000}};
+  s21_decimal result;
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
+  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
+  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
+  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
+  ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);
+}
+END_TEST
 
 START_TEST(s21_add_11) {
   // 55952
@@ -165,8 +368,8 @@ START_TEST(s21_add_11) {
   // 76881041212649
   s21_decimal dec_check = {{0x4326c4e9, 0x45ec, 0x0, 0x0}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -182,8 +385,8 @@ START_TEST(s21_add_12) {
   // -70802443911485517293.05
   s21_decimal dec_check = {{0xd14cf099, 0xd2211901, 0x17f, 0x80020000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -199,8 +402,8 @@ START_TEST(s21_add_13) {
   // 5803274159831426.856250616
   s21_decimal dec_check = {{0x9b9decf8, 0x1f61766c, 0x4cce4, 0x90000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -216,8 +419,8 @@ START_TEST(s21_add_14) {
   // 37276321.0924
   s21_decimal dec_check = {{0xca6b34ac, 0x56, 0x0, 0x40000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -233,8 +436,8 @@ START_TEST(s21_add_15) {
   // 18543195508945815658514
   s21_decimal dec_check = {{0x661ce012, 0x3a885553, 0x3ed, 0x0}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -250,8 +453,8 @@ START_TEST(s21_add_16) {
   // -7787201.007541
   s21_decimal dec_check = {{0x19598fb5, 0x715, 0x0, 0x80060000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, 0);
   ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
   ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
   ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
@@ -259,22 +462,68 @@ START_TEST(s21_add_16) {
 }
 END_TEST
 
-START_TEST(s21_add_sign1_more_than_sign2_and_number_bigger1) {
-  // -77362155012078.3947048  
- s21_decimal dec_1 = {{0x2061a528, 0xf027dd03, 0x29, 0x80070000}};
-  // 142.6052952
-s21_decimal dec_2 = {{0x54ffd758, 0x0, 0x0, 0x70000}};
-
-//Десятичное значение: -77362155011935.7894096
-s21_decimal dec_check = {{0xcb61cdd0, 0xf027dd02, 0x29, 0x80070000}};
-
+START_TEST(fail_s21_add_1) {
+  // -722947181942
+  s21_decimal dec_1 = {{0x53028d76, 0xa8, 0x0, 0x80000000}};
+  // -79228162514264337591891857065
+  s21_decimal dec_2 = {{0x9d870ea9, 0xffffffff, 0xffffffff, 0x80000000}};
   s21_decimal result;
-    myaddnormalize(dec_1, dec_2, &result);
-   
-  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);
-  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);
-  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);
-  ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);
+  // overflow
+  int check = 2; // Результат слишком мал или отрицательная бесконечность.
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, check);
+}
+END_TEST
+
+START_TEST(fail_s21_add_2) {
+  // 8623028370203.35292044
+  s21_decimal dec_1 = {{0xa43e8c, 0xbedb1598, 0x2e, 0x80000}};
+  // 0.8737601144905744474433541794
+  s21_decimal dec_2 = {{0x86c256a2, 0x2e518e66, 0x1c3b9303, 0x1c0000}};
+  s21_decimal result;
+  // overflow
+  int check = 3; // Результат слишком мал или отрицательная бесконечность.
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, check);
+}
+END_TEST
+
+START_TEST(fail_s21_add_3) {
+  // -1368.3351765043
+  s21_decimal dec_1 = {{0xe7524033, 0xc71, 0x0, 0x800a0000}};
+  // 825579942673173232523183887
+  s21_decimal dec_2 = {{0x53b0870f, 0x5ece50e1, 0x2aae75a, 0x0}};
+  s21_decimal result;
+  // overflow
+  int check = 3; // Результат слишком мал или отрицательная бесконечность.
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, check);
+}
+END_TEST
+
+START_TEST(fail_s21_add_4) {
+  // 90117279.520078501
+  s21_decimal dec_1 = {{0x31eb3aa5, 0x1402930, 0x0, 0x90000}};
+  // 0.1088435979854066217337001951
+  s21_decimal dec_2 = {{0xc85497df, 0xb2ce2ae1, 0x3845548, 0x1c0000}};
+  s21_decimal result;
+  // overflow
+  int check = 3; // Результат слишком мал или отрицательная бесконечность.
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, check);
+}
+END_TEST
+
+START_TEST(fail_s21_add_5) {
+  // -0.5
+  s21_decimal dec_1 = {{0x5, 0x0, 0x0, 0x80010000}};
+  // 9080879250004869577836457343.3
+  s21_decimal dec_2 = {{0xd1cb46f9, 0x77875706, 0x256b45c9, 0x10000}};
+  s21_decimal result;
+  // overflow
+  int check = 3; // Результат слишком мал или отрицательная бесконечность.
+  int return_value = myaddnormalize(dec_1, dec_2, &result);
+  ck_assert_int_eq(return_value, check);
 }
 END_TEST
 
@@ -282,7 +531,22 @@ Suite *s21_add_cases(void) {
   Suite *c = suite_create("s21_add_cases");
   TCase *tc = tcase_create("s21_add_tc");
 
-  
+  tcase_add_test(tc, invalid_dec_s21_add_1);
+  //tcase_add_test(tc, invalid_dec_s21_add_2);
+  // tcase_add_test(tc, invalid_dec_s21_add_3);
+  // tcase_add_test(tc, invalid_dec_s21_add_4);
+  // tcase_add_test(tc, invalid_dec_s21_add_5);
+  // tcase_add_test(tc, invalid_dec_s21_add_6);
+  // tcase_add_test(tc, invalid_dec_s21_add_7);
+  // tcase_add_test(tc, invalid_dec_s21_add_8);
+  // tcase_add_test(tc, invalid_dec_s21_add_9);
+  // tcase_add_test(tc, invalid_dec_s21_add_10);
+  // tcase_add_test(tc, invalid_dec_s21_add_11);
+  tcase_add_test(tc, invalid_dec_s21_add_12);
+  tcase_add_test(tc, invalid_dec_s21_add_13);
+  tcase_add_test(tc, invalid_dec_s21_add_14);
+  tcase_add_test(tc, invalid_dec_s21_add_15);
+  tcase_add_test(tc, invalid_dec_s21_add_16);
   tcase_add_test(tc, s21_add_1);
   tcase_add_test(tc, s21_add_2);
   tcase_add_test(tc, s21_add_3);
@@ -292,16 +556,18 @@ Suite *s21_add_cases(void) {
   tcase_add_test(tc, s21_add_7);
   tcase_add_test(tc, s21_add_8);
   tcase_add_test(tc, s21_add_9);
- 
+  tcase_add_test(tc, s21_add_10);
   tcase_add_test(tc, s21_add_11);
   tcase_add_test(tc, s21_add_12);
   tcase_add_test(tc, s21_add_13);
   tcase_add_test(tc, s21_add_14);
   tcase_add_test(tc, s21_add_15);
   tcase_add_test(tc, s21_add_16);
-
-  tcase_add_test(tc, s21_add_sign1_more_than_sign2_and_number_bigger1);
-
+  tcase_add_test(tc, fail_s21_add_1);
+  tcase_add_test(tc, fail_s21_add_2);
+  tcase_add_test(tc, fail_s21_add_3);
+  tcase_add_test(tc, fail_s21_add_4);
+  tcase_add_test(tc, fail_s21_add_5);
 
   suite_add_tcase(c, tc);
   return c;
