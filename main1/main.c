@@ -143,6 +143,11 @@ print_uint128(test);printf(",");
 print_uint128(test_fract);
 gptprint_uint128(test);
 //s21_div_by_ten(dec_1, &dec_2);
+unsigned int val1int=150;
+unsigned int val2int=5;
+unsigned int result=0;
+div_int(val1int, val2int, &result);
+printf("%d", result);
 
   return 0;
 

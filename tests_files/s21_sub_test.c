@@ -1,6 +1,22 @@
 #include "suits.h"
 
 // https://colab.research.google.com/drive/1Dw3CzxE2TDA5VzjsSnqmwUIiz3aFKVX8?usp=sharing
+START_TEST(sub_17) {
+  s21_decimal val1 = {{UINT_MAX, UINT_MAX, UINT_MAX, 0}};
+  s21_decimal val2 = {{4, 0, 0, ~(UINT_MAX / 2)}};
+  s21_decimal res;
+  ck_assert_int_eq(1, s21_sub(val1, val2, &res));
+}
+END_TEST
+
+START_TEST(sub_18) {
+  s21_decimal val1 = {{4, 0, 0, 0}};
+  s21_decimal val2 = {{UINT_MAX, UINT_MAX, UINT_MAX, ~(UINT_MAX / 2)}};
+  s21_decimal res;
+  ck_assert_int_eq(1, s21_sub(val1, val2, &res));
+}
+END_TEST
+
 START_TEST(sub_20) {
   s21_decimal dec1;
   s21_decimal dec2;
@@ -248,6 +264,8 @@ Suite *s21_sub_suite(void) {
   TCase *tc;
   s = suite_create("\033[34m \033[46m SUBSTRACTION TESTS \033[0m");
   tc = tcase_create("s21_sub_test");
+  tcase_add_test(tc, sub_17);
+tcase_add_test(tc, sub_18);
 tcase_add_test(tc, sub_20);
 tcase_add_test(tc, sub_21);
   tcase_add_test(tc, s21_add_3_test_);
