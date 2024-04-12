@@ -1,5 +1,6 @@
 #include "s21_decimal.h"
 #include "utils.h"
+void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst);
 void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst) {
 
   uint128_t a=0;
@@ -11,7 +12,7 @@ void s21_from_decimal_to_int128(s21_decimal src, uint128_t *dst) {
   *dst = a;
   
 }
-
+uint128_t s21_decimal_to_uint128(s21_decimal dec, uint128_t* fract);
 uint128_t s21_decimal_to_uint128(s21_decimal dec, uint128_t* fract) {
     // Initialize the result as a 128-bit integer
     uint128_t result = 0;

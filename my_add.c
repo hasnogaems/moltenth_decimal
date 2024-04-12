@@ -278,7 +278,7 @@ memory=(unsigned int)d->bits[i];
 d->bits[i]<<=value;
 d->bits[i]|=overflow;
 overflow=memory>>(32-value);
-    }
+    }               
    }
     if(overflow>0)error=1;
     return error;

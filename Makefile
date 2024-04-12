@@ -63,3 +63,8 @@ clean:
 medusatest:
 	gcc  *.c tests_files/test_add.c tests_files/main_test.c tests_files/test_s21_sub.c tests_files/s21_add_test.c tests_files/s21_sub_test.c tests_files/s21_mul_test.c tests_files/test_s21_mul.c -lm $(CHECK)
 	./a.out
+
+exportmine:
+	gcc -c from_dec_to_128.c s21_decimal_tools.c
+	ar rc export_mine.a *.o
+	ranlib export_mine.a	
