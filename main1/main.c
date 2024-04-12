@@ -147,9 +147,13 @@ gptprint_uint128(test);
 // unsigned int val2int=5;
 // unsigned int result=0;
 // div_int(val1int, val2int, &result);
+s21_decimal val1 = {{0x96, 0x0, 0x0, 0x0}}; // 150
+s21_decimal val2 = {{0x5, 0x0, 0x0, 0x0}}; //5
+s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
-s21_div()
-printf("%d", result);
+
+s21_div(val1, val2, &val3);
+printb(val3);
 
   return 0;
 
