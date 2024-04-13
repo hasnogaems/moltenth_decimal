@@ -54,7 +54,7 @@ int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result)
         zero=0;
         {
             setBit(&divident, 0, retrieveBit(divident_src, i));}}
-int k=i;
+i++;
             for(;(i)>=0;){
 
                 int position=0;
@@ -66,13 +66,14 @@ int k=i;
                     grow_divident(&divident, divident_src, i, position);
 
                 }//now divident can be actually substracted from
+                if(i>=0){
 s21_sub(divident, divisor, &ostatok);
 
  myshiftlefts(result, 1); 
  setBit(result, 0, 1);
 divident=ostatok;
-grow_divident(&divident, divident_src, k, position);
-k--;
+grow_divident(&divident, divident_src, i, position);
+i--;}
 // и теперь мы заведем цикл на собственно деление, но если divisor биты будут занимать больше одного инта, то просто делением я не смогу это сделать, надо ведь через вычитание?
 
             }
