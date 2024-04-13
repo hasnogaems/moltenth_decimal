@@ -33,11 +33,11 @@ int myaddnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result
     if(sign1!=sign2){
         if(extractBitSign(value_1)==1){
             setSign(&value_1, 0);
-          error=mysubnormalize(value_2, value_1, result);
+          error=s21_sub(value_2, value_1, result);
         }   
         else if(extractBitSign(value_2)==1){
             setSign(&value_2, 0);
-         error=mysubnormalize(value_1, value_2, result);
+         error=s21_sub(value_1, value_2, result);
     }
     //       if (get_sign(value_1) == 1) {
     //     zero_sign(&value_1, 0);
@@ -67,7 +67,7 @@ return error;
 
 
 
-int mysubnormalize(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
     int error=0;
     int sign1=extractBitSign(value_1);
     int sign2=extractBitSign(value_2);  

@@ -42,13 +42,13 @@ break;}
 
 int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
      int error=0;
-    s21_decimal divident;
-    nullify(&divident);
+    s21_decimal divident, ostatok;
+    nullify(&divident);nullify(&ostatok);
     printb(divident);
     int zero=1;
    // int divident=0;
     //int divisor=0;
-    for(int i=95;i>0&&zero;i--){
+    for(int i=95;i>=0&&zero;i--){
        if(retrieveBit(divident_src, i)){ //срезаем нули
         zero=0;
         {
@@ -67,10 +67,14 @@ int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result)
             }
         }}
         }
+        s21_sub(divident, divisor, &ostatok);
+        printf("divident:\n");
         printb(divident);
+        printf("ostatok:\n");
+        printb(ostatok);
     return error;
 }
     void grow_divident(s21_decimal* divident, s21_decimal divident_src,int i, int position){
-myshiftlefts(divident, 1); setBit(divident, retrieveBit(divident_src, i), position);
+ myshiftlefts(divident, 1); setBit(divident, 0, retrieveBit(divident_src, i));
     }
 
