@@ -112,36 +112,36 @@ uint128_t test;
 // //Десятичное значение: 35.111111
 // s21_decimal val2 = {{0x217c0c7, 0x0, 0x0, 0x60000}};
   // -49141816385517468135
-  uint128_t test_fract; 
- s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1C0001}};
-  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};
-  printb(dec_1);
-   test=s21_decimal_to_uint128(dec_1, &test_fract);
-   print_uint128(test);printf(",");
-print_uint128(test_fract);
-gptprint_uint128(test);
+//   uint128_t test_fract; 
+//  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1C0001}};
+//   s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};
+//   printb(dec_1);
+//    test=s21_decimal_to_uint128(dec_1, &test_fract);
+//    print_uint128(test);printf(",");
+// print_uint128(test_fract);
+// gptprint_uint128(test);
 
-  printb(dec_2);
-   test=s21_decimal_to_uint128(dec_2, &test_fract);
-   print_uint128(test);printf(",");
-print_uint128(test_fract);
-gptprint_uint128(test);
+//   printb(dec_2);
+//    test=s21_decimal_to_uint128(dec_2, &test_fract);
+//    print_uint128(test);printf(",");
+// print_uint128(test_fract);
+// gptprint_uint128(test);
   
-s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
-  int p=0;
-  nullify(&bits3);
- p=myaddnormalize(dec_1, dec_2, &bits3);
- printf("%d\n", p);
-    printb(bits3);
+// s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
+//   int p=0;
+//   nullify(&bits3);
+//  p=myaddnormalize(dec_1, dec_2, &bits3);
+//  printf("%d\n", p);
+//     printb(bits3);
  
- test=s21_decimal_to_uint128(bits3, &test_fract);
+//  test=s21_decimal_to_uint128(bits3, &test_fract);
   //s21_from_decimal_to_int128(bits3, &test);
 
  
 
-print_uint128(test);printf(",");
-print_uint128(test_fract);
-gptprint_uint128(test);
+// print_uint128(test);printf(",");
+// print_uint128(test_fract);
+// gptprint_uint128(test);
 //s21_div_by_ten(dec_1, &dec_2);
 // unsigned int val1int=150;
 // unsigned int val2int=5;
@@ -152,7 +152,7 @@ s21_decimal val2 = {{0x5, 0x0, 0x0, 0x0}}; //5
 s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
 
-s21_div(val1, val2, &val3);
+s21_div2(val1, val2, &val3);
 printb(val3);
 
   return 0;

@@ -262,6 +262,19 @@ void setBigBit(s21_big_decimal *value, int index, int bit) {
   }
 }
 
+void setBitold(s21_decimal *value, int index, int bit) {
+  int bits_index = index / 32;
+  int int_index = 31 - index % 32;
+
+  if (bit == 1) {
+    int mask = 1 << (31 - int_index);
+    (*value).bits[bits_index] |= mask;
+  } else {
+    int mask = ~(1 << (31 - int_index));
+    (*value).bits[bits_index] &= mask;
+  }
+}
+
 void setSign(s21_decimal *value, unsigned int sign) {
   unsigned int one = 1;
   if (sign == 1) {
@@ -391,5 +404,15 @@ void shiftLeftSide(s21_big_decimal *value) {
     (*value).bits[i] = (*value).bits[i] << 1;
     if (shift_bit1 == 1) setBigBit(value, 32 * i, 1);
     shift_bit1 = shift_bit2;
+  }
+}
+
+unsigned int set_mask(int index) { return 1u << (index % 32); }
+
+void setBit(s21_decimal *dec, int bit, int value) {
+  if (value == 1) {
+    dec->bits[bit / 32] |= (set_mask(bit));
+  } else if (value == 0) {
+    dec->bits[bit / 32] &= ~(set_mask(bit));
   }
 }

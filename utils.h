@@ -48,5 +48,7 @@ void initializeByBigZeros(s21_big_decimal *value);
 void printbb(s21_big_decimal bits_array);
 int mymulby10s(s21_decimal* d);
 int myshiftlefts(s21_decimal* d, int value);
+unsigned int set_mask(int index);
+void setBit(s21_decimal *dec, int bit, int value) ;
 
 #endif
