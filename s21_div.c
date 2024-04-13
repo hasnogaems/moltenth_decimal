@@ -43,7 +43,7 @@ break;}
 int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
      int error=0;
     s21_decimal divident, ostatok;
-    nullify(&divident);nullify(&ostatok);
+    nullify(&divident);nullify(&ostatok);nullify(result);
     printb(divident);
     int zero=1;
    // int divident=0;
@@ -54,20 +54,30 @@ int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result)
         {
             setBit(&divident, 0, retrieveBit(divident_src, i));
 
-            for(;i>0;i--){
+            for(;(i)>=0;){
                 int position=0;
-                while(s21_is_less(divident, divisor)&&i>0){
+                while(s21_is_less_or_equal(divident, divisor)&&i>=0){
+ myshiftlefts(result, 1); 
+ setBit(result, 0, 0); //ставим ноль пока не отнимается
+                    i--;
                     position++;
                     grow_divident(&divident, divident_src, i, position);
 
                 }//now divident can be actually substracted from
-
+s21_sub(divident, divisor, &ostatok);
+i--;
+ myshiftlefts(result, 1); 
+ setBit(result, 0, 1);
+divident=ostatok;
+grow_divident(&divident, divident_src, i, position);
 // и теперь мы заведем цикл на собственно деление, но если divisor биты будут занимать больше одного инта, то просто делением я не смогу это сделать, надо ведь через вычитание?
 
             }
+
+            
         }}
         }
-        s21_sub(divident, divisor, &ostatok);
+        
         printf("divident:\n");
         printb(divident);
         printf("ostatok:\n");
@@ -75,6 +85,7 @@ int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result)
     return error;
 }
     void grow_divident(s21_decimal* divident, s21_decimal divident_src,int i, int position){
- myshiftlefts(divident, 1); setBit(divident, 0, retrieveBit(divident_src, i));
+ myshiftlefts(divident, 1); 
+ setBit(divident, 0, retrieveBit(divident_src, i));
     }
 
