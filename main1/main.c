@@ -112,20 +112,27 @@ uint128_t test;
 // //Десятичное значение: 35.111111
 // s21_decimal val2 = {{0x217c0c7, 0x0, 0x0, 0x60000}};
   // -49141816385517468135
-  s21_decimal dec_1 = {{0x5c3d39e7, 0xa9facda3, 0x2, 0x80000000}};
-  // 7.5
+s21_decimal TWENTY = {{0x14, 0x0, 0x0, 0x0}};
+
   s21_decimal dec_2 = {{0x4b, 0x0, 0x0, 0x10000}};
   // -368563622891381011012.5
-  printb(dec_1);
-  printb(dec_2);
-  
+  // printb(dec_1);
+  // printb(dec_2);
+  uint128_t test_fract; 
 s21_decimal check= {{0x190, 0x0, 0x0, 0x0}};
   int p=0;
- p=my_mul_no_normalize(dec_1, dec_2, &bits3);
+  for(int j=0; j<30;j++){
+ p=my_mul(TWENTY, TWENTY, &TWENTY);
  printf("%d\n", p);
-    printb(bits3);
-uint128_t test_fract;  
- test=s21_decimal_to_uint128(bits3, &test_fract);
+ printf("iter %d\n", j);
+    printb(TWENTY);
+     test=s21_decimal_to_uint128(TWENTY, &test_fract);
+     print_uint128(test);printf(",");
+print_uint128(test_fract);
+gptprint_uint128(test);
+     }
+ 
+
   //s21_from_decimal_to_int128(bits3, &test);
 
  
