@@ -140,4 +140,9 @@ int s21_is_equal_source(s21_decimal dec1, s21_decimal dec2);
 int div_int(unsigned int value1, unsigned int value2, unsigned int*);
 int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result);
 void grow_divident(s21_decimal* divident, s21_decimal divident_src,int i, int position);
+int s21_div_big(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result);
+int s21_is_lessb(s21_big_decimal dec1, s21_big_decimal dec2);
+int s21_is_greaterb(s21_big_decimal mem1, s21_big_decimal mem2);
+int s21_is_equalb(s21_big_decimal mem1, s21_big_decimal mem2);
+void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i);
 #endif
