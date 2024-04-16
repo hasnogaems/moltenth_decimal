@@ -38,3 +38,40 @@ break;}
 
 }
 
+int s21_div_ammoshri(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+int res = OK, sign = (get_sign(value_1) + get_sign(value_2)) % 2,
+to_long = OK;
+s21_decimal temp = {{0}};
+ls21_decimal a, b, c, d, temp2 = {{0}}, dva = {{0, 0, 0, 0, 0, 2, 0}},
+nuli = {{0}};
+ls21_decimal des = {{0, 0, 0, 0, 0, 10, 0}};
+to_long_dec(value_1, &a);
+to_long_dec(value_2, &b);
+int nol1 = mem_dec(a, nuli), nol2 = mem_dec(b, nuli);
+if (nol2 == 0) return DIV_BY_ZERO;
+if (nol1 == 0) {
+memcpy(result, &temp, 4 * sizeof(int));
+return res;
+}
+to_long_dec(temp, &c);
+int scale = get_scale(value_1) - get_scale(value_2);
+memcpy(&temp2, &a, 6 * sizeof(int));
+while (to_long == OK) {
+memcpy(&a, &temp2, 6 * sizeof(int));
+to_long = s21_umn_bit(temp2, des, &temp2);
+scale++;
+}
+scale--;
+s21_del_bit(a, b, &c, &d);
+s21_umn_bit(d, dva, &d);
+lset_sign(&c, sign);
+to_norm(&c, &scale);
+if (scale < 0) res = TOO_BIG + sign;
+if (res == OK) {
+min_scale(&c, &scale);
+from_long_dec(c, result);
+set_sign(result, sign);
+set_scale(result, scale);
+}
+return res;
+}
