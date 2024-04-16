@@ -152,7 +152,7 @@ int main() {
   s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
   s21_decimal test111 = {{1}};
-  s21_div2(val1, val2, &val3);
+  s21_div_big(val1, val2, &val3);
   printb(val3);
 
   return 0;

@@ -77,10 +77,10 @@ i--;}
 // и теперь мы заведем цикл на собственно деление, но если divisor биты будут занимать больше одного инта, то просто делением я не смогу это сделать, надо ведь через вычитание?
 
             }
-            if(zeroDecimal(ostatok)){
-                mymulby10(ostatok);
+            // if(zeroDecimal(ostatok)){
+            //     mymulby10(ostatok);
 
-            }
+            // }
 
             
         
@@ -107,7 +107,7 @@ int s21_div_big(s21_decimal divident_src, s21_decimal divisor, s21_decimal *resu
     int zero=1;
    // int divident=0;
     //int divisor=0;
-    int i=;
+    int i=191;
     for(;i>=0&&zero;i--)
        if(getBigBit(divident_srcb, i)){ //срезаем нули
         zero=0;
@@ -117,7 +117,7 @@ i++;
             for(;(i)>=0;){
 
                 int position=0;
-                while(s21_is_less_or_equalb(divident, divisor)&&i>=0){
+                while(s21_is_less_or_equalb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
@@ -136,10 +136,10 @@ i--;}
 
 
             }
-            if(zeroBigDecimal(ostatok)){
-                mymulby10(ostatok);
+            // if(zeroBigDecimal(ostatok)){
+            //     mymulby10(ostatok);
                 
-            }
+            // }
 
             
         
