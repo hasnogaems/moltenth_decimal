@@ -119,8 +119,8 @@ scale++;
     for(;i>=0&&zero;i--)
        if(getBigBit(divident_srcb, i)){ //срезаем нули
         zero=0;
-        {
-            setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}
+        
+            setBigBit(&divident, 0, getBigBit(divident_srcb, i));}
 i++;
             for(;(i)>=0;){
 
@@ -128,10 +128,10 @@ i++;
                 while(s21_is_less_or_equalb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
-                    i--;
-                    position++;
+                    
+                   
                     grow_dividentb(&divident, divident_srcb, i);
-
+i--;
                 }//now divident can be actually substracted from
                 if(i>=0){
 mysubb(divident, divisorb, &ostatok);

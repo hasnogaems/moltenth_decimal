@@ -17,7 +17,7 @@ for (int i=191; i>=0;i--){
     return res;
 }
 
-int s21_is_greaterb(s21_big_decimal mem1, s21_big_decimal mem2){   //ИСПРАВИТЬ В ЧЕТВЕРГ
+int s21_is_greaterb(s21_big_decimal mem1, s21_big_decimal mem2){   
 int res=0;
 
 for (int i=191; i>=0;i--){
