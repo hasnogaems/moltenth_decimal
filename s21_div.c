@@ -123,7 +123,7 @@ scale++;
             setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}
 i++;
             for(;(i)>=0;){
-
+nullifyb(&ostatok);
                 int position=0;
                 while(s21_is_less_or_equalb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
@@ -139,16 +139,17 @@ mysubb(divident, divisorb, &ostatok);
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 1);
 divident=ostatok;
-nullify(&ostatok);
+
 grow_dividentb(&divident, divident_srcb, i);
 i--;}
 
 
             }
-             while(!zeroBigDecimal(ostatok)&&scale<28){
+             while(!zeroBigDecimal(ostatok)&&scale<29){ //34
                 divident=ostatok;
-                                while(s21_is_less_or_equalb(divident, divisorb)&&scale<28){
+                                while(s21_is_less_or_equalb(divident, divisorb)&&scale<29){
                   myshiftleft(&resultb, 1); 
+                  
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                  mymulby10(&divident);
                  scale++;
@@ -159,7 +160,12 @@ i--;}
  s21_set_bitb(&resultb, 0, 1);
             
              }
-
+        //    if(!zeroBigDecimal(ostatok)&&scale<29){ //34
+        //        mulbyten(divident_src);
+        //        set_scale
+        //        s21_
+            
+        //      }
             
         
         

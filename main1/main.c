@@ -154,11 +154,11 @@ int main() {
   // // 2
   s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
-    s21_decimal val1 = {{0x96, 0x0, 0x0, 0x0}};  // 150
-  s21_decimal val2 = {{0x5, 0x0, 0x0, 0x0}};   // 5
+    s21_decimal val1 = {{0x3, 0x0, 0x0, 0x0}};  // 150
+  s21_decimal val2 = {{0x2, 0x0, 0x0, 0x0}};   // 5
 
   s21_decimal test111 = {{1}};
-  s21_div(val1, val2, &val3);
+  s21_div(val2, val1, &val3);
   printb(val3);
 
   return 0;
