@@ -136,10 +136,16 @@ i--;}
 
 
             }
-            // if(zeroBigDecimal(ostatok)){
-            //     mymulby10(ostatok);
+             while(zeroBigDecimal(ostatok)&&scale<28){
+                divident=ostatok;
+                                while(s21_is_less_or_equalb(divident, divisorb)&&scale<28){
+                 mymulby10(&divident);
+                 scale++;
                 
-            // }
+            }
+            mysubb(divident, divisorb, &ostatok);
+            
+             }
 
             
         
