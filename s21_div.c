@@ -1,23 +1,23 @@
 #include "s21_decimal.h"
 #include "utils.h"
-int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
-    int error=0;
-    nullify(result);
-    s21_decimal one={{0b01,0,0,0}};
-    int sign1=extractBitSign(value_1);
-    int sign2=extractBitSign(value_2);
-    unsigned int sign=0;  
-s21_big_decimal big1, big2, resbig, buffer;
-    nullifyb(&big1);nullifyb(&big2);nullifyb(&resbig);nullifyb(&buffer);
-     int scale=normalize(value_1, value_2, &big1, &big2);
-     s21_decimal compareit; nullify(&compareit);
-     while(s21_is_less(value_2, value_1)){
-       myshiftlefts(&value_2, 1);
-       myadd(*result, one, result);
+// int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result){
+//     int error=0;
+//     nullify(result);
+//     s21_decimal one={{0b01,0,0,0}};
+//     int sign1=extractBitSign(value_1);
+//     int sign2=extractBitSign(value_2);
+//     unsigned int sign=0;  
+// s21_big_decimal big1, big2, resbig, buffer;
+//     nullifyb(&big1);nullifyb(&big2);nullifyb(&resbig);nullifyb(&buffer);
+//      int scale=normalize(value_1, value_2, &big1, &big2);
+//      s21_decimal compareit; nullify(&compareit);
+//      while(s21_is_less(value_2, value_1)){
+//        myshiftlefts(&value_2, 1);
+//        myadd(*result, one, result);
 
 
-     }
-}
+//      }
+// }
 
 int div_int(unsigned int value1, unsigned int value2, unsigned int* result){
     int top_bit1=0;
@@ -93,7 +93,7 @@ i--;}
     return error;
 }
 
-int s21_div_big(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
+int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
      int error=0;
      int scale1=GETSCALE(divident_src);
     int scale2=GETSCALE(divisor);   
@@ -136,14 +136,18 @@ i--;}
 
 
             }
-             while(zeroBigDecimal(ostatok)&&scale<28){
+             while(!zeroBigDecimal(ostatok)&&scale<28){
                 divident=ostatok;
                                 while(s21_is_less_or_equalb(divident, divisorb)&&scale<28){
+                  myshiftleft(&resultb, 1); 
+ s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                  mymulby10(&divident);
                  scale++;
                 
             }
             mysubb(divident, divisorb, &ostatok);
+            myshiftleft(&resultb, 1); 
+ s21_set_bitb(&resultb, 0, 1);
             
              }
 

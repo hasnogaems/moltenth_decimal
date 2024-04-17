@@ -148,7 +148,7 @@ int main() {
   //  unsigned int result=0;
   //  div_int(val1int, val2int, &result);
   s21_decimal val1 = {{0x96, 0x0, 0x0, 0x0}};  // 150
-  s21_decimal val2 = {{0x6, 0x0, 0x0, 0x0}};   // 5
+  s21_decimal val2 = {{0x7, 0x0, 0x0, 0x0}};   // 5
   s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
   s21_decimal test111 = {{1}};
