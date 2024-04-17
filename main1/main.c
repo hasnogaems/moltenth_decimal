@@ -147,12 +147,15 @@ int main() {
   //  unsigned int val2int=5;
   //  unsigned int result=0;
   //  div_int(val1int, val2int, &result);
-  s21_decimal val1 = {{0x96, 0x0, 0x0, 0x0}};  // 150
-  s21_decimal val2 = {{0x7, 0x0, 0x0, 0x0}};   // 5
+  s21_decimal val1 = {{411601037, 3190096481, 685266662,
+                       0x001C0000}};  // sign bit= 0 exponent= -28
+  // 1.2640938749860586450804312205
+  s21_decimal val2 = {{2, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
+  // 2
   s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
   s21_decimal test111 = {{1}};
-  s21_div_big(val1, val2, &val3);
+  s21_div(val1, val2, &val3);
   printb(val3);
 
   return 0;

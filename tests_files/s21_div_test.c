@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "suits.h"
 
 START_TEST(s21_div_test_1) {
   s21_decimal val1 = {{411601037, 3190096481, 685266662,

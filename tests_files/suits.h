@@ -43,5 +43,6 @@ Suite *s21_add_cases(void);
 Suite *s21_mul_cases(void) ;
 Suite *s21_sub_cases(void);
 Suite *s21_div_suite(void);
+int run_s21_div();
 
 #endif

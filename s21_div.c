@@ -94,6 +94,7 @@ i--;}
 }
 
 int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
+     int to_long=OK;
      int error=0;
      int scale1=GETSCALE(divident_src);
     int scale2=GETSCALE(divisor);   
@@ -103,11 +104,18 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
      unsigned int sign=0; 
     s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}};
    nullify(result);
-   int scale=normalize(divident_src, divisor, &divident_srcb, &divisorb);
+   int scale=scale1-scale2;
+   my_decimal_to_big(divident_src, &divident_srcb);
+   my_decimal_to_big(divisor, &divisorb);
     int zero=1;
    // int divident=0;
     //int divisor=0;
     int i=191;
+    while(s21_is_less_or_equalb(divident_srcb, divisorb)&&scale<28){
+         mymulby10(&divident_srcb);
+scale++;
+
+    }
     for(;i>=0&&zero;i--)
        if(getBigBit(divident_srcb, i)){ //срезаем нули
         zero=0;
@@ -175,3 +183,5 @@ i--;}
  myshiftleft(divident, 1); 
  s21_set_bitb(divident, 0, getBigBit(divident_src, i));
     }
+
+

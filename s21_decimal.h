@@ -18,6 +18,7 @@
 #define TO_STRING(x)    STRINGIZER(x)
 #define P10_UINT64 10000000000000000000ULL   /* 19 zeroes */
 #define E10_UINT64 19
+#define OK 0
 
 
 typedef __int128 int128_t;
@@ -146,4 +147,5 @@ int s21_is_greaterb(s21_big_decimal mem1, s21_big_decimal mem2);
 int s21_is_equalb(s21_big_decimal mem1, s21_big_decimal mem2);
 void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i);
 int s21_is_less_or_equalb(s21_big_decimal dec1, s21_big_decimal dec2);
+void my_decimal_to_big(s21_decimal val1, s21_big_decimal* tar1);
 #endif

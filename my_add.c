@@ -151,6 +151,11 @@ int check_345_b(s21_big_decimal big){
     
 }
 
+void my_decimal_to_big(s21_decimal val1,  s21_big_decimal* tar1){
+    tar1->bits[0]=val1.bits[0];
+    tar1->bits[1]=val1.bits[1];
+    tar1->bits[2]=val1.bits[2];
+}
 int my_bank_round(s21_big_decimal* big, s21_decimal* decimal, int mod, int* scale, unsigned int sign){
 //printf("bit0=%d\n",get_bit_valueb(*big, 0));
 s21_big_decimal one;
