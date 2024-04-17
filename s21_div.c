@@ -139,6 +139,7 @@ mysubb(divident, divisorb, &ostatok);
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 1);
 divident=ostatok;
+nullify(&ostatok);
 grow_dividentb(&divident, divident_srcb, i);
 i--;}
 
