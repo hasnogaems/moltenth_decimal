@@ -19,159 +19,96 @@
 //      }
 // }
 
-int div_int(unsigned int value1, unsigned int value2, unsigned int* result){
-    int top_bit1=0;
-    int top_bit2=0;
-    for(int i=31;i>0;i--){
-if(get_bit(value1, i)){top_bit1=i;
-break;}
-    }
-        for(int i=31;i>0;i--){
-if(get_bit(value2, i)){top_bit2=i;
-break;}
-    }
-    int shift=top_bit1-top_bit2;
-    value2<<=shift;
-    
-    *result=1111111;
 
 
+
+
+int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+  int res = OK, sign = (get_sign(value_1) + get_sign(value_2)) % 2,
+      to_long = OK;
+  s21_decimal temp = {{0}};
+  s21_big_decimal a, b, c, d, temp2 = {{0}}, dva = {{0, 0, 0, 0, 0, 2, 0}},
+                           nuli = {{0}};
+  s21_big_decimal des = {{0, 0, 0, 0, 0, 10, 0}};
+  my_decimal_to_big(value_1, &a);
+  my_decimal_to_big(value_2, &b);
+  int nol1 = mem_dec(a, nuli), nol2 = mem_dec(b, nuli);
+  if (nol2 == 0) return DIV_BY_ZERO;
+  if (nol1 == 0) {
+    memcpy(result, &temp, 4 * sizeof(int));
+    return res;
+  }
+  to_long_dec(temp, &c);
+  int scale = get_scale(value_1) - get_scale(value_2);
+  memcpy(&temp2, &a, 6 * sizeof(int));
+  while (to_long == OK) {
+    memcpy(&a, &temp2, 6 * sizeof(int));
+    to_long = s21_umn_bit(temp2, des, &temp2);
+    scale++;
+  }
+  scale--;
+  s21_del_bit(a, b, &c, &d);
+  s21_umn_bit(d, dva, &d);
+  lset_sign(&c, sign);
+  to_norm(&c, &scale);
+  if (scale < 0) res = TOO_BIG + sign;
+  if (res == OK) {
+    min_scale(&c, &scale);
+    from_long_dec(c, result);
+    set_sign(result, sign);
+    set_scale(result, scale);
+  }
+  return res;
 }
 
-
-
-int s21_div2(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
-     int error=0;
-    s21_decimal divident, ostatok;
-    nullify(&divident);nullify(&ostatok);nullify(result);
-    printb(divident);
-    int zero=1;
-   // int divident=0;
-    //int divisor=0;
-    int i=95;
-    for(;i>=0&&zero;i--)
-       if(retrieveBit(divident_src, i)){ //срезаем нули
-        zero=0;
-        {
-            setBit(&divident, 0, retrieveBit(divident_src, i));}}
-i++;
-            for(;(i)>=0;){
-
-                int position=0;
-                while(s21_is_less_or_equal(divident, divisor)&&i>=0){
- myshiftlefts(result, 1); 
- setBit(result, 0, 0); //ставим ноль пока не отнимается
-                    i--;
-                    position++;
-                    grow_divident(&divident, divident_src, i, position);
-
-                }//now divident can be actually substracted from
-                if(i>=0){
-s21_sub(divident, divisor, &ostatok);
-
- myshiftlefts(result, 1); 
- setBit(result, 0, 1);
-divident=ostatok;
-grow_divident(&divident, divident_src, i, position);
-i--;}
-// и теперь мы заведем цикл на собственно деление, но если divisor биты будут занимать больше одного инта, то просто делением я не смогу это сделать, надо ведь через вычитание?
-
-            }
-            // if(zeroDecimal(ostatok)){
-            //     mymulby10(ostatok);
-
-            // }
-
-            
-        
-        
-        
-        printf("divident:\n");
-        printb(divident);
-        printf("ostatok:\n");
-        printb(ostatok);
-    return error;
+int s21_del_bit(s21_big_decimal a, s21_big_decimal b, s21_big_decimal *result,
+                s21_big_decimal *ostatok) {
+  int res = OK, len_a = lget_len(a), len_b = lget_len(b), bit = 0;
+  s21_big_decimal new_a = {{0, 0, 0, 0, 0, 0, 0}};
+  s21_big_decimal temp_res = {{0, 0, 0, 0, 0, 0, 0}};
+  lget_new_dec(a, &new_a, len_b);
+  for (unsigned long i = 6 * 8 * sizeof(int) - len_a + len_b;
+       i <= 6 * 8 * sizeof(int); i++) {
+    if (mem_dec(new_a, b) >= 0) {
+      bit = 1;
+      s21_minus_bit(new_a, b, &new_a);
+    } else {
+      bit = 0;
+    }
+    lsdvig_vlevo_it(&temp_res);
+    lset_bit(&temp_res, 6 * 8 * sizeof(int) - 1, bit);
+    if ((unsigned long)i < 6 * 8 * sizeof(int)) {
+      lsdvig_vlevo_it(&new_a);
+      lset_bit(&new_a, 6 * 8 * sizeof(int) - 1, lget_bit(a, i));
+    }
+  }
+  memcpy(result, &temp_res, 6 * sizeof(int));
+  memcpy(ostatok, &new_a, 6 * sizeof(int));
+  return res;
 }
 
-int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) {
-     int error=0;
-     int scale1=GETSCALE(divident_src);
-    int scale2=GETSCALE(divisor);   
-      if(result){ //if result not null
-       int sign1=extractBitSign(divident_src);
-    int sign2=extractBitSign(divisor);  
-     unsigned int sign=0; 
-    s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}};
-   nullify(result);
-   int scale=normalize(divident_src, divisor, &divident_srcb, &divisorb);
-    int zero=1;
-   // int divident=0;
-    //int divisor=0;
-    int i=191;
-    for(;i>=0&&zero;i--)
-       if(getBigBit(divident_srcb, i)){ //срезаем нули
-        zero=0;
-        {
-            setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}
-i++;
-            for(;(i)>=0;){
-
-                int position=0;
-                while(s21_is_less_or_equalb(divident, divisorb)&&i>=0){
- myshiftleft(&resultb, 1); 
- s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
-                    i--;
-                    position++;
-                    grow_dividentb(&divident, divident_srcb, i);
-
-                }//now divident can be actually substracted from
-                if(i>=0){
-mysubb(divident, divisorb, &ostatok);
-
- myshiftleft(&resultb, 1); 
- s21_set_bitb(&resultb, 0, 1);
-divident=ostatok;
-grow_dividentb(&divident, divident_srcb, i);
-i--;}
-
-
-            }
-             while(!zeroBigDecimal(ostatok)&&scale<28){
-                divident=ostatok;
-                                while(s21_is_less_or_equalb(divident, divisorb)&&scale<28){
-                  myshiftleft(&resultb, 1); 
- s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
-                 mymulby10(&divident);
-                 scale++;
-                
-            }
-            mysubb(divident, divisorb, &ostatok);
-            myshiftleft(&resultb, 1); 
- s21_set_bitb(&resultb, 0, 1);
-            
-             }
-
-            
-        
-        
-        
-        printf("divident:\n");
-        printbb(divident);
-        printf("ostatok:\n");
-        printbb(ostatok);
-        error=mybig_to_decimal(resultb, result, scale, 0);}
-        else{
-            error=1;
-        }
-        
-    return error;
+int s21_del_bit(ls21_decimal a, ls21_decimal b, ls21_decimal *result,
+                ls21_decimal *ostatok) {
+  int res = OK, len_a = lget_len(a), len_b = lget_len(b), bit = 0;
+  ls21_decimal new_a = {{0, 0, 0, 0, 0, 0, 0}};
+  ls21_decimal temp_res = {{0, 0, 0, 0, 0, 0, 0}};
+  lget_new_dec(a, &new_a, len_b);
+  for (unsigned long i = 6 * 8 * sizeof(int) - len_a + len_b;
+       i <= 6 * 8 * sizeof(int); i++) {
+    if (mem_dec(new_a, b) >= 0) {
+      bit = 1;
+      s21_minus_bit(new_a, b, &new_a);
+    } else {
+      bit = 0;
+    }
+    lsdvig_vlevo_it(&temp_res);
+    lset_bit(&temp_res, 6 * 8 * sizeof(int) - 1, bit);
+    if ((unsigned long)i < 6 * 8 * sizeof(int)) {
+      lsdvig_vlevo_it(&new_a);
+      lset_bit(&new_a, 6 * 8 * sizeof(int) - 1, lget_bit(a, i));
+    }
+  }
+  memcpy(result, &temp_res, 6 * sizeof(int));
+  memcpy(ostatok, &new_a, 6 * sizeof(int));
+  return res;
 }
-    void grow_divident(s21_decimal* divident, s21_decimal divident_src,int i, int position){
- myshiftlefts(divident, 1); 
- setBit(divident, 0, retrieveBit(divident_src, i));
-    }
-
- void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
- myshiftleft(divident, 1); 
- s21_set_bitb(divident, 0, getBigBit(divident_src, i));
-    }
