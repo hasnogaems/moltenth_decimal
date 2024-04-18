@@ -157,9 +157,18 @@ int main() {
     s21_decimal val1 = {{0x96, 0x0, 0x0, 0x0}};  // 150
   s21_decimal val2 = {{0x5, 0x0, 0x0, 0x0}};   // 5
 
+  
+
   s21_decimal test111 = {{1}};
   s21_div(val1, val2, &val3);
   printb(val3);
+  // Десятичное значение: 0.0333333333333333333333333333
+s21_decimal dec_res = {{0x4d555555, 0x35458014, 0x113ba14, 0x1c0000}};
+// Десятичное значение: 1.5
+s21_decimal dec_res1 = {{0xf, 0x0, 0x0, 0x10000}};
+
+//printb(dec_res1);
+
 
   return 0;
 }
