@@ -150,18 +150,13 @@ grow_dividentb(&divident, divident_srcb, i);
 
             }
              while(!zeroBigDecimal(ostatok)&&scale<28){
-                
-                                while(s21_is_lessb(divident, divisorb)&&scale<28){
-                  myshiftleft(&fraction, 1); 
- s21_set_bitb(&fraction, 0, 0); //ставим ноль пока не отнимается
-                 mymulby10(&divident);
+               
+                   //ставим ноль пока не отнимается
+                 mymulby10(&ostatok);
                  scale++;
-                
-            }
-            while(s21_is_greaterb(divident, divisorb)){
-            mysubb(divident, divisorb, &divident);
-            myshiftleft(&fraction, 1); 
- s21_set_bitb(&fraction, 0, 1);}
+                 divb(ostatok, divisorb, &ostatok, &scale);
+                 myaddb(ostatok, fraction, &fraction);
+              
             
              }
              myaddb(resultb, fraction, &resultb);
@@ -190,5 +185,58 @@ grow_dividentb(&divident, divident_srcb, i);
  myshiftleft(divident, 1); 
  s21_set_bitb(divident, 0, getBigBit(divident_src, i));
     }
+
+
+
+
+
+
+
+s21_big_decimal divb(s21_big_decimal divident_srcb, s21_big_decimal divisorb, s21_big_decimal* resultb, int* scale){
+    nullifyb(resultb);
+      s21_big_decimal divident={{0}}, ostatok={{0}};
+   int zero=1;
+   // int divident=0;
+    //int divisor=0;
+    int i=191;
+    while(s21_is_lessb(divident_srcb, divisorb)&&(*scale)<28){
+         mymulby10(&divident_srcb);
+(*scale)++;
+
+    }
+    for(;i>=0&&zero;i--)
+       if(getBigBit(divident_srcb, i)){ //срезаем нули
+        zero=0;
+        {
+            setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}// ставим 1 в делимое
+i++;
+            for(;(i)>=0;){
+                
+nullifyb(&ostatok);
+                int position=0;
+                while(s21_is_lessb(divident, divisorb)&&i>=0){
+ myshiftleft(resultb, 1); 
+ s21_set_bitb(resultb, 0, 0); //ставим ноль пока не отнимается
+                    i--;
+                    position++;
+                    grow_dividentb(&divident, divident_srcb, i);
+
+                }//now divident can be actually substracted from
+                if(i>=0){
+                     while(s21_is_greater_or_equalb(divident, divisorb)){
+mysubb(divident, divisorb, &ostatok);
+
+ myshiftleft(resultb, 1); 
+ s21_set_bitb(resultb, 0, 1);
+
+divident=ostatok;
+}
+i--;
+grow_dividentb(&divident, divident_srcb, i);
+}
+            }
+
+return ostatok;            }
+
 
 
