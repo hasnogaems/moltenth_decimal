@@ -105,6 +105,7 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
     s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}}, fraction={{0}};
    nullify(result);
    int scale=scale1-scale2;
+// int scale=normalize(divident_src, divisor, &divident_srcb, &divisorb);
    my_decimal_to_big(divident_src, &divident_srcb);
    my_decimal_to_big(divisor, &divisorb);
     int zero=1;
@@ -166,10 +167,10 @@ grow_dividentb(&divident, divident_srcb, i);
         
         
         
-        printf("divident:\n");
-        printbb(divident);
-        printf("ostatok:\n");
-        printbb(ostatok);
+        // printf("divident:\n");
+        // printbb(divident);
+        // printf("ostatok:\n");
+        // printbb(ostatok);
         error=mybig_to_decimal(resultb, result, scale, 0);}
         else{
             error=1;

@@ -31,7 +31,9 @@ int countLastBitbig(s21_big_decimal d) {
   return counter;
 }
 
-int retrieveLevel(s21_decimal number) { return (char)(number.bits[3] >> 16); } //it will return only 8 least significant bits because sizeofchar is 8 bit
+int retrieveLevel(s21_decimal number) {
+  return (char)(number.bits[3] >> 16);
+}  // it will return only 8 least significant bits because sizeofchar is 8 bit
 
 s21_decimal *modifyBit(s21_decimal *number, int pos, int bit) {
   if (pos / 32 < 4 && bit)
@@ -174,13 +176,13 @@ void subBigDecimal(s21_big_decimal v_1, s21_big_decimal v_2,
   initializeByBigZeros(res);
   int loaned = 0;
   for (int i = 0; i < 192; i++) {
-    
     int v1_bit = getBigBit(v_1, i);
     int v2_bit = getBigBit(v_2, i);
     int added = v1_bit - v2_bit - loaned < 0 ? 2 : 0;
     int sub = v1_bit - v2_bit - loaned + added;
-    //loaned = added == 0 ? 0 : 1;
-    if(added>0)loaned=1;if(added==0)loaned=0;
+    // loaned = added == 0 ? 0 : 1;
+    if (added > 0) loaned = 1;
+    if (added == 0) loaned = 0;
     int res_bit = sub % 2;
     setBigBit(res, i, res_bit);
   }
@@ -297,8 +299,9 @@ void setScale(s21_decimal *value, int scale) {
   }
 }
 
-
-s21_big_decimal getDividendPart(s21_big_decimal dividend, int bitness) { //тут получаем старшие биты которые дялтся на делитель
+s21_big_decimal getDividendPart(
+    s21_big_decimal dividend,
+    int bitness) {  //тут получаем старшие биты которые дялтся на делитель
   s21_big_decimal result;
   initializeByBigZeros(&result);
   int start = lastBigBitIndex(dividend);
@@ -416,4 +419,3 @@ void setBit(s21_decimal *dec, int bit, int value) {
     dec->bits[bit / 32] &= ~(set_mask(bit));
   }
 }
-

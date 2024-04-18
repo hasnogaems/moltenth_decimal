@@ -1,10 +1,11 @@
 #include <stdio.h>
+
 #include "s21_decimal.h"
 #include "utils.h"
 void printb(s21_decimal bits_array) {
- int bit_number;
- printf("[");
- 
+  int bit_number;
+  printf("[");
+
   bit_number = 127;
   while (bit_number > 95) {
     printf("%d", retrieveBit(bits_array, bit_number));
@@ -14,7 +15,7 @@ void printb(s21_decimal bits_array) {
     }
   }
   printf("] ");
-   printf("] [");
+  printf("] [");
   bit_number = 95;
   while (bit_number > 63) {
     printf("%d", retrieveBit(bits_array, bit_number));
@@ -24,7 +25,7 @@ void printb(s21_decimal bits_array) {
     }
   }
   printf("] [");
- 
+
   bit_number = 63;
   while (bit_number > 31) {
     printf("%d", retrieveBit(bits_array, bit_number));
@@ -35,9 +36,8 @@ void printb(s21_decimal bits_array) {
       printf(".");
     }
   }
- 
- 
-    bit_number = 31;
+
+  bit_number = 31;
   printf("] [");
   while (bit_number >= 0) {
     printf("%d", retrieveBit(bits_array, bit_number));
@@ -51,11 +51,10 @@ void printb(s21_decimal bits_array) {
   printf("\n");
 }
 
-
 void printbb(s21_big_decimal bits_array) {
- int bit_number;
- printf("[");
- 
+  int bit_number;
+  printf("[");
+
   bit_number = 127;
   while (bit_number > 95) {
     printf("%d", getBigBit(bits_array, bit_number));
@@ -65,7 +64,7 @@ void printbb(s21_big_decimal bits_array) {
     }
   }
   printf("] ");
-   printf("] [");
+  printf("] [");
   bit_number = 95;
   while (bit_number > 63) {
     printf("%d", getBigBit(bits_array, bit_number));
@@ -75,7 +74,7 @@ void printbb(s21_big_decimal bits_array) {
     }
   }
   printf("] [");
- 
+
   bit_number = 63;
   while (bit_number > 31) {
     printf("%d", getBigBit(bits_array, bit_number));
@@ -86,9 +85,8 @@ void printbb(s21_big_decimal bits_array) {
       printf(".");
     }
   }
- 
- 
-    bit_number = 31;
+
+  bit_number = 31;
   printf("] [");
   while (bit_number >= 0) {
     printf("%d", getBigBit(bits_array, bit_number));

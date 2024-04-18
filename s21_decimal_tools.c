@@ -8,19 +8,27 @@ int get_bit(unsigned int value, int bit_number) {
   return value & (1 << bit_number);
 }
 
-void s21_set_bit(s21_decimal* num, int index, int value) {
-    if (value == 1) {
-    num->bits[index / 32] = num->bits[index / 32] | (1 << index % 32); // (1 << bit % 32) создает число, у которого только один бит равен 1 на позиции bit % 32
+void s21_set_bit(s21_decimal *num, int index, int value) {
+  if (value == 1) {
+    num->bits[index / 32] =
+        num->bits[index / 32] |
+        (1 << index % 32);  // (1 << bit % 32) создает число, у которого только
+                            // один бит равен 1 на позиции bit % 32
   } else if (value == 0) {
-    num->bits[index / 32] = num->bits[index / 32] & ~(1 << index % 32); // инвертированная маска
+    num->bits[index / 32] =
+        num->bits[index / 32] & ~(1 << index % 32);  // инвертированная маска
   }
 }
 
-void s21_set_bitb(s21_big_decimal* num, int index, int value) {
-    if (value == 1) {
-    num->bits[index / 32] = num->bits[index / 32] | (1u << index % 32); // (1 << bit % 32) создает число, у которого только один бит равен 1 на позиции bit % 32
+void s21_set_bitb(s21_big_decimal *num, int index, int value) {
+  if (value == 1) {
+    num->bits[index / 32] =
+        num->bits[index / 32] |
+        (1u << index % 32);  // (1 << bit % 32) создает число, у которого только
+                             // один бит равен 1 на позиции bit % 32
   } else if (value == 0) {
-    num->bits[index / 32] = num->bits[index / 32] & ~(1u << index % 32); // инвертированная маска
+    num->bits[index / 32] =
+        num->bits[index / 32] & ~(1u << index % 32);  // инвертированная маска
   }
 }
 bool get_bit_value(s21_decimal target, int bit_number) {
@@ -100,10 +108,13 @@ int get_sign(s21_decimal value) {
 }
 
 int get_exp(s21_decimal value) {
-  unsigned int mask = 0b11111111 << 16;//<< 16 добавляет 16 нулей
-  return (mask & value.bits[3]) >> 16; 0101 << 2 ; 000101 << 5; 100000;
+  unsigned int mask = 0b11111111 << 16;  //<< 16 добавляет 16 нулей
+  return (mask & value.bits[3]) >> 16;
+  0101 << 2;
+  000101 << 5;
+  100000;
 }
-//23/10 2.3 
+// 23/10 2.3
 
 void clear_decimal(s21_decimal *value) {  // опустошает децимал
   value->bits[0] = 0;

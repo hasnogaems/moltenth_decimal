@@ -2,7 +2,8 @@
 
 int s21_from_decimal_to_int(s21_decimal src, int *dst) {
   int code = 0;
-  if (src.bits[1] > 0 || src.bits[2] > 0 || src.bits[0] > 2147483647) { //максимальный int это у нас ошибка
+  if (src.bits[1] > 0 || src.bits[2] > 0 ||
+      src.bits[0] > 2147483647) {  //максимальный int это у нас ошибка
     code = 1;
   }
   int a;
