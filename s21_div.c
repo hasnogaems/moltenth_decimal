@@ -102,7 +102,7 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
        int sign1=extractBitSign(divident_src);
     int sign2=extractBitSign(divisor);  
      unsigned int sign=0; 
-    s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}};
+    s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}}, fraction={{0}};
    nullify(result);
    int scale=scale1-scale2;
    my_decimal_to_big(divident_src, &divident_srcb);
@@ -123,7 +123,8 @@ scale++;
             setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}// ставим 1 в делимое
 i++;
             for(;(i)>=0;){
-
+                
+nullifyb(&ostatok);
                 int position=0;
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
@@ -134,31 +135,36 @@ i++;
 
                 }//now divident can be actually substracted from
                 if(i>=0){
+                     while(s21_is_greater_or_equalb(divident, divisorb)){
 mysubb(divident, divisorb, &ostatok);
 
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 1);
+
 divident=ostatok;
-nullifyb(&ostatok);
+}
+i--;
 grow_dividentb(&divident, divident_srcb, i);
-i--;}
+}
 
 
             }
              while(!zeroBigDecimal(ostatok)&&scale<28){
-                divident=ostatok;
-                                while(s21_is_less_or_equalb(divident, divisorb)&&scale<28){
-                  myshiftleft(&resultb, 1); 
- s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
+                
+                                while(s21_is_lessb(divident, divisorb)&&scale<28){
+                  myshiftleft(&fraction, 1); 
+ s21_set_bitb(&fraction, 0, 0); //ставим ноль пока не отнимается
                  mymulby10(&divident);
                  scale++;
                 
             }
-            mysubb(divident, divisorb, &ostatok);
-            myshiftleft(&resultb, 1); 
- s21_set_bitb(&resultb, 0, 1);
+            while(s21_is_greaterb(divident, divisorb)){
+            mysubb(divident, divisorb, &divident);
+            myshiftleft(&fraction, 1); 
+ s21_set_bitb(&fraction, 0, 1);}
             
              }
+             myaddb(resultb, fraction, &resultb);
 
             
         
