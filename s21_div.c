@@ -125,7 +125,7 @@ scale++;
 i++;
             for(;(i)>=0;){
                 
-nullifyb(&ostatok);
+
                 int position=0;
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
@@ -150,20 +150,20 @@ grow_dividentb(&divident, divident_srcb, i);
 
 
             }
-             if(!zeroBigDecimal(ostatok)&&scale<28){
+             while(!zeroBigDecimal(ostatok)&&scale<28){
                
                    //ставим ноль пока не отнимается
                  mymulby10(&ostatok);
                  mymulby10(&resultb);
                  scale++;
-                 divb(ostatok, divisorb, &fraction, &scale);
+                 ostatok=divb(ostatok, divisorb, &fraction, &scale);
                 // myaddb(ostatok, fraction, &fraction);
               
-            
+             myaddb(resultb, fraction, &resultb);
              }
             //  int shift=countLastBitbig(fraction);
             //  myshiftleft(&resultb, shift+1);
-             myaddb(resultb, fraction, &resultb);
+            
         
         
         
@@ -214,7 +214,7 @@ s21_big_decimal divb(s21_big_decimal divident_srcb, s21_big_decimal divisorb, s2
 i++;
             for(;(i)>=0;){
                 
-nullifyb(&ostatok);
+
                 int position=0;
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(resultb, 1); 
