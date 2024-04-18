@@ -111,7 +111,7 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
    // int divident=0;
     //int divisor=0;
     int i=191;
-    while(s21_is_less_or_equalb(divident_srcb, divisorb)&&scale<28){
+    while(s21_is_lessb(divident_srcb, divisorb)&&scale<28){
          mymulby10(&divident_srcb);
 scale++;
 
@@ -120,12 +120,12 @@ scale++;
        if(getBigBit(divident_srcb, i)){ //срезаем нули
         zero=0;
         {
-            setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}
+            setBigBit(&divident, 0, getBigBit(divident_srcb, i));}}// ставим 1 в делимое
 i++;
             for(;(i)>=0;){
 
                 int position=0;
-                while(s21_is_less_or_equalb(divident, divisorb)&&i>=0){
+                while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
