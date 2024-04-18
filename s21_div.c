@@ -136,7 +136,7 @@ i++;
 
                 }//now divident can be actually substracted from
                 if(i>=0){
-                     while(s21_is_greater_or_equalb(divident, divisorb)){
+                     while(s21_is_greater_or_equalb(divident, divisorb)&&!zeroBigDecimal(divisorb)){
 mysubb(divident, divisorb, &ostatok);
 
  myshiftleft(&resultb, 1); 

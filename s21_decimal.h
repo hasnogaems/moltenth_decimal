@@ -6,6 +6,7 @@
 #define FALSE 0
 #define PLUS 0b00000000000000000000000000000000
 #define MAX_DECIMAL 79228162514264337593543950335.L
+#define UINT_MAX 4294967295
 
 #include <math.h>  // необхлжима для ftoi
 #include <stdio.h>

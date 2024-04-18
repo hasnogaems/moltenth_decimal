@@ -50,6 +50,7 @@ START_TEST(s21_div_test_3) {
   s21_decimal val2 = {{0x1, 0x1, 0x1, 0x00050000}};
   s21_decimal res;
   ck_assert_int_eq(0, s21_div(val1, val2, &res));
+  
   ck_assert_int_eq(res.bits[0], 405681253);
   ck_assert_int_eq(res.bits[1], 150366383);
   ck_assert_int_eq(res.bits[2], 4277177570);
@@ -168,6 +169,46 @@ START_TEST(s21_div_test_13) {
 }
 END_TEST
 
+START_TEST(div_0) {
+  s21_decimal val1 = {{2, 0, 0, ~(UINT_MAX / 2)}};
+  s21_decimal val2 = {{2, 0, 0, 0}};
+  s21_decimal res = {{0}};
+  ck_assert_int_eq(0, s21_div(val1, val2, &res));
+}
+END_TEST
+
+START_TEST(div_1) {
+  s21_decimal val1 = {{2, 0, 0, 0}};
+  s21_decimal val2 = {{2, 0, 0, ~(UINT_MAX / 2)}};
+  s21_decimal res = {{0}};
+  ck_assert_int_eq(0, s21_div(val1, val2, &res));
+}
+END_TEST
+
+START_TEST(div_2) {
+  s21_decimal val1 = {{2, 0, 0, ~(UINT_MAX / 2)}};
+  s21_decimal val2 = {{2, 0, 0, ~(UINT_MAX / 2)}};
+  s21_decimal res = {{0}};
+  ck_assert_int_eq(0, s21_div(val1, val2, &res));
+}
+END_TEST
+
+// START_TEST(div_3) {
+//   s21_decimal val1 = {{2, 0, 0, ~(UINT_MAX / 2)}};
+//   s21_decimal val2 = {{0, 0, 0, 0}};
+//   s21_decimal res = {{0}};
+//   ck_assert_int_eq(3, s21_div(val1, val2, &res));
+// }
+// END_TEST
+
+// START_TEST(div_4) {
+//   s21_decimal val1 = {{2, 0, 0, 0}};
+//   s21_decimal val2 = {{0, 0, 0, 0}};
+//   s21_decimal res = {{0}};
+//   ck_assert_int_eq(3, s21_div(val1, val2, &res));
+// }
+// END_TEST
+
 // START_TEST(s21_div_test_X) {
 //   s21_decimal val1 = {{2, 0, 0, 0x00000000}};  // sign bit= 0 exponent= 0
 //   // 2
@@ -187,6 +228,11 @@ END_TEST
 Suite *s21_div_suite(void) {
   Suite *s = suite_create("\033[34m \033[46m DIV TESTS \033[0m");
   TCase *tc = tcase_create("div_tc");
+
+   tcase_add_test(tc, div_1);
+   tcase_add_test(tc, div_2);
+  //  tcase_add_test(tc, div_3);
+  //  tcase_add_test(tc, div_4);
 
   tcase_add_test(tc, s21_div_test_1);
   tcase_add_test(tc, s21_div_test_2);
