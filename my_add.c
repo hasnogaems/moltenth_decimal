@@ -205,6 +205,7 @@ int myaddb(s21_big_decimal value_1, s21_big_decimal value_2,
   if (carry) {
     error = 1;
   }
+  if(error){printf("ERROR");}
   return error;
 }
 
@@ -274,6 +275,7 @@ int myshiftleft(s21_big_decimal* d, int value) {
     }
     if (overflow > 0) error = 1;
   }
+  if(error){printf("ERROR");}
   return error;
 }
 
@@ -290,6 +292,7 @@ int myshiftlefts(s21_decimal* d, int value) {
     }
   }
   if (overflow > 0) error = 1;
+  if(error){printf("ERROR");}
   return error;
 }
 void myshiftright(s21_big_decimal* d, int value) {

@@ -60,7 +60,7 @@ fix:
 clean: 
 	rm -rf ./report *.o *.a *.gcda *.gcno *.gcov s21_decimal_test
 
-mytest:
+medusatest:
 	gcc  *.c tests_files/test_add.c tests_files/main_test.c tests_files/s21_add_test.c  tests_files/s21_mul_test.c tests_files/test_s21_mul.c tests_files/s21_div_test.c tests_files/test_s21_div.c -lm $(CHECK)
 	./a.out
 

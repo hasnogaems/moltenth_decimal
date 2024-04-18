@@ -154,18 +154,26 @@ int main() {
   // // 2
   s21_decimal val3 = {{0x0, 0x0, 0x0, 0x0}};
 
-  // 1455448107611534131.2123
-  s21_decimal val1 = {{0x7B, 0x1C8, 0x315, 0x00040000}};
-//   Десятичное значение: 
-// 184467440780045.18913
-  s21_decimal val2 = {{0x1, 0x1, 0x1, 0x00050000}};
-s21_decimal dec_res11 = {{0x182e3465, 0x8f668af, 0xfef08ce2, 0x190000}};
+//Десятичное значение: 1.5
+s21_decimal val1 = {{0xf, 0x0, 0x0, 0x10000}};
+
+
+//Десятичное значение: 0.003
+s21_decimal val2 = {{0x3, 0x0, 0x0, 0x30000}};
+
+s21_decimal dec_res11 = {{0xeb0294e6, 0xc48d56fd, 0x847a67b5, 0x160000}};
+
+//Десятичное значение: 500
+s21_decimal dec_res500 = {{0x1f4, 0x0, 0x0, 0x0}};
+
+
+
   
 
   s21_decimal test111 = {{1}};
   s21_div(val1, val2, &val3);
   printb(val3);
-  printb(dec_res11);
+ printb(dec_res500);
   int x=s21_is_equal(val3, dec_res11);
   // Десятичное значение: 0.0333333333333333333333333333
 s21_decimal dec_res = {{0x4d555555, 0x35458014, 0x113ba14, 0x1c0000}};

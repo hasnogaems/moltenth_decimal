@@ -103,8 +103,12 @@ START_TEST(s21_div_test_7) {
 END_TEST
 
 START_TEST(s21_div_test_8) {
-  s21_decimal val1 = {{123, 123, 123, 0x00050000}};
-  s21_decimal val2 = {{1, 2, 3, 0x000A0000}};
+//   Десятичное значение: 
+// 22689495215945558.26299
+  s21_decimal val1 = {{0x7B, 0x7B, 0x7B, 0x00050000}};
+//   Десятичное значение: 
+// 5534023222.9718589441
+  s21_decimal val2 = {{0x1, 0x2, 0x3, 0x000A0000}};
   s21_decimal res;
   ck_assert_int_eq(0, s21_div(val1, val2, &res));
   ck_assert_int_eq(res.bits[0], 3942814950);

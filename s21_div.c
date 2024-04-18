@@ -126,12 +126,12 @@ i++;
             for(;(i)>=0;){
                 
 
-                int position=0;
+               
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
-                    position++;
+                    
                     grow_dividentb(&divident, divident_srcb, i);
 
                 }//now divident can be actually substracted from
@@ -147,6 +147,7 @@ divident=ostatok;
 i--;
 grow_dividentb(&divident, divident_srcb, i);
 }
+
 
 
             }
@@ -185,6 +186,7 @@ grow_dividentb(&divident, divident_srcb, i);
 
  void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
  myshiftleft(divident, 1); 
+ 
  s21_set_bitb(divident, 0, getBigBit(divident_src, i));
     }
 
@@ -215,12 +217,12 @@ i++;
             for(;(i)>=0;){
                 
 
-                int position=0;
+                
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(resultb, 1); 
  s21_set_bitb(resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
-                    position++;
+                    
                     grow_dividentb(&divident, divident_srcb, i);
 
                 }//now divident can be actually substracted from
