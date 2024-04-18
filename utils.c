@@ -416,3 +416,4 @@ void setBit(s21_decimal *dec, int bit, int value) {
     dec->bits[bit / 32] &= ~(set_mask(bit));
   }
 }
+

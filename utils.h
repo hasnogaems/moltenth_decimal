@@ -51,4 +51,5 @@ int myshiftlefts(s21_decimal* d, int value);
 unsigned int set_mask(int index);
 void setBit(s21_decimal *dec, int bit, int value) ;
 
+void putfractiontomantissa(s21_big_decimal* mantissa, s21_big_decimal fraction);
 #endif

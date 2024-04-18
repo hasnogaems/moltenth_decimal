@@ -149,19 +149,20 @@ grow_dividentb(&divident, divident_srcb, i);
 
 
             }
-             while(!zeroBigDecimal(ostatok)&&scale<28){
+             if(!zeroBigDecimal(ostatok)&&scale<28){
                
                    //ставим ноль пока не отнимается
                  mymulby10(&ostatok);
+                 mymulby10(&resultb);
                  scale++;
-                 divb(ostatok, divisorb, &ostatok, &scale);
-                 myaddb(ostatok, fraction, &fraction);
+                 divb(ostatok, divisorb, &fraction, &scale);
+                // myaddb(ostatok, fraction, &fraction);
               
             
              }
+            //  int shift=countLastBitbig(fraction);
+            //  myshiftleft(&resultb, shift+1);
              myaddb(resultb, fraction, &resultb);
-
-            
         
         
         
@@ -239,4 +240,13 @@ grow_dividentb(&divident, divident_srcb, i);
 return ostatok;            }
 
 
+void putfractiontomantissa(s21_big_decimal* mantissa, s21_big_decimal fraction){
+   int shift=countLastBitbig(fraction);
+    myshiftleft(mantissa, shift);
+    int i=shift;
+    while(i>0){
+        s21_set_bitb(mantissa, i , getBigBit(fraction, i));
+        i--;
+    }
+}
 
