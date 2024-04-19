@@ -133,6 +133,7 @@ i++;
                     i--;
                     
                     grow_dividentb(&divident, divident_srcb, i);
+                    ostatok=divident;
 
                 }//now divident can be actually substracted from
                 if(i>=0){
@@ -187,11 +188,6 @@ grow_dividentb(&divident, divident_srcb, i);
  setBit(divident, 0, retrieveBit(divident_src, i));
     }
 
- void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
- myshiftleft(divident, 1); 
- 
- s21_set_bitb(divident, 0, getBigBit(divident_src, i));
-    }
 
 
 
@@ -225,8 +221,11 @@ i++;
  myshiftleft(resultb, 1); 
  s21_set_bitb(resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
-                    
-                    grow_dividentb(&divident, divident_srcb, i);
+                   
+               
+            
+                    if(i>=0)grow_dividentb(&divident, divident_srcb, i);
+                     ostatok=divident;
 
                 }//now divident can be actually substracted from
                 if(i>=0){
@@ -241,18 +240,19 @@ divident=ostatok;
 i--;
 if(i>=0)grow_dividentb(&divident, divident_srcb, i);
 }
+
             }
+            
 
 return ostatok;            }
 
-
-void putfractiontomantissa(s21_big_decimal* mantissa, s21_big_decimal fraction){
-   int shift=countLastBitbig(fraction);
-    myshiftleft(mantissa, shift);
-    int i=shift;
-    while(i>0){
-        s21_set_bitb(mantissa, i , getBigBit(fraction, i));
-        i--;
+ void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
+ myshiftleft(divident, 1); 
+ 
+ s21_set_bitb(divident, 0, getBigBit(divident_src, i));
     }
-}
+
+
+
+
 
