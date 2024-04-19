@@ -133,11 +133,10 @@ START_TEST(s21_div_test_10) {
   s21_decimal val1 = {{387420489, 999999999, 123456789, 0x000E0000}};
   s21_decimal val2 = {{987654321, 666666666, 888888888, 0x80190000}};
   s21_decimal res;
+  s21_decimal test_value = {{2966737934,2263411014,752918170,2148663296}};
   ck_assert_int_eq(0, s21_div(val1, val2, &res));
-  ck_assert_int_eq(res.bits[0], 2966737934);
-  ck_assert_int_eq(res.bits[1], 2263411014);
-  ck_assert_int_eq(res.bits[2], 752918170);
-  ck_assert_int_eq(res.bits[3], 2148663296);
+  ck_assert_int_eq(1, s21_is_equal(test_value, res));
+
 }
 END_TEST
 
