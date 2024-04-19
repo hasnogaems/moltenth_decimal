@@ -98,11 +98,14 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
      int error=0;
      int scale1=GETSCALE(divident_src);
     int scale2=GETSCALE(divisor);   
-      if(result){ //if result not null
+      if(result){         //if result not null
+        if(!(divisor.bits[0]==0&&divisor.bits[1]==0&&divisor.bits[2]==0)){
+
        int sign1=extractBitSign(divident_src);
     int sign2=extractBitSign(divisor);  
      unsigned int sign=0; 
     s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}}, fraction={{0}};
+    
    nullify(result);
    int scale=scale1-scale2;
 // int scale=normalize(divident_src, divisor, &divident_srcb, &divisorb);
@@ -173,7 +176,8 @@ grow_dividentb(&divident, divident_srcb, i);
         // printf("ostatok:\n");
         // printbb(ostatok);
         error=mybig_to_decimal(resultb, result, scale, 0);}
-        else{
+      else{error=3;}
+        }else{
             error=1;
         }
         
