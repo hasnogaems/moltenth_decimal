@@ -146,7 +146,7 @@ int s21_div_big(s21_decimal divident_src, s21_decimal divisor, s21_decimal *resu
 int s21_is_lessb(s21_big_decimal dec1, s21_big_decimal dec2);
 int s21_is_greaterb(s21_big_decimal mem1, s21_big_decimal mem2);
 int s21_is_equalb(s21_big_decimal mem1, s21_big_decimal mem2);
-void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i);
+
 int s21_is_less_or_equalb(s21_big_decimal dec1, s21_big_decimal dec2);
 void my_decimal_to_big(s21_decimal val1, s21_big_decimal* tar1);
 int s21_is_greater_or_equalb(s21_big_decimal dec1, s21_big_decimal dec2);
@@ -156,4 +156,5 @@ int big_comparison(s21_big_decimal value_1, s21_big_decimal value_2);
 s21_big_decimal big_shift_bits(s21_big_decimal dec, int shif);
 s21_big_decimal big_division(s21_big_decimal *value_1,
                              s21_big_decimal value_2);
+                              int grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i);
 #endif

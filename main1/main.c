@@ -157,9 +157,11 @@ int main() {
 
 
 
-//Десятичное значение: 0.003
-s21_decimal val1 = {{387420489, 999999999, 123456789, 0x000E0000}};
-  s21_decimal val2 = {{987654321, 666666666, 888888888, 0x80190000}};
+//Десятичное значение: 291
+ s21_decimal val1 = {{0x123, 0x0, 0x0, 0x00000000}};
+// 0.0000000000000000000000000001
+
+  s21_decimal val2 = {{0x1, 0x0, 0x0, 0x001C0000}};
 
 //Десятичное значение: 0.5714285714285714285714285714
 s21_decimal dec_res11 = {{0x52492492, 0x481525ee, 0x1276bf11, 0x1c0000}};
@@ -178,7 +180,7 @@ s21_decimal test_value = {{2966737934,2263411014,752918170,2148663296}};
   s21_decimal test111 = {{1}};
   s21_div(val1, val2, &val3);
   printb(val3);
- printb(dec_res11);
+ //printb(dec_res11);
   int x=s21_is_equal(val3, test_value);
   printf("I EQUAL?=%d", x);
   s21_big_decimal thirty ={30,0,0,0,0,0};
@@ -195,7 +197,7 @@ s21_decimal dec_res = {{0x4d555555, 0x35458014, 0x113ba14, 0x1c0000}};
 // Десятичное значение: 1.5
 s21_decimal dec_res1 = {{0xf, 0x0, 0x0, 0x10000}};
 
-printb(test_value);
+//printb(test_value);
 //printb(dec_res1);
 
 

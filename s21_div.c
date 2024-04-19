@@ -116,7 +116,7 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
     //int divisor=0;
     int i=191;
     while(s21_is_lessb(divident_srcb, divisorb)&&scale<28){
-         mymulby10(&divident_srcb);
+        error=mymulby10(&divident_srcb);
 scale++;
 
     }
@@ -131,25 +131,25 @@ i++;
 
                 int position=0;
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
- myshiftleft(&resultb, 1); 
+ error=myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
                     ostatok=divident;
                     position++;
-                    if(i>=0)grow_dividentb(&divident, divident_srcb, i);
+                    if(i>=0)error=grow_dividentb(&divident, divident_srcb, i);
 
                 }//now divident can be actually substracted from
                 if(i>=0){
                      while(s21_is_greater_or_equalb(divident, divisorb)){
 mysubb(divident, divisorb, &ostatok);
 
- myshiftleft(&resultb, 1); 
+ error=myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 1);
 
 divident=ostatok;
 }
 i--;
-grow_dividentb(&divident, divident_srcb, i);
+error=grow_dividentb(&divident, divident_srcb, i);
 }
 
 
@@ -157,13 +157,13 @@ grow_dividentb(&divident, divident_srcb, i);
              while(!zeroBigDecimal(ostatok)&&scale<=28){
                
                    //ставим ноль пока не отнимается
-                 mymulby10(&ostatok);
-                 mymulby10(&resultb);
+                 error=mymulby10(&ostatok);
+                 error=mymulby10(&resultb);
                  scale++;
                  fraction=big_division(&ostatok, divisorb);
                 // myaddb(ostatok, fraction, &fraction);
               
-             myaddb(resultb, fraction, &resultb);
+             error=myaddb(resultb, fraction, &resultb);
              }
             //  int shift=countLastBitbig(fraction);
             //  myshiftleft(&resultb, shift+1);
@@ -175,11 +175,13 @@ grow_dividentb(&divident, divident_srcb, i);
         // printbb(divident);
         // printf("ostatok:\n");
         // printbb(ostatok);
-        error=mybig_to_decimal(resultb, result, scale, 0);}
+        error=mybig_to_decimal(resultb, result, scale, 0);
+         if((result->bits[0]==0&&result->bits[1]==0&&result->bits[2]==0))error=1;}
       else{error=3;}
         }else{
             error=1;
         }
+       
         
     return error;
 }
@@ -188,9 +190,11 @@ grow_dividentb(&divident, divident_srcb, i);
  setBit(divident, 0, retrieveBit(divident_src, i));
     }
 
- void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
- myshiftleft(divident, 1); 
+ int grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
+ int error=0;
+ error=myshiftleft(divident, 1); 
  s21_set_bitb(divident, 0, getBigBit(divident_src, i));
+ return error;
     }
 
 
