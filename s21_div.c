@@ -104,6 +104,11 @@ int s21_div(s21_decimal divident_src, s21_decimal divisor, s21_decimal *result) 
        int sign1=extractBitSign(divident_src);
     int sign2=extractBitSign(divisor);  
      unsigned int sign=0; 
+      if (sign1 == sign2) {
+    sign = 0;
+  } else {
+    sign = 1;
+  }
     s21_big_decimal divident={{0}}, divident_srcb={{0}}, divisorb={{0}}, ostatok={{0}}, resultb={{0}}, fraction={{0}};
     
    nullify(result);

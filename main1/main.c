@@ -178,7 +178,8 @@ s21_decimal dec_res33 = {{0xbfdf547c, 0x8d8fb185, 0x70c0ba2d, 0x1c0000}};
   
 s21_decimal test_value = {{2966737934,2263411014,752918170,2148663296}};
   s21_decimal test111 = {{1}};
-  s21_div(val1, val2, &val3);
+ int error=s21_div(val1, val2, &val3);
+ printf("error=%d", error);
   printb(val3);
  //printb(dec_res11);
   int x=s21_is_equal(val3, test_value);

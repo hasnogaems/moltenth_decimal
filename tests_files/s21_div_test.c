@@ -88,7 +88,7 @@ END_TEST
 START_TEST(s21_div_test_6) {
   s21_decimal val1 = {{123, 0, 0, 0x00000000}};
   s21_decimal val2 = {{1, 0, 0, 0x001C0000}};
-  s21_decimal res;
+  s21_decimal res={{0}};
   ck_assert_int_eq(1, s21_div(val1, val2, &res));
 }
 END_TEST
