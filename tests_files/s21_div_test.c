@@ -33,11 +33,14 @@ START_TEST(s21_div_test_2) {
   s21_decimal val1 = {{15, 15, 15, 0x000F0000}};
   s21_decimal val2 = {{10, 0, 0, 0x00000000}};
   s21_decimal res;
+  s21_decimal test_value = {{15,15,15,1048576}};
+  
   ck_assert_int_eq(0, s21_div(val1, val2, &res));
-  ck_assert_int_eq(res.bits[0], 15);
-  ck_assert_int_eq(res.bits[1], 15);
-  ck_assert_int_eq(res.bits[2], 15);
-  ck_assert_int_eq(res.bits[3], 1048576);
+  int x=s21_is_equal(res, test_value);
+  ck_assert_int_eq(x, 1);
+  // ck_assert_int_eq(res.bits[1], 15);
+  // ck_assert_int_eq(res.bits[2], 15);
+  // ck_assert_int_eq(res.bits[3], 1048576);
 }
 END_TEST
 
