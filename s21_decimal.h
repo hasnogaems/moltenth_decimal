@@ -63,7 +63,7 @@ int s21_is_greater_or_equal(s21_decimal, s21_decimal);  //+
 int s21_is_equal(s21_decimal, s21_decimal);             //+
 int s21_is_not_equal(s21_decimal, s21_decimal);         //+
 
-int s21_from_int_to_decimal(int src, s21_decimal *dst);      //
+int s21_from_int_to_decimal(int src, s21_decimal *dst);      //1
 int s21_from_float_to_decimal(float src, s21_decimal *dst);  //
 int s21_from_decimal_to_int(s21_decimal src, int *dst);      //
 int s21_from_decimal_to_float(s21_decimal src, float *dst);  //
@@ -151,4 +151,9 @@ int s21_is_less_or_equalb(s21_big_decimal dec1, s21_big_decimal dec2);
 void my_decimal_to_big(s21_decimal val1, s21_big_decimal* tar1);
 int s21_is_greater_or_equalb(s21_big_decimal dec1, s21_big_decimal dec2);
 s21_big_decimal divb(s21_big_decimal divident_srcb, s21_big_decimal divisorb, s21_big_decimal* resultb, int* scale);
+int big_comparison(s21_big_decimal value_1, s21_big_decimal value_2);
+//void myshiftright(s21_big_decimal* d, int value);
+s21_big_decimal big_shift_bits(s21_big_decimal dec, int shif);
+s21_big_decimal big_division(s21_big_decimal *value_1,
+                             s21_big_decimal value_2);
 #endif

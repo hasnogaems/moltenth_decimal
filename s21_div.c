@@ -126,18 +126,18 @@ i++;
             for(;(i)>=0;){
                 
 
-               
+                int position=0;
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(&resultb, 1); 
  s21_set_bitb(&resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
-                    
-                    grow_dividentb(&divident, divident_srcb, i);
                     ostatok=divident;
+                    position++;
+                    if(i>=0)grow_dividentb(&divident, divident_srcb, i);
 
                 }//now divident can be actually substracted from
                 if(i>=0){
-                     while(s21_is_greater_or_equalb(divident, divisorb)&&!zeroBigDecimal(divisorb)){
+                     while(s21_is_greater_or_equalb(divident, divisorb)){
 mysubb(divident, divisorb, &ostatok);
 
  myshiftleft(&resultb, 1); 
@@ -150,22 +150,18 @@ grow_dividentb(&divident, divident_srcb, i);
 }
 
 
-
             }
-            s21_big_decimal fraction_buffer={{0}};
-             while(!zeroBigDecimal(ostatok)&&scale<28){
+             while(!zeroBigDecimal(ostatok)&&scale<=28){
                
                    //ставим ноль пока не отнимается
-                while(s21_is_lessb(ostatok, divisorb)){ mymulby10(&ostatok);
+                 mymulby10(&ostatok);
                  mymulby10(&resultb);
-                 scale++;}
-                 ostatok=divb(ostatok, divisorb, &fraction, &scale);
+                 scale++;
+                 fraction=big_division(&ostatok, divisorb);
                 // myaddb(ostatok, fraction, &fraction);
               
-          myaddb(fraction_buffer, fraction, &fraction_buffer);
-          mymulby10(&fraction_buffer);mymulby10(&resultb);
+             myaddb(resultb, fraction, &resultb);
              }
-             myaddb(resultb, fraction_buffer, &resultb);
             //  int shift=countLastBitbig(fraction);
             //  myshiftleft(&resultb, shift+1);
             
@@ -188,6 +184,10 @@ grow_dividentb(&divident, divident_srcb, i);
  setBit(divident, 0, retrieveBit(divident_src, i));
     }
 
+ void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
+ myshiftleft(divident, 1); 
+ s21_set_bitb(divident, 0, getBigBit(divident_src, i));
+    }
 
 
 
@@ -216,16 +216,14 @@ i++;
             for(;(i)>=0;){
                 
 
-                
+                int position=0;
                 while(s21_is_lessb(divident, divisorb)&&i>=0){
  myshiftleft(resultb, 1); 
  s21_set_bitb(resultb, 0, 0); //ставим ноль пока не отнимается
                     i--;
-                   
-               
-            
-                    if(i>=0)grow_dividentb(&divident, divident_srcb, i);
-                     ostatok=divident;
+                    position++;
+                 //  if(isZer) ostatok=divident;
+                   if(i>=0){ grow_dividentb(&divident, divident_srcb, i);}
 
                 }//now divident can be actually substracted from
                 if(i>=0){
@@ -238,21 +236,99 @@ mysubb(divident, divisorb, &ostatok);
 divident=ostatok;
 }
 i--;
-if(i>=0)grow_dividentb(&divident, divident_srcb, i);
+grow_dividentb(&divident, divident_srcb, i);
 }
-
             }
-            
 
 return ostatok;            }
 
- void grow_dividentb(s21_big_decimal* divident, s21_big_decimal divident_src,int i){
- myshiftleft(divident, 1); 
- 
- s21_set_bitb(divident, 0, getBigBit(divident_src, i));
+
+void putfractiontomantissa(s21_big_decimal* mantissa, s21_big_decimal fraction){
+   int shift=countLastBitbig(fraction);
+    myshiftleft(mantissa, shift);
+    int i=shift;
+    while(i>0){
+        s21_set_bitb(mantissa, i , getBigBit(fraction, i));
+        i--;
     }
+}
 
+s21_big_decimal big_division(s21_big_decimal *value_1,
+                             s21_big_decimal value_2) {
+  s21_big_decimal res = {{0, 0, 0, 0, 0, 0}};
+  s21_big_decimal shifted_bit = {{1, 0, 0, 0, 0, 0}};
+  while (big_comparison(*value_1, value_2) == 1) {
+    s21_big_decimal del = value_2;
+    int i = 0;
+    if (big_comparison(del, *value_1) == 2 ||
+        big_comparison(del, *value_1) == 0) {
+      while (big_comparison(del, *value_1) == 2 ||
+             big_comparison(del, *value_1) == 0) {
+       del = big_shift_bits(del, -1);
+        ++i;
+      }
+      del = big_shift_bits(del, 1);
+      i--;
+    }
+    myaddb(res, big_shift_bits(shifted_bit, -i), &res);
+    if (big_comparison(*value_1, del) == 1 ||
+        big_comparison(*value_1, del) == 0) {
+      mysubb(*value_1, del, value_1);
+    }
+    myshiftright(&del, 1);
+    
+  }
+  return res;
+}
 
+int big_comparison(s21_big_decimal value_1, s21_big_decimal value_2) {
+  int bit_value_1 = 0;
+  int bit_value_2 = 0;
+  char res = 0;
+  for (int i = 255; i > -1; i--) {
+    bit_value_1 = get_bit_valueb(value_1, i);
+    bit_value_2 = get_bit_valueb(value_2, i);
 
+    if (bit_value_1 < bit_value_2) {
+      res = 2;
+      break;
+    } else if (bit_value_1 > bit_value_2) {
+      res = 1;
+      break;
+    } else if (i == 0 && bit_value_1 == bit_value_2) {
+      res = 0;
+    }
+  }
+  return res;
+}
 
+// void myshiftright(s21_big_decimal* d, int value) {
+//   unsigned int overflow = 0;
+//   unsigned int memory = 0;
+//   for (int i = 5; i >= 0; i--) {
+//     memory = d->bits[i];
+//     d->bits[i] >>= value;
+//     d->bits[i] |= overflow;
+//     overflow = memory << (32 - value);
+//   }
+// }
 
+s21_big_decimal big_shift_bits(s21_big_decimal dec, int shif) {
+  s21_big_decimal answer = {{0, 0, 0, 0, 0, 0}};
+
+  if (shif > 0) {
+    for (int i = 0; i < 192 - shif; i++) {
+      if (get_bit_valueb(dec, i + shif)) {
+        s21_set_bitb(&answer, i, 1);
+      }
+    }
+  } else {
+    for (int i = 191; i > -1 + (shif * -1); i--) {
+      if (get_bit_valueb(dec, i + shif)) {
+       s21_set_bitb(&answer, i, 1);
+      }
+    }
+  }
+
+  return answer;
+}

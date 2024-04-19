@@ -275,7 +275,7 @@ int myshiftleft(s21_big_decimal* d, int value) {
     }
     if (overflow > 0) error = 1;
   }
-  if(error){printf("ERROR");}
+ // if(error){printf("ERROR");}
   return error;
 }
 

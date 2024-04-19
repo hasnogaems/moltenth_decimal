@@ -158,7 +158,7 @@ int main() {
 
 
 //Десятичное значение: 0.003
-s21_decimal val1 = {{40, 0x0, 0x0, 0x0000}};
+s21_decimal val1 = {{30, 0x0, 0x0, 0x0000}};
 //Десятичное значение: 1.003
 s21_decimal val2 = {{0x7, 0x0, 0x0, 0x0000}};
 
@@ -185,8 +185,10 @@ s21_decimal dec_res33 = {{0xbfdf547c, 0x8d8fb185, 0x70c0ba2d, 0x1c0000}};
   s21_big_decimal seven ={7,0,0,0,0,0};
   s21_big_decimal resultbig = {{0}};
   s21_big_decimal ostatok ={0,0,0,0,0,0};
-  ostatok=divb(thirty, seven, &resultbig, 0);
+ resultbig=big_division(&thirty, seven);
   printf("%d %d\n", resultbig.bits[0], ostatok.bits[0]);
+  printbb(resultbig);
+  printbb(thirty);
 
   // Десятичное значение: 0.0333333333333333333333333333
 s21_decimal dec_res = {{0x4d555555, 0x35458014, 0x113ba14, 0x1c0000}};
