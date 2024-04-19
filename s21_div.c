@@ -176,7 +176,8 @@ error=grow_dividentb(&divident, divident_srcb, i);
         // printf("ostatok:\n");
         // printbb(ostatok);
         error=mybig_to_decimal(resultb, result, scale, 0);
-         if((result->bits[0]==0&&result->bits[1]==0&&result->bits[2]==0))error=1;}
+        // if((result->bits[0]==0&&result->bits[1]==0&&result->bits[2]==0))error=1;
+         }
       else{error=3;}
         }else{
             error=1;
